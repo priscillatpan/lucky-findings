@@ -24,6 +24,18 @@ function formatDate(d: Date) {
   return d.toLocaleDateString(undefined, { month: "long", day: "numeric" });
 }
 
+function categoryDotClass(cat: string) {
+  switch (cat) {
+    case "Search": return "bg-lime";
+    case "Notice": return "bg-sky";
+    case "Serendipity": return "bg-pink";
+    case "Encounter": return "bg-butter";
+    case "Make": return "bg-forest";
+    default: return "bg-forest";
+  }
+}
+
+
 function computeStreak(dates: string[]): number {
   if (dates.length === 0) return 0;
   const set = new Set(dates);
