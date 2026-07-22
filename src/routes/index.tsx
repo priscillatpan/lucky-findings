@@ -210,7 +210,7 @@ function Home() {
                     onClick={() => fileRef.current?.click()}
                     className="w-full bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
                   >
-                    Take a photo of it
+                    Complete!
                   </button>
                 </>
               )}
