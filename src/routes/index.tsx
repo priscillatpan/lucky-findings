@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Nav } from "@/components/lucky/Nav";
+import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import { questForDate } from "@/data/quests";
