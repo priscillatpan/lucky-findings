@@ -5,6 +5,21 @@ import { createServerFn } from "@tanstack/react-start";
 export const seedJulyMockFn = createServerFn({ method: "POST" }).handler(async () => {
   const { ownerId, getAdmin } = await import("./findings.server");
   const admin = await getAdmin();
+  const owner = ownerId();
+
+  // Ensure the owner exists in auth.users (findings.user_id has a FK to it).
+  try {
+    await admin.auth.admin.createUser({
+      id: owner,
+      email: `owner-${owner.slice(0, 8)}@lucky-findings.local`,
+      email_confirm: true,
+      user_metadata: { role: "shared-owner" },
+    });
+  } catch {
+    // ignore — already exists
+  }
+
+
 
   const rows = [
     { iso: "2026-07-01", id: "s6", title: "Hunt for a tiny mushroom.", category: "Search", caption: "pin-sized, on a log" },
