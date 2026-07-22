@@ -45,6 +45,27 @@ function CalendarPage() {
 
   const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  // Stats
+  const monthCompleted = byDay.size;
+  const allDates = new Set((findings ?? []).map((f) => f.completed_on));
+  let streak = 0;
+  {
+    const cur = new Date(now);
+    const iso = (d: Date) => {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${dd}`;
+    };
+    if (!allDates.has(iso(cur))) cur.setDate(cur.getDate() - 1);
+    while (allDates.has(iso(cur))) {
+      streak++;
+      cur.setDate(cur.getDate() - 1);
+    }
+  }
+  const totalFinds = (findings ?? []).length;
+
+
   return (
     <div className="min-h-screen bg-paper text-ink">
       <Nav />
@@ -67,6 +88,25 @@ function CalendarPage() {
             </p>
           </div>
         </section>
+
+        <section className="grid grid-cols-3 gap-3">
+          {[
+            { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days" },
+            { label: "this month", value: monthCompleted, suffix: `of ${daysInMonth}` },
+            { label: "lucky finds", value: totalFinds, suffix: "total" },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="bg-white rounded-2xl px-3 py-4 text-center ring-1 ring-forest/10 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]"
+            >
+              <p className="font-display text-4xl leading-none text-forest">{s.value}</p>
+              <p className="text-[10px] uppercase tracking-widest text-forest/50 mt-2">{s.label}</p>
+              <p className="text-[10px] text-forest/40 mt-0.5">{s.suffix}</p>
+            </div>
+          ))}
+        </section>
+
+
 
         <section className="bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
           <div className="grid grid-cols-7 gap-1 mb-2">

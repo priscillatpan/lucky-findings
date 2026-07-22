@@ -104,8 +104,9 @@ function Home() {
       />
       <Nav />
 
-      <main className="flex-1 flex items-center justify-center px-5 py-6 relative">
+      <main className="flex-1 flex flex-col items-center px-5 pt-4 pb-6 relative">
         <section className="w-full max-w-[19rem]">
+
           <div className="text-center mb-4">
             <h2 className="font-display text-4xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
@@ -209,7 +210,7 @@ function Home() {
                     onClick={() => fileRef.current?.click()}
                     className="w-full bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
                   >
-                    Take a photo of it
+                    Complete!
                   </button>
                 </>
               )}
