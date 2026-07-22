@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Nav, Footer } from "@/components/lucky/Nav";
+import { BottomNav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
 import pinkTape from "@/assets/tape_2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
