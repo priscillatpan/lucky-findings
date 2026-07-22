@@ -15,6 +15,8 @@ export const Route = createFileRoute("/")({
       { name: "description", content: "Your daily nature quest — one tiny prompt, one snapped photo, a growing field journal of small lucky findings." },
       { property: "og:title", content: "Today's Quest — Lucky Findings" },
       { property: "og:description", content: "A daily nature quest journal. One tiny prompt, one snapped photo, a growing collection of lucky findings." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: Home,
@@ -34,6 +36,18 @@ function categoryDotClass(cat: string) {
     default: return "bg-forest";
   }
 }
+
+function categoryBorderClass(cat: string) {
+  switch (cat) {
+    case "Search": return "border-l-lime";
+    case "Notice": return "border-l-sky";
+    case "Serendipity": return "border-l-pink";
+    case "Encounter": return "border-l-butter";
+    case "Make": return "border-l-forest";
+    default: return "border-l-forest";
+  }
+}
+
 
 
 function computeStreak(dates: string[]): number {
@@ -139,17 +153,18 @@ function Home() {
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
+              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
             />
 
-            <article className="bg-butter/70 rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 relative">
+
+            <article className={`bg-card rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative`}>
               <span className="absolute top-4 right-4 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-forest/70">
                 <span className={"size-2.5 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
                 {quest.category}
               </span>
               {done && todayFinding ? (
                 <>
-                  <div className="bg-white p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
                     {todayFinding.photo_url ? (
                       <img
                         src={todayFinding.photo_url}
@@ -174,7 +189,7 @@ function Home() {
                 </>
               ) : pending ? (
                 <>
-                  <div className="bg-white p-2 pb-4 -rotate-1 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-2 pb-4 -rotate-1 shadow-md ring-1 ring-forest/10">
                     <img src={pending.preview} alt="" className="w-full aspect-square object-cover" />
                   </div>
                   <input
