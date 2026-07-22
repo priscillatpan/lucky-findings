@@ -80,7 +80,12 @@ function CalendarPage() {
       <main className="max-w-3xl mx-auto px-6 py-12 space-y-16 paper-grid">
         {/* Header */}
         <section className="relative">
-          <div className="absolute -top-4 right-8 w-24 h-7 bg-pink/50 rotate-3 mix-blend-multiply rounded-sm" />
+          <img
+            src={pinkTape.url}
+            alt=""
+            aria-hidden
+            className="absolute -top-6 right-4 w-32 rotate-6 pointer-events-none select-none opacity-90"
+          />
           <div className="text-center">
             <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-3">
               A month of small findings
@@ -92,6 +97,43 @@ function CalendarPage() {
             </p>
           </div>
         </section>
+
+        {/* Lucky finds earned */}
+        <section className="relative">
+          <img
+            src={leafTape.url}
+            alt=""
+            aria-hidden
+            className="absolute -top-8 left-2 w-40 -rotate-6 pointer-events-none select-none opacity-90"
+          />
+          <div className="bg-white rounded-3xl p-6 ring-1 ring-forest/10 shadow-[0_18px_50px_-30px_rgba(13,61,20,0.25)]">
+            <div className="flex items-center justify-between mb-4">
+              <h2 className="font-display text-2xl">Lucky finds earned</h2>
+              <span className="text-[10px] font-semibold uppercase tracking-widest text-forest/40">
+                3 of 24
+              </span>
+            </div>
+            <div className="flex items-center justify-around gap-3">
+              {[
+                { src: badgeCloud.url, label: "Cloud watcher", rot: "-rotate-6" },
+                { src: badgeCherry.url, label: "Sweet find", rot: "rotate-3" },
+                { src: badgeApple.url, label: "Old orchard", rot: "-rotate-2" },
+              ].map((b) => (
+                <div key={b.label} className="flex flex-col items-center gap-2 flex-1">
+                  <img
+                    src={b.src}
+                    alt={b.label}
+                    className={cn("w-20 h-20 object-contain drop-shadow-sm", b.rot)}
+                  />
+                  <span className="text-[10px] font-semibold uppercase tracking-widest text-forest/60 text-center leading-tight">
+                    {b.label}
+                  </span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
 
         {/* Streaks strip */}
         <section className="grid grid-cols-3 gap-3 md:gap-4">
