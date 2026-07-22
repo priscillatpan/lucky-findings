@@ -19,12 +19,21 @@ const screens: { label: string; path: string }[] = [
   { label: "Field Journal", path: "/calendar?mock=1" },
 ];
 
+const PHONE_WIDTH = 280;
+const PHONE_HEIGHT = 570;
+const SCALE = 0.65;
+
 function Phone({ label, path }: { label: string; path: string }) {
   return (
-    <div className="flex flex-col items-center gap-3">
+    <div className="flex flex-col items-center gap-2">
       <div
-        className="relative bg-[#111] rounded-[2.25rem] p-2 shadow-[0_30px_60px_-25px_rgba(0,0,0,0.5)]"
-        style={{ width: 280, height: 570 }}
+        className="relative bg-[#111] rounded-[2.25rem] p-2 shadow-[0_20px_40px_-20px_rgba(0,0,0,0.5)]"
+        style={{
+          width: PHONE_WIDTH,
+          height: PHONE_HEIGHT,
+          transform: `scale(${SCALE})`,
+          transformOrigin: "top center",
+        }}
       >
         <div className="absolute top-2 left-1/2 -translate-x-1/2 w-24 h-4 bg-black rounded-b-2xl z-10" />
         <div className="w-full h-full rounded-[1.75rem] overflow-hidden bg-white">
@@ -36,24 +45,27 @@ function Phone({ label, path }: { label: string; path: string }) {
           />
         </div>
       </div>
-      <p className="font-display text-lg text-forest">{label}</p>
+      <p className="font-display text-sm text-forest">{label}</p>
     </div>
   );
 }
 
 function MockupPage() {
   return (
-    <div className="min-h-screen bg-paper py-8 px-6">
-      <header className="text-center mb-8">
-        <h1 className="font-display text-4xl text-forest">Lucky Findings — mockup</h1>
-        <p className="text-forest/60 mt-2 text-sm">
-          All screens, side by side.{" "}
+    <div className="min-h-screen bg-paper py-6 px-6">
+      <header className="text-center mb-6">
+        <h1 className="font-display text-2xl text-forest">Lucky Findings</h1>
+        <p className="text-forest/60 mt-1 text-xs">
+          side-by-side screens ·{" "}
           <a href="/ui-kit" className="underline decoration-forest/40 hover:decoration-forest">
-            View the UI kit →
+            UI kit →
           </a>
         </p>
       </header>
-      <div className="flex flex-wrap justify-center items-start gap-8">
+      <div
+        className="flex justify-center items-start gap-2"
+        style={{ minHeight: PHONE_HEIGHT * SCALE + 60 }}
+      >
         {screens.map((s) => (
           <Phone key={s.path} {...s} />
         ))}
@@ -61,4 +73,3 @@ function MockupPage() {
     </div>
   );
 }
-
