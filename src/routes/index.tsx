@@ -220,6 +220,8 @@ function Home() {
           </p>
         </section>
       </main>
+
+      <BottomNav />
     </div>
   );
 }
