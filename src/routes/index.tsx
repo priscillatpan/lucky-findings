@@ -37,6 +37,18 @@ function categoryDotClass(cat: string) {
   }
 }
 
+function categoryBorderClass(cat: string) {
+  switch (cat) {
+    case "Search": return "border-l-lime";
+    case "Notice": return "border-l-sky";
+    case "Serendipity": return "border-l-pink";
+    case "Encounter": return "border-l-butter";
+    case "Make": return "border-l-forest";
+    default: return "border-l-forest";
+  }
+}
+
+
 
 function computeStreak(dates: string[]): number {
   if (dates.length === 0) return 0;
