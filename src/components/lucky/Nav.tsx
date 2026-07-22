@@ -51,7 +51,7 @@ export function Footer() {
         </div>
         <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-4">
           <div>
-            <p className="font-display text-2xl">Keep looking for luck.</p>
+            <p className="font-display text-2xl">A little luck, once a day.</p>
             <p className="text-lime text-[11px] uppercase tracking-[0.25em] mt-1">
               a small daily practice
             </p>
