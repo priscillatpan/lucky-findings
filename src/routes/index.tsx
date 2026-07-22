@@ -80,20 +80,20 @@ function Home() {
                 </p>
                 <span className="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ring-1 ring-forest/15">
                   <span className="size-1.5 rounded-full bg-forest/60" />
-                  Complete for badge
+                  Search quest
                 </span>
               </div>
               <h1 className="font-display text-4xl md:text-5xl leading-tight text-balance">
-                Find a petal the color of a summer sunset.
+                Look through 20 clovers.
               </h1>
               <p className="text-sm text-forest/70 mt-4 max-w-md mx-auto">
-                Somewhere between orange, pink, and gold. It doesn't have to be
-                perfect — trust the first one that catches your eye.
+                See if the fourth leaf finds you. If it doesn't, the twenty
+                still count — that's twenty small moments of noticing.
               </p>
             </header>
 
             <div className="max-w-sm mx-auto flex flex-col items-center gap-8">
-              <BadgeSlot size="lg" locked label="Today's badge" />
+              <BadgeSlot size="lg" locked label="Today's lucky find" />
               <button
                 type="button"
                 className="w-full bg-forest text-paper py-4 rounded-xl font-display text-xl shadow-[0_10px_25px_-10px_rgba(13,102,34,0.55)] hover:bg-forest/90 active:scale-[0.98] transition-all"
