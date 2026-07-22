@@ -63,3 +63,27 @@ export function Footer() {
     </footer>
   );
 }
+
+export function BottomNav() {
+  return (
+    <nav className="fixed bottom-0 inset-x-0 z-50 px-4 pb-5 pt-2 pointer-events-none">
+      <div className="max-w-[19rem] mx-auto bg-paper/90 backdrop-blur-md rounded-full px-2 py-2 shadow-[0_12px_40px_-16px_rgba(13,61,20,0.35)] ring-1 ring-forest/15 border-b-4 border-forest/20 pointer-events-auto flex justify-around items-center">
+        <Link
+          to="/"
+          activeOptions={{ exact: true }}
+          activeProps={{ className: "bg-forest text-paper shadow-md" }}
+          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/80 hover:bg-forest/10 transition-all"
+        >
+          <span>Today</span>
+        </Link>
+        <Link
+          to="/calendar"
+          activeProps={{ className: "bg-forest text-paper shadow-md" }}
+          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/80 hover:bg-forest/10 transition-all"
+        >
+          <span>Calendar</span>
+        </Link>
+      </div>
+    </nav>
+  );
+}
