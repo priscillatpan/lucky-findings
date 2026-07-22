@@ -153,8 +153,9 @@ function Home() {
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
+              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
             />
+
 
             <article className="bg-butter/70 rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 relative">
               <span className="absolute top-4 right-4 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-forest/70">
