@@ -22,7 +22,7 @@ export const QUESTS: Quest[] = [
   { id: "n1", category: "Notice", title: "Find a shape in the clouds.", hint: "Look up for one full minute." },
   { id: "n2", category: "Notice", title: "Find the oldest thing you can see.", hint: "A tree, a rock, a building." },
   { id: "n3", category: "Notice", title: "Notice one sound you usually tune out.", hint: "Then chase where it came from." },
-  { id: "n4", category: "Notice", title: "Find a color you don't have words for.", hint: "Somewhere between two names." },
+  { id: "n4", category: "Notice", title: "Find a leaf with two colors.", hint: "Green fading to yellow, red tips, or a brown edge." },
   { id: "n5", category: "Notice", title: "Spot the smallest living thing nearby.", hint: "An ant, a moss, a bud." },
   { id: "n6", category: "Notice", title: "Find where the light hits weirdest.", hint: "A reflection, a glow, a stripe." },
 
