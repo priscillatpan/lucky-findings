@@ -144,17 +144,17 @@ function Home() {
           </div>
         </section>
 
-        {/* Badge Collection */}
+        {/* Lucky Finds Collection */}
         <section id="badges" className="bg-lime/15 rounded-3xl p-8 md:p-10 ring-1 ring-forest/10">
           <div className="mb-8 flex items-end justify-between">
             <div>
-              <h2 className="font-display text-3xl">Collection</h2>
+              <h2 className="font-display text-3xl">Lucky Finds</h2>
               <p className="text-sm text-forest/60">
-                12 stamps earned this spring
+                3 of 12 found this spring
               </p>
             </div>
             <div className="text-right text-[11px] font-semibold uppercase tracking-widest text-forest/50">
-              3 of 12
+              streak of luck · 6
             </div>
           </div>
 
