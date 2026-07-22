@@ -234,7 +234,7 @@ function Home() {
                     type="button"
                     disabled={save.isPending}
                     onClick={() => save.mutate()}
-                    className="w-full mt-5 bg-forest text-paper py-3 rounded-xl font-display text-lg disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
+                    className="w-full mt-4 bg-forest text-paper py-2.5 rounded-xl font-display text-base disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
                   >
                     {save.isPending ? "Saving…" : "Check it off"}
                   </button>
@@ -244,7 +244,7 @@ function Home() {
                       URL.revokeObjectURL(pending.preview);
                       setPending(null);
                     }}
-                    className="w-full mt-1.5 py-2 rounded-xl text-xs font-semibold uppercase tracking-widest text-ink/65"
+                    className="w-full mt-1 py-1.5 rounded-xl text-[10px] font-semibold uppercase tracking-widest text-ink/65"
                   >
                     Retake
                   </button>
@@ -253,7 +253,7 @@ function Home() {
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-full mt-5 bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+                  className="w-full mt-4 bg-forest text-paper py-2.5 rounded-xl font-display text-base shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
                 >
                   Complete!
                 </button>
@@ -261,7 +261,7 @@ function Home() {
             </>
           )}
 
-          <p className="text-center mt-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-forest/50">
+          <p className="text-center mt-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-forest/50">
             one little reason to go outside · streak {streak}
           </p>
         </section>
