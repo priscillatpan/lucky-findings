@@ -129,7 +129,12 @@ function Home() {
         aria-hidden
         className="pointer-events-none absolute -bottom-16 -right-12 w-72 opacity-30 rotate-12 select-none"
       />
-      <main className="flex-1 flex flex-col items-center justify-center px-5 pt-8 pb-28 relative">
+      <header className="relative z-10 pt-5 px-5 flex items-center justify-center gap-1.5">
+        <img src={cloverIcon.url} alt="" aria-hidden className="size-4 -rotate-6 object-contain opacity-90" />
+        <span className="font-display text-sm tracking-tight text-forest/80">Lucky Findings</span>
+      </header>
+      <main className="flex-1 flex flex-col items-center justify-center px-5 pt-4 pb-28 relative">
+
         <section className="w-full max-w-[19rem]">
 
           <div className="text-center mb-1">
