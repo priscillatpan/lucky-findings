@@ -185,6 +185,8 @@ function CalendarPage() {
       </main>
 
       <Footer />
+
+      <BottomNav />
     </div>
   );
 }
