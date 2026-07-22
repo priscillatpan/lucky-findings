@@ -137,12 +137,12 @@ function Home() {
               src={cloverIcon.url}
               alt=""
               aria-hidden
-              className="size-10 mx-auto mb-3 -rotate-6 object-contain opacity-90"
+              className="size-8 mx-auto mb-2 -rotate-6 object-contain opacity-90"
             />
-            <h2 className="font-display text-4xl leading-none">
+            <h2 className="font-display text-3xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
             </h2>
-            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1.5">
+            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
               {formatDate(today)}
             </p>
 
