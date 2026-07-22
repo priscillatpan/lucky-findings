@@ -152,31 +152,31 @@ function CalendarPage() {
           </div>
         </section>
 
-        <section className="space-y-3">
-          <div className="flex items-center gap-4">
+        <section className="space-y-2">
+          <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-forest/15" />
-            <h2 className="font-display text-2xl">Recent finds</h2>
+            <h2 className="font-display text-lg">Recent finds</h2>
             <div className="h-px flex-1 bg-forest/15" />
           </div>
           {(findings ?? []).length === 0 ? (
-            <p className="text-center text-sm text-forest/50 py-6">
+            <p className="text-center text-xs text-forest/50 py-4">
               Nothing yet — snap today's quest to start your journal.
             </p>
           ) : (
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {(findings ?? []).slice(0, 8).map((f) => (
-                <li key={f.id} className="flex items-center gap-4 bg-white rounded-xl px-3 py-3 ring-1 ring-forest/5">
-                  <div className="shrink-0 bg-white p-1 pb-2 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
+                <li key={f.id} className="flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5">
+                  <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
                     {f.photo_url ? (
-                      <img src={f.photo_url} alt="" className="size-11 object-cover" />
+                      <img src={f.photo_url} alt="" className="size-9 object-cover" />
                     ) : (
-                      <div className="size-11 bg-lime" />
+                      <div className="size-9 bg-lime" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-display text-lg leading-tight truncate">{f.quest_title}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-forest/40">
-                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "long", day: "numeric" })}
+                    <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
+                    <p className="text-[9px] uppercase tracking-widest text-forest/40">
+                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                     </p>
                   </div>
                 </li>
