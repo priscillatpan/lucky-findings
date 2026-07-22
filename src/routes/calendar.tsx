@@ -82,7 +82,7 @@ function CalendarPage() {
             </p>
             <h1 className="font-display text-5xl">{monthLabel}</h1>
             <p className="text-forest/60 mt-3 max-w-md mx-auto text-sm">
-              Every polaroid is a day you noticed something. The empty squares are just waiting.
+              One quest a day to get you outside. Every polaroid is a day you noticed something — the empty squares are just waiting.
             </p>
           </div>
         </section>
@@ -90,8 +90,8 @@ function CalendarPage() {
         <section className="grid grid-cols-3 gap-3">
           {[
             { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days" },
-            { label: "this month", value: monthCompleted, suffix: `of ${daysInMonth}` },
-            { label: "lucky finds", value: totalFinds, suffix: "total" },
+            { label: "days outside", value: monthCompleted, suffix: `of ${daysInMonth} this month` },
+            { label: "lucky finds", value: totalFinds, suffix: "all-time" },
           ].map((s) => (
             <div
               key={s.label}
