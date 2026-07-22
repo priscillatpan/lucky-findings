@@ -7,7 +7,7 @@ import badgeCloud from "@/assets/badge_1.png.asset.json";
 import badgeCherry from "@/assets/badge_2.png.asset.json";
 import badgeApple from "@/assets/badge_3.png.asset.json";
 
-export const Route = createFileRoute("/calendar")({
+export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({
     meta: [
       { title: "Calendar — Lucky Findings" },

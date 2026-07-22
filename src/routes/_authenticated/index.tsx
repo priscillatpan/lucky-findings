@@ -3,7 +3,7 @@ import { Nav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/_authenticated/")({
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },
