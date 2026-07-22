@@ -67,41 +67,41 @@ function Home() {
       <main className="max-w-3xl mx-auto px-6 py-12 space-y-32 paper-grid">
         {/* Today's Quest */}
         <section id="today" className="relative">
-          {/* Clover-tape placeholder — swap for your hand-drawn clover strip */}
-          <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-28 h-9 -rotate-2 z-10 rounded-sm border-2 border-dashed border-forest/25 bg-lime/40 grid place-items-center text-[9px] font-semibold uppercase tracking-widest text-forest/50">
-            clover tape
+          {/* Category label — sits above the card */}
+          <div className="flex items-center justify-center gap-2 mb-4">
+            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60">
+              <span className="size-1.5 rounded-full bg-forest/50" />
+              Notice · Day 06
+            </span>
           </div>
 
-          <article className="bg-butter/40 rounded-2xl p-8 md:p-12 shadow-[0_20px_60px_-25px_rgba(13,61,20,0.22)] ring-1 ring-forest/10 relative overflow-hidden">
-            <header className="mb-10 text-center">
-              <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60">
-                  Daily Quest · March 24
-                </p>
-                <span className="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ring-1 ring-forest/15">
-                  <span className="size-1.5 rounded-full bg-forest/60" />
-                  Search quest
-                </span>
-              </div>
-              <h1 className="font-display text-4xl md:text-5xl leading-tight text-balance">
-                Look through 20 clovers.
-              </h1>
-              <p className="text-sm text-forest/70 mt-4 max-w-md mx-auto">
-                See if the fourth leaf finds you. If it doesn't, the twenty
-                still count — that's twenty small moments of noticing.
-              </p>
-            </header>
+          <div className="relative">
+            {/* Clover-tape placeholder */}
+            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-7 -rotate-2 z-10 rounded-sm border-2 border-dashed border-forest/25 bg-lime/60 grid place-items-center text-[8px] font-semibold uppercase tracking-widest text-forest/50">
+              clover tape
+            </div>
 
-            <div className="max-w-sm mx-auto flex flex-col items-center gap-8">
-              <BadgeSlot size="lg" locked label="Today's lucky find" />
+            <article className="bg-sky/25 rounded-2xl p-6 md:p-8 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.25)] ring-1 ring-forest/10">
+              <header className="mb-5 text-center">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mb-3">
+                  March 24
+                </p>
+                <h1 className="font-display text-3xl md:text-4xl leading-tight text-balance">
+                  Find a shape in the clouds.
+                </h1>
+                <p className="text-sm text-forest/70 mt-3 max-w-xs mx-auto">
+                  Look up for one full minute. Whatever you see first — snap it.
+                </p>
+              </header>
+
               <button
                 type="button"
-                className="w-full bg-forest text-paper py-4 rounded-xl font-display text-xl shadow-[0_10px_25px_-10px_rgba(13,102,34,0.55)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+                className="w-full bg-forest text-paper py-3.5 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
               >
                 Open camera
               </button>
-            </div>
-          </article>
+            </article>
+          </div>
         </section>
 
         {/* Field Journal */}
