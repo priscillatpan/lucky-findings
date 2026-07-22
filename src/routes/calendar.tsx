@@ -89,6 +89,25 @@ function CalendarPage() {
           </div>
         </section>
 
+        <section className="grid grid-cols-3 gap-3">
+          {[
+            { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days" },
+            { label: "this month", value: monthCompleted, suffix: `of ${daysInMonth}` },
+            { label: "lucky finds", value: totalFinds, suffix: "total" },
+          ].map((s) => (
+            <div
+              key={s.label}
+              className="bg-white rounded-2xl px-3 py-4 text-center ring-1 ring-forest/10 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]"
+            >
+              <p className="font-display text-4xl leading-none text-forest">{s.value}</p>
+              <p className="text-[10px] uppercase tracking-widest text-forest/50 mt-2">{s.label}</p>
+              <p className="text-[10px] text-forest/40 mt-0.5">{s.suffix}</p>
+            </div>
+          ))}
+        </section>
+
+
+
         <section className="bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
           <div className="grid grid-cols-7 gap-1 mb-2">
             {weekdayLabels.map((d) => (
