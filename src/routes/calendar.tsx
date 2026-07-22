@@ -51,7 +51,7 @@ const tintMap = {
 };
 
 const streaks = [
-  { label: "Current streak", value: "6 days" },
+  { label: "Streak of luck", value: "6 days" },
   { label: "This month", value: "12 finds" },
   { label: "Longest ever", value: "14 days" },
 ];
