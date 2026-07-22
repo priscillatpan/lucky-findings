@@ -12,6 +12,8 @@ export const Route = createFileRoute("/calendar")({
       { name: "description", content: "A month at a glance — every day you snapped a finding, mapped like a stamp album across the calendar." },
       { property: "og:title", content: "Calendar — Lucky Findings" },
       { property: "og:description", content: "A month at a glance — every day you snapped a finding, mapped like a stamp album." },
+      { property: "og:type", content: "website" },
+      { name: "twitter:card", content: "summary" },
     ],
   }),
   component: CalendarPage,
