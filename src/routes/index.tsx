@@ -164,7 +164,7 @@ function Home() {
               </span>
               {done && todayFinding ? (
                 <>
-                  <div className="bg-white p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
                     {todayFinding.photo_url ? (
                       <img
                         src={todayFinding.photo_url}
@@ -189,7 +189,7 @@ function Home() {
                 </>
               ) : pending ? (
                 <>
-                  <div className="bg-white p-2 pb-4 -rotate-1 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-2 pb-4 -rotate-1 shadow-md ring-1 ring-forest/10">
                     <img src={pending.preview} alt="" className="w-full aspect-square object-cover" />
                   </div>
                   <input
