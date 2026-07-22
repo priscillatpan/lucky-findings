@@ -9,111 +9,68 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as UnlockRouteImport } from './routes/unlock'
-import { Route as GatedRouteRouteImport } from './routes/_gated/route'
-import { Route as GatedIndexRouteImport } from './routes/_gated/index'
-import { Route as GatedCalendarRouteImport } from './routes/_gated/calendar'
+import { Route as CalendarRouteImport } from './routes/calendar'
+import { Route as IndexRouteImport } from './routes/index'
 
-const UnlockRoute = UnlockRouteImport.update({
-  id: '/unlock',
-  path: '/unlock',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GatedRouteRoute = GatedRouteRouteImport.update({
-  id: '/_gated',
-  getParentRoute: () => rootRouteImport,
-} as any)
-const GatedIndexRoute = GatedIndexRouteImport.update({
-  id: '/',
-  path: '/',
-  getParentRoute: () => GatedRouteRoute,
-} as any)
-const GatedCalendarRoute = GatedCalendarRouteImport.update({
+const CalendarRoute = CalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
-  getParentRoute: () => GatedRouteRoute,
+  getParentRoute: () => rootRouteImport,
+} as any)
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => rootRouteImport,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof GatedIndexRoute
-  '/unlock': typeof UnlockRoute
-  '/calendar': typeof GatedCalendarRoute
+  '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
 }
 export interface FileRoutesByTo {
-  '/unlock': typeof UnlockRoute
-  '/calendar': typeof GatedCalendarRoute
-  '/': typeof GatedIndexRoute
+  '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_gated': typeof GatedRouteRouteWithChildren
-  '/unlock': typeof UnlockRoute
-  '/_gated/calendar': typeof GatedCalendarRoute
-  '/_gated/': typeof GatedIndexRoute
+  '/': typeof IndexRoute
+  '/calendar': typeof CalendarRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/unlock' | '/calendar'
+  fullPaths: '/' | '/calendar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/unlock' | '/calendar' | '/'
-  id: '__root__' | '/_gated' | '/unlock' | '/_gated/calendar' | '/_gated/'
+  to: '/' | '/calendar'
+  id: '__root__' | '/' | '/calendar'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  GatedRouteRoute: typeof GatedRouteRouteWithChildren
-  UnlockRoute: typeof UnlockRoute
+  IndexRoute: typeof IndexRoute
+  CalendarRoute: typeof CalendarRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/unlock': {
-      id: '/unlock'
-      path: '/unlock'
-      fullPath: '/unlock'
-      preLoaderRoute: typeof UnlockRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_gated': {
-      id: '/_gated'
-      path: ''
-      fullPath: '/'
-      preLoaderRoute: typeof GatedRouteRouteImport
-      parentRoute: typeof rootRouteImport
-    }
-    '/_gated/': {
-      id: '/_gated/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof GatedIndexRouteImport
-      parentRoute: typeof GatedRouteRoute
-    }
-    '/_gated/calendar': {
-      id: '/_gated/calendar'
+    '/calendar': {
+      id: '/calendar'
       path: '/calendar'
       fullPath: '/calendar'
-      preLoaderRoute: typeof GatedCalendarRouteImport
-      parentRoute: typeof GatedRouteRoute
+      preLoaderRoute: typeof CalendarRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
+      parentRoute: typeof rootRouteImport
     }
   }
 }
 
-interface GatedRouteRouteChildren {
-  GatedCalendarRoute: typeof GatedCalendarRoute
-  GatedIndexRoute: typeof GatedIndexRoute
-}
-
-const GatedRouteRouteChildren: GatedRouteRouteChildren = {
-  GatedCalendarRoute: GatedCalendarRoute,
-  GatedIndexRoute: GatedIndexRoute,
-}
-
-const GatedRouteRouteWithChildren = GatedRouteRoute._addFileChildren(
-  GatedRouteRouteChildren,
-)
-
 const rootRouteChildren: RootRouteChildren = {
-  GatedRouteRoute: GatedRouteRouteWithChildren,
-  UnlockRoute: UnlockRoute,
+  IndexRoute: IndexRoute,
+  CalendarRoute: CalendarRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

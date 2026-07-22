@@ -7,7 +7,7 @@ import cloverBg from "@/assets/background.png.asset.json";
 import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 
-export const Route = createFileRoute("/_gated/")({
+export const Route = createFileRoute("/")({
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },

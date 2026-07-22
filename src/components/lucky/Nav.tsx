@@ -1,19 +1,7 @@
-import { Link, useNavigate } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useQueryClient } from "@tanstack/react-query";
+import { Link } from "@tanstack/react-router";
 import cloverLogo from "@/assets/icon_1.png.asset.json";
-import { lockSite } from "@/lib/gate.functions";
 
 export function Nav() {
-  const navigate = useNavigate();
-  const qc = useQueryClient();
-  const lock = useServerFn(lockSite);
-  async function onLock() {
-    await qc.cancelQueries();
-    qc.clear();
-    await lock();
-    navigate({ to: "/unlock", replace: true });
-  }
   return (
     <nav className="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-forest/10">
       <div className="max-w-3xl mx-auto px-5 py-3 flex justify-between items-center">
@@ -43,9 +31,6 @@ export function Nav() {
           >
             Calendar
           </Link>
-          <button onClick={onLock} className="text-forest/40 hover:text-forest transition-colors">
-            Lock
-          </button>
         </div>
       </div>
     </nav>
