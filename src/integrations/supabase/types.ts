@@ -14,7 +14,42 @@ export type Database = {
   }
   public: {
     Tables: {
-      [_ in never]: never
+      findings: {
+        Row: {
+          caption: string | null
+          completed_on: string
+          created_at: string
+          id: string
+          photo_path: string
+          quest_category: string
+          quest_id: string
+          quest_title: string
+          user_id: string
+        }
+        Insert: {
+          caption?: string | null
+          completed_on?: string
+          created_at?: string
+          id?: string
+          photo_path: string
+          quest_category: string
+          quest_id: string
+          quest_title: string
+          user_id: string
+        }
+        Update: {
+          caption?: string | null
+          completed_on?: string
+          created_at?: string
+          id?: string
+          photo_path?: string
+          quest_category?: string
+          quest_id?: string
+          quest_title?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
