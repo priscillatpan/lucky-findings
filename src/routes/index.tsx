@@ -157,14 +157,14 @@ function Home() {
             />
 
 
-            <article className={`bg-card rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative`}>
-              <span className="absolute top-4 right-4 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-forest/70">
-                <span className={"size-2.5 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
+            <article className={`bg-card rounded-2xl p-5 pt-8 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative`}>
+              <span className="absolute top-3 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
+                <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
                 {quest.category}
               </span>
               {done && todayFinding ? (
                 <>
-                  <div className="bg-card p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-1.5 pb-3 -rotate-2 shadow-md ring-1 ring-forest/10">
                     {todayFinding.photo_url ? (
                       <img
                         src={todayFinding.photo_url}
@@ -175,21 +175,21 @@ function Home() {
                       <div className="w-full aspect-square bg-paper" />
                     )}
                   </div>
-                  <p className="font-display text-lg text-center mt-4 text-balance leading-tight">
+                  <p className="font-display text-base text-center mt-3 text-balance leading-tight">
                     {todayFinding.quest_title}
                   </p>
                   {todayFinding.caption && (
-                    <p className="text-sm text-ink/70 text-center mt-1 italic">
+                    <p className="text-xs text-ink/70 text-center mt-1 italic">
                       "{todayFinding.caption}"
                     </p>
                   )}
-                  <p className="mt-3 text-center text-[10px] uppercase tracking-widest text-forest/60">
+                  <p className="mt-2 text-center text-[9px] uppercase tracking-widest text-forest/60">
                     ✓ Logged for today
                   </p>
                 </>
               ) : pending ? (
                 <>
-                  <div className="bg-card p-2 pb-4 -rotate-1 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-1.5 pb-3 -rotate-1 shadow-md ring-1 ring-forest/10">
                     <img src={pending.preview} alt="" className="w-full aspect-square object-cover" />
                   </div>
                   <input
@@ -197,7 +197,7 @@ function Home() {
                     placeholder="a little caption (optional)"
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="w-full mt-4 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 text-sm outline-none focus:ring-forest/40"
+                    className="w-full mt-3 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 text-xs outline-none focus:ring-forest/40"
                   />
                   {save.error && (
                     <p className="text-xs text-red-700 mt-2">
@@ -206,11 +206,11 @@ function Home() {
                   )}
                 </>
               ) : (
-                <header className="text-center pt-2">
-                  <h1 className="font-display text-[1.65rem] leading-tight text-balance">
+                <header className="text-center pt-1">
+                  <h1 className="font-display text-xl leading-tight text-balance">
                     {quest.title}
                   </h1>
-                  <p className="text-sm text-ink/75 mt-2.5 max-w-[24ch] mx-auto">
+                  <p className="text-xs text-ink/75 mt-2 max-w-[24ch] mx-auto">
                     {quest.hint}
                   </p>
                 </header>
