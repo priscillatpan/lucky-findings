@@ -1,9 +1,10 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { Nav } from "@/components/lucky/Nav";
+import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
+import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 
@@ -102,12 +103,16 @@ function Home() {
         aria-hidden
         className="pointer-events-none absolute -bottom-16 -right-12 w-72 opacity-30 rotate-12 select-none"
       />
-      <Nav />
-
-      <main className="flex-1 flex flex-col items-center px-5 pt-4 pb-6 relative">
+      <main className="flex-1 flex flex-col items-center justify-center px-5 pt-8 pb-28 relative">
         <section className="w-full max-w-[19rem]">
 
-          <div className="text-center mb-4">
+          <div className="text-center mb-1">
+            <img
+              src={cloverIcon.url}
+              alt=""
+              aria-hidden
+              className="size-10 mx-auto mb-3 -rotate-6 object-contain opacity-90"
+            />
             <h2 className="font-display text-4xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
             </h2>
@@ -222,6 +227,8 @@ function Home() {
           </p>
         </section>
       </main>
+
+      <BottomNav />
     </div>
   );
 }

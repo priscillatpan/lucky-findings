@@ -1,6 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
-import { Nav, Footer } from "@/components/lucky/Nav";
+import { BottomNav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
 import pinkTape from "@/assets/tape_2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
@@ -67,10 +67,8 @@ function CalendarPage() {
 
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <Nav />
-
-      <main className="max-w-3xl mx-auto px-6 py-10 space-y-10 paper-grid">
+    <div className="min-h-[100dvh] bg-paper text-ink">
+      <main className="max-w-3xl mx-auto px-6 pt-6 pb-40 space-y-10 paper-grid">
         <section className="relative">
           <img
             src={pinkTape.url}
@@ -187,6 +185,8 @@ function CalendarPage() {
       </main>
 
       <Footer />
+
+      <BottomNav />
     </div>
   );
 }
