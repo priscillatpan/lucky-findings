@@ -104,8 +104,9 @@ function Home() {
       />
       <Nav />
 
-      <main className="flex-1 flex items-center justify-center px-5 py-6 relative">
+      <main className="flex-1 flex flex-col items-center px-5 pt-4 pb-6 relative">
         <section className="w-full max-w-[19rem]">
+
           <div className="text-center mb-4">
             <h2 className="font-display text-4xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
