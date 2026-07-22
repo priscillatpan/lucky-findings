@@ -34,14 +34,16 @@ function Home() {
       />
       <Nav />
 
-      <main className="flex-1 flex items-center justify-center px-6 py-8 relative">
-        <section id="today" className="w-full max-w-sm">
-          {/* Category label — sits above the card */}
-          <div className="flex items-center justify-center gap-2 mb-4">
-            <span className="inline-flex items-center gap-1.5 text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60">
-              <span className="size-1.5 rounded-full bg-forest/50" />
-              Notice · Day 06
-            </span>
+      <main className="flex-1 flex items-center justify-center px-5 py-6 relative">
+        <section id="today" className="w-full max-w-[18rem]">
+          {/* Big title above the card */}
+          <div className="text-center mb-4">
+            <h2 className="font-display text-4xl leading-none text-ink">
+              Today's Quest
+            </h2>
+            <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1.5">
+              March 24 · Notice · Day 06
+            </p>
           </div>
 
           <div className="relative">
@@ -50,38 +52,35 @@ function Home() {
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-6 left-1/2 -translate-x-1/2 w-40 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
+              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
             />
 
-            <article className="bg-sky rounded-2xl p-7 pt-9 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/15">
-              <header className="mb-6 text-center">
-                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-ink/70 mb-3">
-                  Today's Quest · March 24
-                </p>
-                <h1 className="font-display text-3xl leading-tight text-balance text-ink">
+            <article className="bg-pink rounded-2xl p-6 pt-8 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/15">
+              <header className="mb-5 text-center">
+                <h1 className="font-display text-[1.65rem] leading-tight text-balance text-ink">
                   Find a shape in the clouds.
                 </h1>
-                <p className="text-sm text-ink/70 mt-3 max-w-[24ch] mx-auto">
+                <p className="text-sm text-ink/75 mt-2.5 max-w-[24ch] mx-auto">
                   Look up for one full minute. Whatever you see first — snap it.
                 </p>
               </header>
 
               <button
                 type="button"
-                className="w-full bg-forest text-paper py-3.5 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+                className="w-full bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
               >
                 Take a photo of it
               </button>
               <button
                 type="button"
-                className="w-full mt-2 py-2.5 rounded-xl text-sm font-semibold uppercase tracking-widest text-ink/60 hover:text-ink transition-colors"
+                className="w-full mt-2 py-2 rounded-xl text-sm font-semibold uppercase tracking-widest text-ink/65 hover:text-ink transition-colors"
               >
                 Skip for today
               </button>
             </article>
           </div>
 
-          <p className="text-center mt-6 text-[11px] font-semibold uppercase tracking-[0.25em] text-forest/50">
+          <p className="text-center mt-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-forest/50">
             streak of luck · 6
           </p>
         </section>
