@@ -213,10 +213,15 @@ function CalendarPage() {
                 >
                   <div
                     className={cn(
-                      "size-10 rounded-full ring-1 ring-black/5 shrink-0",
-                      tintMap[f.tint],
+                      "shrink-0 bg-white p-1 pb-3 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3",
                     )}
-                  />
+                  >
+                    <div className={cn("size-10 grid place-items-center", tintMap[f.tint])}>
+                      <span className="text-[7px] font-semibold uppercase tracking-widest text-forest/40">
+                        photo
+                      </span>
+                    </div>
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-display text-lg leading-tight truncate">
                       {f.title}
