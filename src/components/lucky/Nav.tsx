@@ -39,7 +39,7 @@ export function Nav() {
 
 export function Footer() {
   return (
-    <footer className="max-w-3xl mx-auto px-6 pb-20 pt-16">
+    <footer className="max-w-3xl mx-auto px-6 pb-32 pt-16">
       <div className="bg-forest text-paper p-8 rounded-2xl relative overflow-hidden">
         <div className="absolute top-0 bottom-0 -left-2 w-4 flex flex-col justify-around py-3">
           <div className="size-4 rounded-full bg-paper" />
