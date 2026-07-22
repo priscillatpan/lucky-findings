@@ -106,7 +106,13 @@ function Home() {
       <main className="flex-1 flex flex-col items-center justify-center px-5 pt-8 pb-28 relative">
         <section className="w-full max-w-[19rem]">
 
-          <div className="text-center mb-4">
+          <div className="text-center mb-1">
+            <img
+              src={cloverIcon.url}
+              alt=""
+              aria-hidden
+              className="size-10 mx-auto mb-3 -rotate-6 object-contain opacity-90"
+            />
             <h2 className="font-display text-4xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
             </h2>
