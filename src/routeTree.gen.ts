@@ -9,11 +9,17 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UiKitRouteImport } from './routes/ui-kit'
 import { Route as MockupRouteImport } from './routes/mockup'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicSeedJulyRouteImport } from './routes/api/public/seed-july'
 
+const UiKitRoute = UiKitRouteImport.update({
+  id: '/ui-kit',
+  path: '/ui-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const MockupRoute = MockupRouteImport.update({
   id: '/mockup',
   path: '/mockup',
@@ -39,12 +45,14 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesById {
@@ -52,25 +60,40 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/mockup' | '/api/public/seed-july'
+  fullPaths: '/' | '/calendar' | '/mockup' | '/ui-kit' | '/api/public/seed-july'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/mockup' | '/api/public/seed-july'
-  id: '__root__' | '/' | '/calendar' | '/mockup' | '/api/public/seed-july'
+  to: '/' | '/calendar' | '/mockup' | '/ui-kit' | '/api/public/seed-july'
+  id:
+    | '__root__'
+    | '/'
+    | '/calendar'
+    | '/mockup'
+    | '/ui-kit'
+    | '/api/public/seed-july'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
   MockupRoute: typeof MockupRoute
+  UiKitRoute: typeof UiKitRoute
   ApiPublicSeedJulyRoute: typeof ApiPublicSeedJulyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/ui-kit': {
+      id: '/ui-kit'
+      path: '/ui-kit'
+      fullPath: '/ui-kit'
+      preLoaderRoute: typeof UiKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/mockup': {
       id: '/mockup'
       path: '/mockup'
@@ -106,6 +129,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
   MockupRoute: MockupRoute,
+  UiKitRoute: UiKitRoute,
   ApiPublicSeedJulyRoute: ApiPublicSeedJulyRoute,
 }
 export const routeTree = rootRouteImport
