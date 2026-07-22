@@ -70,38 +70,38 @@ function CalendarPage() {
 
   return (
     <div className="min-h-[100dvh] bg-paper text-ink">
-      <main className="max-w-3xl mx-auto px-6 pt-6 pb-40 space-y-10 paper-grid">
+      <main className="max-w-3xl mx-auto px-5 pt-5 pb-32 space-y-6 paper-grid">
         <section className="relative">
           <img
             src={pinkTape.url}
             alt=""
             aria-hidden
-            className="absolute -top-6 right-4 w-32 rotate-6 pointer-events-none select-none opacity-90"
+            className="absolute -top-4 right-4 w-20 rotate-6 pointer-events-none select-none opacity-90"
           />
           <div className="text-center">
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-3">
+            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-1.5">
               A month of small findings
             </p>
-            <h1 className="font-display text-5xl">{monthLabel}</h1>
-            <p className="text-forest/60 mt-3 max-w-md mx-auto text-sm">
-              One quest a day to get you outside. Every polaroid is a day you noticed something — the empty squares are just waiting.
+            <h1 className="font-display text-3xl">{monthLabel}</h1>
+            <p className="text-forest/60 mt-1.5 max-w-md mx-auto text-xs">
+              One quest a day to get you outside. Every polaroid is a day you noticed something.
             </p>
           </div>
         </section>
 
-        <section className="grid grid-cols-3 gap-3">
+        <section className="grid grid-cols-3 gap-2">
           {[
             { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days" },
-            { label: "days outside", value: monthCompleted, suffix: `of ${daysInMonth} this month` },
+            { label: "days outside", value: monthCompleted, suffix: `of ${daysInMonth}` },
             { label: "lucky finds", value: totalFinds, suffix: "all-time" },
           ].map((s) => (
             <div
               key={s.label}
-              className="bg-white rounded-2xl px-3 py-4 text-center ring-1 ring-forest/10 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]"
+              className="bg-white rounded-xl px-2 py-2.5 text-center ring-1 ring-forest/10 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]"
             >
-              <p className="font-display text-4xl leading-none text-forest">{s.value}</p>
-              <p className="text-[10px] uppercase tracking-widest text-forest/50 mt-2">{s.label}</p>
-              <p className="text-[10px] text-forest/40 mt-0.5">{s.suffix}</p>
+              <p className="font-display text-2xl leading-none text-forest">{s.value}</p>
+              <p className="text-[9px] uppercase tracking-widest text-forest/50 mt-1.5">{s.label}</p>
+              <p className="text-[9px] text-forest/40 mt-0.5">{s.suffix}</p>
             </div>
           ))}
         </section>
@@ -152,31 +152,31 @@ function CalendarPage() {
           </div>
         </section>
 
-        <section className="space-y-3">
-          <div className="flex items-center gap-4">
+        <section className="space-y-2">
+          <div className="flex items-center gap-3">
             <div className="h-px flex-1 bg-forest/15" />
-            <h2 className="font-display text-2xl">Recent finds</h2>
+            <h2 className="font-display text-lg">Recent finds</h2>
             <div className="h-px flex-1 bg-forest/15" />
           </div>
           {(findings ?? []).length === 0 ? (
-            <p className="text-center text-sm text-forest/50 py-6">
+            <p className="text-center text-xs text-forest/50 py-4">
               Nothing yet — snap today's quest to start your journal.
             </p>
           ) : (
-            <ul className="space-y-2">
+            <ul className="space-y-1.5">
               {(findings ?? []).slice(0, 8).map((f) => (
-                <li key={f.id} className="flex items-center gap-4 bg-white rounded-xl px-3 py-3 ring-1 ring-forest/5">
-                  <div className="shrink-0 bg-white p-1 pb-2 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
+                <li key={f.id} className="flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5">
+                  <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
                     {f.photo_url ? (
-                      <img src={f.photo_url} alt="" className="size-11 object-cover" />
+                      <img src={f.photo_url} alt="" className="size-9 object-cover" />
                     ) : (
-                      <div className="size-11 bg-lime" />
+                      <div className="size-9 bg-lime" />
                     )}
                   </div>
                   <div className="flex-1 min-w-0">
-                    <p className="font-display text-lg leading-tight truncate">{f.quest_title}</p>
-                    <p className="text-[10px] uppercase tracking-widest text-forest/40">
-                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "long", day: "numeric" })}
+                    <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
+                    <p className="text-[9px] uppercase tracking-widest text-forest/40">
+                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
                     </p>
                   </div>
                 </li>
