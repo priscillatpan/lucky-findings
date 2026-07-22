@@ -9,8 +9,6 @@ function isoToday() {
 }
 
 export const listFindingsFn = createServerFn({ method: "GET" }).handler(async () => {
-  const { requireUnlocked } = await import("./gate.server");
-  await requireUnlocked();
   const { ownerId, getAdmin, signPhoto } = await import("./findings.server");
   const admin = await getAdmin();
   const { data, error } = await admin
@@ -31,8 +29,6 @@ export const getFindingForDateFn = createServerFn({ method: "GET" })
     return { date: data.date };
   })
   .handler(async ({ data }) => {
-    const { requireUnlocked } = await import("./gate.server");
-    await requireUnlocked();
     const { ownerId, getAdmin, signPhoto } = await import("./findings.server");
     const admin = await getAdmin();
     const { data: row, error } = await admin
@@ -64,8 +60,6 @@ export const saveFindingFn = createServerFn({ method: "POST" })
     },
   )
   .handler(async ({ data }) => {
-    const { requireUnlocked } = await import("./gate.server");
-    await requireUnlocked();
     const { ownerId, getAdmin, BUCKET, signPhoto } = await import("./findings.server");
     const admin = await getAdmin();
 
