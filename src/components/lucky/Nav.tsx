@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import cloverLogo from "@/assets/icon_1.png.asset.json";
+import cloverLogo from "@/assets/icon_2.png.asset.json";
 
 export function Nav() {
   return (
