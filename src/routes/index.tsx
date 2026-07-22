@@ -129,8 +129,9 @@ function Home() {
               {done ? "Today's find" : "Today's Quest"}
             </h2>
             <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1.5">
-              {formatDate(today)} · {quest.category}
+              {formatDate(today)}
             </p>
+
           </div>
 
           <div className="relative mt-6">
