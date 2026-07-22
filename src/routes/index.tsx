@@ -67,50 +67,39 @@ function Home() {
       <main className="max-w-3xl mx-auto px-6 py-12 space-y-32 paper-grid">
         {/* Today's Quest */}
         <section id="today" className="relative">
-          <div className="absolute -top-6 -left-4 w-28 h-8 bg-sky/40 -rotate-6 z-10 mix-blend-multiply rounded-sm" />
-          <div className="absolute -top-4 right-10 w-20 h-7 bg-pink/50 rotate-3 z-10 mix-blend-multiply rounded-sm" />
+          {/* Clover-tape placeholder — swap for your hand-drawn clover strip */}
+          <div className="absolute -top-5 left-1/2 -translate-x-1/2 w-28 h-9 -rotate-2 z-10 rounded-sm border-2 border-dashed border-forest/25 bg-lime/40 grid place-items-center text-[9px] font-semibold uppercase tracking-widest text-forest/50">
+            clover tape
+          </div>
 
-          <article className="bg-white rounded-2xl p-8 md:p-12 shadow-[0_20px_60px_-25px_rgba(13,61,20,0.22)] ring-1 ring-forest/5 relative overflow-hidden">
+          <article className="bg-butter/40 rounded-2xl p-8 md:p-12 shadow-[0_20px_60px_-25px_rgba(13,61,20,0.22)] ring-1 ring-forest/10 relative overflow-hidden">
             <header className="mb-10 text-center">
-              <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-3">
-                Daily Quest · March 24
-              </p>
+              <div className="flex items-center justify-center gap-3 mb-4 flex-wrap">
+                <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60">
+                  Daily Quest · March 24
+                </p>
+                <span className="inline-flex items-center gap-1.5 bg-forest/10 text-forest text-[10px] font-bold uppercase tracking-widest px-2.5 py-1 rounded-full ring-1 ring-forest/15">
+                  <span className="size-1.5 rounded-full bg-forest/60" />
+                  Complete for badge
+                </span>
+              </div>
               <h1 className="font-display text-4xl md:text-5xl leading-tight text-balance">
                 Find a petal the color of a summer sunset.
               </h1>
-              <p className="text-sm text-forest/60 mt-4 max-w-md mx-auto">
+              <p className="text-sm text-forest/70 mt-4 max-w-md mx-auto">
                 Somewhere between orange, pink, and gold. It doesn't have to be
                 perfect — trust the first one that catches your eye.
               </p>
             </header>
 
-            <div className="grid md:grid-cols-2 gap-10 items-center">
-              <div className="flex flex-col items-center gap-4">
-                <BadgeSlot size="lg" locked label="Today's badge" />
-                <p className="text-xs text-center text-forest/50 max-w-[200px]">
-                  A stamp will appear here once you snap your finding.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <button
-                  type="button"
-                  className="w-full aspect-square bg-lime/15 rounded-xl outline-2 outline-dashed -outline-offset-4 outline-forest/20 flex flex-col items-center justify-center gap-3 group hover:bg-lime/25 transition-colors"
-                >
-                  <div className="size-14 rounded-full bg-white ring-1 ring-forest/10 grid place-items-center group-hover:scale-110 transition-transform">
-                    <div className="size-4 bg-forest rounded-full" />
-                  </div>
-                  <span className="text-xs font-semibold uppercase tracking-widest text-forest/70">
-                    Open camera
-                  </span>
-                </button>
-                <button
-                  type="button"
-                  className="w-full bg-forest text-paper py-4 rounded-xl font-display text-xl shadow-[0_10px_25px_-10px_rgba(13,102,34,0.55)] hover:bg-forest/90 active:scale-[0.98] transition-all"
-                >
-                  Submit finding
-                </button>
-              </div>
+            <div className="max-w-sm mx-auto flex flex-col items-center gap-8">
+              <BadgeSlot size="lg" locked label="Today's badge" />
+              <button
+                type="button"
+                className="w-full bg-forest text-paper py-4 rounded-xl font-display text-xl shadow-[0_10px_25px_-10px_rgba(13,102,34,0.55)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+              >
+                Open camera
+              </button>
             </div>
           </article>
         </section>
