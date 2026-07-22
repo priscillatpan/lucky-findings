@@ -121,7 +121,7 @@ function Home() {
             </p>
           </div>
 
-          <div className="relative">
+          <div className="relative mt-6">
             <img
               src={cloverTape.url}
               alt=""
@@ -129,7 +129,7 @@ function Home() {
               className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
             />
 
-            <article className="bg-pink rounded-2xl p-6 pt-8 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/15">
+            <article className="bg-pink rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/25">
               {done && todayFinding ? (
                 <>
                   <div className="bg-white p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
@@ -172,11 +172,37 @@ function Home() {
                       {(save.error as Error).message}
                     </p>
                   )}
+                </>
+              ) : (
+                <header className="text-center">
+                  <h1 className="font-display text-[1.65rem] leading-tight text-balance">
+                    {quest.title}
+                  </h1>
+                  <p className="text-sm text-ink/75 mt-2.5 max-w-[24ch] mx-auto">
+                    {quest.hint}
+                  </p>
+                </header>
+              )}
+            </article>
+          </div>
+
+          {!done && (
+            <>
+              <input
+                ref={fileRef}
+                type="file"
+                accept="image/*"
+                capture="environment"
+                className="hidden"
+                onChange={onPick}
+              />
+              {pending ? (
+                <>
                   <button
                     type="button"
                     disabled={save.isPending}
                     onClick={() => save.mutate()}
-                    className="w-full mt-3 bg-forest text-paper py-3 rounded-xl font-display text-lg disabled:opacity-60"
+                    className="w-full mt-5 bg-forest text-paper py-3 rounded-xl font-display text-lg disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
                   >
                     {save.isPending ? "Saving…" : "Check it off"}
                   </button>
@@ -192,38 +218,19 @@ function Home() {
                   </button>
                 </>
               ) : (
-                <>
-                  <header className="mb-5 text-center">
-                    <h1 className="font-display text-[1.65rem] leading-tight text-balance">
-                      {quest.title}
-                    </h1>
-                    <p className="text-sm text-ink/75 mt-2.5 max-w-[24ch] mx-auto">
-                      {quest.hint}
-                    </p>
-                  </header>
-
-                  <input
-                    ref={fileRef}
-                    type="file"
-                    accept="image/*"
-                    capture="environment"
-                    className="hidden"
-                    onChange={onPick}
-                  />
-                  <button
-                    type="button"
-                    onClick={() => fileRef.current?.click()}
-                    className="w-full bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
-                  >
-                    Complete!
-                  </button>
-                </>
+                <button
+                  type="button"
+                  onClick={() => fileRef.current?.click()}
+                  className="w-full mt-5 bg-forest text-paper py-3 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+                >
+                  Complete!
+                </button>
               )}
-            </article>
-          </div>
+            </>
+          )}
 
           <p className="text-center mt-5 text-[11px] font-semibold uppercase tracking-[0.25em] text-forest/50">
-            streak of luck · {streak}
+            one little reason to go outside · streak {streak}
           </p>
         </section>
       </main>
