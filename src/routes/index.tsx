@@ -25,10 +25,16 @@ export const Route = createFileRoute("/")({
 
 function Home() {
   return (
-    <div className="min-h-[100dvh] flex flex-col bg-paper text-ink paper-grid">
+    <div className="min-h-[100dvh] flex flex-col bg-paper text-ink paper-grid relative overflow-hidden">
+      <img
+        src={cloverBg.url}
+        alt=""
+        aria-hidden
+        className="pointer-events-none absolute -bottom-16 -right-12 w-72 opacity-30 rotate-12 select-none"
+      />
       <Nav />
 
-      <main className="flex-1 flex items-center justify-center px-6 py-8">
+      <main className="flex-1 flex items-center justify-center px-6 py-8 relative">
         <section id="today" className="w-full max-w-sm">
           {/* Category label — sits above the card */}
           <div className="flex items-center justify-center gap-2 mb-4">
@@ -39,12 +45,15 @@ function Home() {
           </div>
 
           <div className="relative">
-            {/* Clover-tape placeholder */}
-            <div className="absolute -top-3 left-1/2 -translate-x-1/2 w-24 h-7 -rotate-2 z-10 rounded-sm border-2 border-dashed border-forest/25 bg-lime grid place-items-center text-[8px] font-semibold uppercase tracking-widest text-forest/50">
-              clover tape
-            </div>
+            {/* Hand-drawn clover tape */}
+            <img
+              src={cloverTape.url}
+              alt=""
+              aria-hidden
+              className="absolute -top-6 left-1/2 -translate-x-1/2 w-40 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
+            />
 
-            <article className="bg-sky rounded-2xl p-7 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/15">
+            <article className="bg-sky rounded-2xl p-7 pt-9 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/15">
               <header className="mb-6 text-center">
                 <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-ink/70 mb-3">
                   Today's Quest · March 24
