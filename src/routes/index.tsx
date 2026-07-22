@@ -24,6 +24,18 @@ function formatDate(d: Date) {
   return d.toLocaleDateString(undefined, { month: "long", day: "numeric" });
 }
 
+function categoryDotClass(cat: string) {
+  switch (cat) {
+    case "Search": return "bg-lime";
+    case "Notice": return "bg-sky";
+    case "Serendipity": return "bg-pink";
+    case "Encounter": return "bg-butter";
+    case "Make": return "bg-forest";
+    default: return "bg-forest";
+  }
+}
+
+
 function computeStreak(dates: string[]): number {
   if (dates.length === 0) return 0;
   const set = new Set(dates);
@@ -117,8 +129,9 @@ function Home() {
               {done ? "Today's find" : "Today's Quest"}
             </h2>
             <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1.5">
-              {formatDate(today)} · {quest.category}
+              {formatDate(today)}
             </p>
+
           </div>
 
           <div className="relative mt-6">
@@ -129,7 +142,11 @@ function Home() {
               className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
             />
 
-            <article className="bg-pink rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/25">
+            <article className="bg-butter/70 rounded-2xl p-6 pt-10 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 relative">
+              <span className="absolute top-4 right-4 flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.2em] text-forest/70">
+                <span className={"size-2.5 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
+                {quest.category}
+              </span>
               {done && todayFinding ? (
                 <>
                   <div className="bg-white p-2 pb-4 -rotate-2 shadow-md ring-1 ring-forest/10">
@@ -174,7 +191,7 @@ function Home() {
                   )}
                 </>
               ) : (
-                <header className="text-center">
+                <header className="text-center pt-2">
                   <h1 className="font-display text-[1.65rem] leading-tight text-balance">
                     {quest.title}
                   </h1>
