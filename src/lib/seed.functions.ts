@@ -45,8 +45,8 @@ export const seedJulyMockFn = createServerFn({ method: "POST" }).handler(async (
     { iso: "2026-07-21", id: "s4", title: "Find a heart-shaped anything.", category: "Search", caption: "leaf shaped like it meant it" },
   ];
 
-  const owner = ownerId();
   const payload = rows.map((r) => ({
+
     user_id: owner,
     quest_id: r.id,
     quest_title: r.title,
