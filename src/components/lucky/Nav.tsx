@@ -1,21 +1,27 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useNavigate } from "@tanstack/react-router";
 import cloverLogo from "@/assets/icon_1.png.asset.json";
+import { supabase } from "@/integrations/supabase/client";
 
 export function Nav() {
+  const navigate = useNavigate();
+  async function signOut() {
+    await supabase.auth.signOut();
+    navigate({ to: "/auth" });
+  }
   return (
     <nav className="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-forest/10">
-      <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
+      <div className="max-w-3xl mx-auto px-5 py-3 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
           <img
             src={cloverLogo.url}
             alt="Lucky Findings clover"
-            className="size-10 -rotate-6 object-contain"
+            className="size-9 -rotate-6 object-contain"
           />
-          <span className="font-display text-2xl tracking-tight text-forest">
+          <span className="font-display text-xl tracking-tight text-forest">
             Lucky Findings
           </span>
         </Link>
-        <div className="flex gap-5 text-[13px] font-medium uppercase tracking-widest text-forest/70">
+        <div className="flex gap-4 text-[11px] font-medium uppercase tracking-widest text-forest/70 items-center">
           <Link
             to="/"
             activeOptions={{ exact: true }}
@@ -31,6 +37,9 @@ export function Nav() {
           >
             Calendar
           </Link>
+          <button onClick={signOut} className="text-forest/40 hover:text-forest transition-colors">
+            Out
+          </button>
         </div>
       </div>
     </nav>
