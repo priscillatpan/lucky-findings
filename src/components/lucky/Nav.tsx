@@ -1,17 +1,16 @@
 import { Link } from "@tanstack/react-router";
+import cloverLogo from "@/assets/icon_1.png.asset.json";
 
 export function Nav() {
   return (
     <nav className="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-forest/10">
       <div className="max-w-3xl mx-auto px-6 py-4 flex justify-between items-center">
         <Link to="/" className="flex items-center gap-2">
-          {/* Clover logo placeholder — user is hand-drawing this */}
-          <span
-            aria-hidden
-            className="size-8 rounded-full border-2 border-dashed border-forest/30 grid place-items-center text-[9px] font-semibold uppercase tracking-wider text-forest/40"
-          >
-            logo
-          </span>
+          <img
+            src={cloverLogo.url}
+            alt="Lucky Findings clover"
+            className="size-10 -rotate-6 object-contain"
+          />
           <span className="font-display text-2xl tracking-tight text-forest">
             Lucky Findings
           </span>
