@@ -138,42 +138,47 @@ function CalendarPage() {
               const isToday = day === today;
               const isFuture = day > today;
 
+              const rot =
+                day % 3 === 0 ? "-rotate-[3deg]" : day % 3 === 1 ? "rotate-[2deg]" : "rotate-[-1deg]";
               return (
                 <div
                   key={idx}
                   className={cn(
-                    "aspect-square rounded-xl relative p-1.5 flex flex-col justify-between transition-transform hover:-rotate-2 hover:scale-105",
-                    finding
-                      ? "ring-1 ring-forest/10 bg-paper cursor-pointer"
-                      : "border border-dashed border-forest/10 bg-paper/40",
-                    isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white",
-                    isFuture && "opacity-40",
+                    "aspect-square relative flex items-center justify-center transition-transform hover:rotate-0 hover:scale-110",
+                    isFuture && !finding && "opacity-40",
                   )}
                   title={finding?.title}
                 >
-                  <span
-                    className={cn(
-                      "text-[10px] font-semibold",
-                      finding ? "text-forest" : "text-forest/30",
-                    )}
-                  >
-                    {day}
-                  </span>
-                  {finding && (
-                    <div className="flex justify-end">
-                      <div
-                        className={cn(
-                          "size-6 md:size-7 rounded-full ring-1 ring-black/5 shadow-sm grid place-items-center",
-                          tintMap[finding.tint],
-                        )}
-                      >
-                        <div className="size-2.5 rounded-full border border-current opacity-40" />
+                  {finding ? (
+                    <div
+                      className={cn(
+                        "absolute inset-0.5 bg-white p-1 pb-2.5 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.4)] ring-1 ring-forest/10 flex flex-col",
+                        rot,
+                        isToday && "ring-2 ring-forest",
+                      )}
+                    >
+                      <div className={cn("flex-1 grid place-items-center", tintMap[finding.tint])}>
+                        <span className="text-[8px] font-semibold uppercase tracking-widest text-forest/40">
+                          photo
+                        </span>
                       </div>
+                      <span className="absolute bottom-0.5 right-1 text-[8px] font-semibold text-forest/60">
+                        {day}
+                      </span>
                     </div>
-                  )}
-                  {isToday && !finding && (
-                    <div className="flex justify-end">
-                      <div className="size-6 rounded-full border-2 border-dashed border-forest/40" />
+                  ) : (
+                    <div
+                      className={cn(
+                        "absolute inset-0.5 rounded-xl border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between",
+                        isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid",
+                      )}
+                    >
+                      <span className="text-[10px] font-semibold text-forest/30">{day}</span>
+                      {isToday && (
+                        <div className="flex justify-end">
+                          <div className="size-6 rounded-full border-2 border-dashed border-forest/40" />
+                        </div>
+                      )}
                     </div>
                   )}
                 </div>
@@ -208,10 +213,15 @@ function CalendarPage() {
                 >
                   <div
                     className={cn(
-                      "size-10 rounded-full ring-1 ring-black/5 shrink-0",
-                      tintMap[f.tint],
+                      "shrink-0 bg-white p-1 pb-3 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3",
                     )}
-                  />
+                  >
+                    <div className={cn("size-10 grid place-items-center", tintMap[f.tint])}>
+                      <span className="text-[7px] font-semibold uppercase tracking-widest text-forest/40">
+                        photo
+                      </span>
+                    </div>
+                  </div>
                   <div className="flex-1 min-w-0">
                     <p className="font-display text-lg leading-tight truncate">
                       {f.title}
