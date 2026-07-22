@@ -1,12 +1,18 @@
 import { Link, useNavigate } from "@tanstack/react-router";
+import { useServerFn } from "@tanstack/react-start";
+import { useQueryClient } from "@tanstack/react-query";
 import cloverLogo from "@/assets/icon_1.png.asset.json";
-import { supabase } from "@/integrations/supabase/client";
+import { lockSite } from "@/lib/gate.functions";
 
 export function Nav() {
   const navigate = useNavigate();
-  async function signOut() {
-    await supabase.auth.signOut();
-    navigate({ to: "/auth" });
+  const qc = useQueryClient();
+  const lock = useServerFn(lockSite);
+  async function onLock() {
+    await qc.cancelQueries();
+    qc.clear();
+    await lock();
+    navigate({ to: "/unlock", replace: true });
   }
   return (
     <nav className="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-forest/10">
@@ -37,8 +43,8 @@ export function Nav() {
           >
             Calendar
           </Link>
-          <button onClick={signOut} className="text-forest/40 hover:text-forest transition-colors">
-            Out
+          <button onClick={onLock} className="text-forest/40 hover:text-forest transition-colors">
+            Lock
           </button>
         </div>
       </div>

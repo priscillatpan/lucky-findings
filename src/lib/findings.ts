@@ -1,5 +1,9 @@
-import { supabase } from "@/integrations/supabase/client";
 import { isoDate, type QuestCategory } from "@/data/quests";
+import {
+  listFindingsFn,
+  getFindingForDateFn,
+  saveFindingFn,
+} from "./findings.functions";
 
 export type FindingRow = {
   id: string;
@@ -15,38 +19,25 @@ export type FindingRow = {
 
 export type FindingWithUrl = FindingRow & { photo_url: string };
 
-const BUCKET = "findings";
-
-async function signPhoto(path: string): Promise<string> {
-  const { data, error } = await supabase.storage
-    .from(BUCKET)
-    .createSignedUrl(path, 60 * 60);
-  if (error || !data) return "";
-  return data.signedUrl;
-}
-
 export async function listFindings(): Promise<FindingWithUrl[]> {
-  const { data, error } = await supabase
-    .from("findings")
-    .select("*")
-    .order("completed_on", { ascending: false });
-  if (error) throw error;
-  const rows = (data ?? []) as FindingRow[];
-  return Promise.all(
-    rows.map(async (r) => ({ ...r, photo_url: await signPhoto(r.photo_path) })),
-  );
+  return (await listFindingsFn()) as FindingWithUrl[];
 }
 
 export async function getFindingForDate(date: Date): Promise<FindingWithUrl | null> {
-  const { data, error } = await supabase
-    .from("findings")
-    .select("*")
-    .eq("completed_on", isoDate(date))
-    .maybeSingle();
-  if (error) throw error;
-  if (!data) return null;
-  const row = data as FindingRow;
-  return { ...row, photo_url: await signPhoto(row.photo_path) };
+  return (await getFindingForDateFn({ data: { date: isoDate(date) } })) as FindingWithUrl | null;
+}
+
+function fileToBase64(file: File): Promise<string> {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+      const result = reader.result as string;
+      const comma = result.indexOf(",");
+      resolve(comma >= 0 ? result.slice(comma + 1) : result);
+    };
+    reader.onerror = () => reject(reader.error);
+    reader.readAsDataURL(file);
+  });
 }
 
 export async function saveFinding(input: {
@@ -56,40 +47,17 @@ export async function saveFinding(input: {
   questCategory: QuestCategory;
   caption?: string;
 }): Promise<FindingWithUrl> {
-  const { data: userRes } = await supabase.auth.getUser();
-  const user = userRes.user;
-  if (!user) throw new Error("Not signed in");
-
-  const today = isoDate(new Date());
+  const photoBase64 = await fileToBase64(input.file);
   const ext = input.file.name.split(".").pop()?.toLowerCase() || "jpg";
-  const path = `${user.id}/${today}-${Date.now()}.${ext}`;
-
-  const { error: upErr } = await supabase.storage
-    .from(BUCKET)
-    .upload(path, input.file, {
-      cacheControl: "3600",
-      upsert: false,
+  return (await saveFindingFn({
+    data: {
+      questId: input.questId,
+      questTitle: input.questTitle,
+      questCategory: input.questCategory,
+      caption: input.caption ?? null,
+      photoBase64,
       contentType: input.file.type || "image/jpeg",
-    });
-  if (upErr) throw upErr;
-
-  const { data, error } = await supabase
-    .from("findings")
-    .upsert(
-      {
-        user_id: user.id,
-        quest_id: input.questId,
-        quest_title: input.questTitle,
-        quest_category: input.questCategory,
-        photo_path: path,
-        caption: input.caption ?? null,
-        completed_on: today,
-      },
-      { onConflict: "user_id,completed_on" },
-    )
-    .select("*")
-    .single();
-  if (error) throw error;
-  const row = data as FindingRow;
-  return { ...row, photo_url: await signPhoto(row.photo_path) };
+      ext,
+    },
+  })) as FindingWithUrl;
 }

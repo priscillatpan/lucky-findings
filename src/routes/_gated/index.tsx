@@ -7,7 +7,7 @@ import cloverBg from "@/assets/background.png.asset.json";
 import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 
-export const Route = createFileRoute("/_authenticated/")({
+export const Route = createFileRoute("/_gated/")({
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },
@@ -28,13 +28,11 @@ function computeStreak(dates: string[]): number {
   const set = new Set(dates);
   let streak = 0;
   const cur = new Date();
-  // If today isn't logged yet, streak can still count from yesterday.
   const y = cur.getFullYear();
   const m = String(cur.getMonth() + 1).padStart(2, "0");
   const d = String(cur.getDate()).padStart(2, "0");
   const todayStr = `${y}-${m}-${d}`;
   if (!set.has(todayStr)) cur.setDate(cur.getDate() - 1);
-  // Walk backwards.
   // eslint-disable-next-line no-constant-condition
   while (true) {
     const yy = cur.getFullYear();

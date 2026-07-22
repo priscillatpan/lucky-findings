@@ -9,126 +9,112 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
-import { Route as AuthenticatedIndexRouteImport } from './routes/_authenticated/index'
-import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as UnlockRouteImport } from './routes/unlock'
+import { Route as GatedRouteRouteImport } from './routes/_gated/route'
+import { Route as GatedIndexRouteImport } from './routes/_gated/index'
+import { Route as GatedCalendarRouteImport } from './routes/_gated/calendar'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const UnlockRoute = UnlockRouteImport.update({
+  id: '/unlock',
+  path: '/unlock',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
-  id: '/_authenticated',
+const GatedRouteRoute = GatedRouteRouteImport.update({
+  id: '/_gated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedIndexRoute = AuthenticatedIndexRouteImport.update({
+const GatedIndexRoute = GatedIndexRouteImport.update({
   id: '/',
   path: '/',
-  getParentRoute: () => AuthenticatedRouteRoute,
+  getParentRoute: () => GatedRouteRoute,
 } as any)
-const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+const GatedCalendarRoute = GatedCalendarRouteImport.update({
   id: '/calendar',
   path: '/calendar',
-  getParentRoute: () => AuthenticatedRouteRoute,
+  getParentRoute: () => GatedRouteRoute,
 } as any)
 
 export interface FileRoutesByFullPath {
-  '/': typeof AuthenticatedIndexRoute
-  '/auth': typeof AuthRoute
-  '/calendar': typeof AuthenticatedCalendarRoute
+  '/': typeof GatedIndexRoute
+  '/unlock': typeof UnlockRoute
+  '/calendar': typeof GatedCalendarRoute
 }
 export interface FileRoutesByTo {
-  '/auth': typeof AuthRoute
-  '/calendar': typeof AuthenticatedCalendarRoute
-  '/': typeof AuthenticatedIndexRoute
+  '/unlock': typeof UnlockRoute
+  '/calendar': typeof GatedCalendarRoute
+  '/': typeof GatedIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
-  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
-  '/auth': typeof AuthRoute
-  '/_authenticated/calendar': typeof AuthenticatedCalendarRoute
-  '/_authenticated/': typeof AuthenticatedIndexRoute
+  '/_gated': typeof GatedRouteRouteWithChildren
+  '/unlock': typeof UnlockRoute
+  '/_gated/calendar': typeof GatedCalendarRoute
+  '/_gated/': typeof GatedIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/auth' | '/calendar'
+  fullPaths: '/' | '/unlock' | '/calendar'
   fileRoutesByTo: FileRoutesByTo
-  to: '/auth' | '/calendar' | '/'
-  id:
-    | '__root__'
-    | '/_authenticated'
-    | '/auth'
-    | '/_authenticated/calendar'
-    | '/_authenticated/'
+  to: '/unlock' | '/calendar' | '/'
+  id: '__root__' | '/_gated' | '/unlock' | '/_gated/calendar' | '/_gated/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
-  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
-  AuthRoute: typeof AuthRoute
+  GatedRouteRoute: typeof GatedRouteRouteWithChildren
+  UnlockRoute: typeof UnlockRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/unlock': {
+      id: '/unlock'
+      path: '/unlock'
+      fullPath: '/unlock'
+      preLoaderRoute: typeof UnlockRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated': {
-      id: '/_authenticated'
+    '/_gated': {
+      id: '/_gated'
       path: ''
       fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      preLoaderRoute: typeof GatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/': {
-      id: '/_authenticated/'
+    '/_gated/': {
+      id: '/_gated/'
       path: '/'
       fullPath: '/'
-      preLoaderRoute: typeof AuthenticatedIndexRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      preLoaderRoute: typeof GatedIndexRouteImport
+      parentRoute: typeof GatedRouteRoute
     }
-    '/_authenticated/calendar': {
-      id: '/_authenticated/calendar'
+    '/_gated/calendar': {
+      id: '/_gated/calendar'
       path: '/calendar'
       fullPath: '/calendar'
-      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
+      preLoaderRoute: typeof GatedCalendarRouteImport
+      parentRoute: typeof GatedRouteRoute
     }
   }
 }
 
-interface AuthenticatedRouteRouteChildren {
-  AuthenticatedCalendarRoute: typeof AuthenticatedCalendarRoute
-  AuthenticatedIndexRoute: typeof AuthenticatedIndexRoute
+interface GatedRouteRouteChildren {
+  GatedCalendarRoute: typeof GatedCalendarRoute
+  GatedIndexRoute: typeof GatedIndexRoute
 }
 
-const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
-  AuthenticatedCalendarRoute: AuthenticatedCalendarRoute,
-  AuthenticatedIndexRoute: AuthenticatedIndexRoute,
+const GatedRouteRouteChildren: GatedRouteRouteChildren = {
+  GatedCalendarRoute: GatedCalendarRoute,
+  GatedIndexRoute: GatedIndexRoute,
 }
 
-const AuthenticatedRouteRouteWithChildren =
-  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
+const GatedRouteRouteWithChildren = GatedRouteRoute._addFileChildren(
+  GatedRouteRouteChildren,
+)
 
 const rootRouteChildren: RootRouteChildren = {
-  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
-  AuthRoute: AuthRoute,
+  GatedRouteRoute: GatedRouteRouteWithChildren,
+  UnlockRoute: UnlockRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}
