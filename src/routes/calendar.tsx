@@ -67,10 +67,8 @@ function CalendarPage() {
 
 
   return (
-    <div className="min-h-screen bg-paper text-ink">
-      <Nav />
-
-      <main className="max-w-3xl mx-auto px-6 py-10 space-y-10 paper-grid">
+    <div className="min-h-[100dvh] bg-paper text-ink">
+      <main className="max-w-3xl mx-auto px-6 pt-6 pb-28 space-y-10 paper-grid">
         <section className="relative">
           <img
             src={pinkTape.url}
