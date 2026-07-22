@@ -71,44 +71,44 @@ function CalendarPage() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink">
       <main className="max-w-3xl mx-auto px-5 pt-5 pb-32 space-y-6 paper-grid">
-        <section className="relative">
-          <img
-            src={pinkTape.url}
-            alt=""
-            aria-hidden
-            className="absolute -top-4 right-4 w-20 rotate-6 pointer-events-none select-none opacity-90"
-          />
-          <div className="text-center">
-            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-1.5">
-              A month of small findings
-            </p>
-            <h1 className="font-display text-3xl">{monthLabel}</h1>
-            <p className="text-forest/60 mt-1.5 max-w-md mx-auto text-xs">
-              One quest a day to get you outside. Every polaroid is a day you noticed something.
-            </p>
-          </div>
+        <section className="text-center">
+          <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-1.5">
+            A month of small findings
+          </p>
+          <h1 className="font-display text-3xl">{monthLabel}</h1>
+          <p className="text-forest/60 mt-1.5 max-w-md mx-auto text-xs">
+            One quest a day to get you outside. Every polaroid is a day you noticed something.
+          </p>
         </section>
 
         <section className="grid grid-cols-3 gap-2">
           {[
-            { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days" },
-            { label: "days outside", value: monthCompleted, suffix: `of ${daysInMonth}` },
-            { label: "lucky finds", value: totalFinds, suffix: "all-time" },
+            { label: "streak of luck", value: streak, suffix: streak === 1 ? "day" : "days", bg: "bg-lime/60", ring: "ring-forest/20" },
+            { label: "days outside", value: monthCompleted, suffix: `of ${daysInMonth}`, bg: "bg-sky/50", ring: "ring-forest/20" },
+            { label: "lucky finds", value: totalFinds, suffix: "all-time", bg: "bg-pink/50", ring: "ring-forest/20" },
           ].map((s) => (
             <div
               key={s.label}
-              className="bg-white rounded-xl px-2 py-2.5 text-center ring-1 ring-forest/10 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]"
+              className={cn(
+                "rounded-xl px-2 py-2.5 text-center ring-1 shadow-[0_10px_30px_-18px_rgba(13,61,20,0.35)]",
+                s.bg,
+                s.ring,
+              )}
             >
               <p className="font-display text-2xl leading-none text-forest">{s.value}</p>
-              <p className="text-[9px] uppercase tracking-widest text-forest/50 mt-1.5">{s.label}</p>
-              <p className="text-[9px] text-forest/40 mt-0.5">{s.suffix}</p>
+              <p className="text-[9px] uppercase tracking-widest text-forest/70 mt-1.5">{s.label}</p>
+              <p className="text-[9px] text-forest/50 mt-0.5">{s.suffix}</p>
             </div>
           ))}
         </section>
 
-
-
-        <section className="bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
+        <section className="relative bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
+          <img
+            src={pinkTape.url}
+            alt=""
+            aria-hidden
+            className="absolute -top-4 left-6 w-24 -rotate-6 pointer-events-none select-none drop-shadow-sm"
+          />
           <div className="grid grid-cols-7 gap-1 mb-2">
             {weekdayLabels.map((d) => (
               <div key={d} className="text-center text-[10px] font-semibold uppercase tracking-widest text-forest/40 py-2">
@@ -122,27 +122,29 @@ function CalendarPage() {
               const finding = byDay.get(day);
               const isToday = day === today;
               const isFuture = day > today;
-              const rot = day % 3 === 0 ? "-rotate-[3deg]" : day % 3 === 1 ? "rotate-[2deg]" : "rotate-[-1deg]";
+              // Vary shapes per day for whimsy
+              const shapes = ["rounded-2xl", "rounded-full", "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]", "rounded-[30%]"];
+              const shape = shapes[day % shapes.length];
               return (
                 <div
                   key={idx}
                   className={cn(
-                    "aspect-square relative flex items-center justify-center transition-transform hover:rotate-0 hover:scale-110",
+                    "aspect-square relative flex items-center justify-center transition-transform hover:scale-110",
                     isFuture && !finding && "opacity-40",
                   )}
                   title={finding?.quest_title}
                 >
                   {finding ? (
-                    <div className={cn("absolute inset-0.5 bg-white p-1 pb-2.5 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.4)] ring-1 ring-forest/10 flex flex-col", rot, isToday && "ring-2 ring-forest")}>
+                    <div className={cn("absolute inset-0.5 overflow-hidden ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
                       {finding.photo_url ? (
-                        <img src={finding.photo_url} alt="" className="flex-1 w-full object-cover" />
+                        <img src={finding.photo_url} alt="" className="w-full h-full object-cover" />
                       ) : (
-                        <div className="flex-1 bg-lime" />
+                        <div className="w-full h-full bg-lime" />
                       )}
-                      <span className="absolute bottom-0.5 right-1 text-[8px] font-semibold text-forest/60">{day}</span>
+                      <span className="absolute top-0.5 left-1 text-[9px] font-bold text-forest bg-paper/90 rounded-full px-1 leading-tight">{day}</span>
                     </div>
                   ) : (
-                    <div className={cn("absolute inset-0.5 rounded-xl border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
+                    <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
                       <span className="text-[10px] font-semibold text-forest/30">{day}</span>
                     </div>
                   )}
@@ -151,6 +153,7 @@ function CalendarPage() {
             })}
           </div>
         </section>
+
 
         <section className="space-y-2">
           <div className="flex items-center gap-3">

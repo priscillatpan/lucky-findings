@@ -71,15 +71,15 @@ export function BottomNav() {
         <Link
           to="/"
           activeOptions={{ exact: true }}
-          activeProps={{ className: "bg-forest text-paper shadow-md" }}
-          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/80 hover:bg-forest/10 transition-all"
+          activeProps={{ className: "bg-lime text-forest ring-1 ring-forest/40 shadow-sm" }}
+          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/70 hover:bg-forest/5 transition-all"
         >
           <span>Today</span>
         </Link>
         <Link
           to="/calendar"
-          activeProps={{ className: "bg-forest text-paper shadow-md" }}
-          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/80 hover:bg-forest/10 transition-all"
+          activeProps={{ className: "bg-sky text-forest ring-1 ring-forest/40 shadow-sm" }}
+          className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/70 hover:bg-forest/5 transition-all"
         >
           <span>Calendar</span>
         </Link>
