@@ -45,6 +45,27 @@ function CalendarPage() {
 
   const weekdayLabels = ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"];
 
+  // Stats
+  const monthCompleted = byDay.size;
+  const allDates = new Set((findings ?? []).map((f) => f.completed_on));
+  let streak = 0;
+  {
+    const cur = new Date(now);
+    const iso = (d: Date) => {
+      const y = d.getFullYear();
+      const m = String(d.getMonth() + 1).padStart(2, "0");
+      const dd = String(d.getDate()).padStart(2, "0");
+      return `${y}-${m}-${dd}`;
+    };
+    if (!allDates.has(iso(cur))) cur.setDate(cur.getDate() - 1);
+    while (allDates.has(iso(cur))) {
+      streak++;
+      cur.setDate(cur.getDate() - 1);
+    }
+  }
+  const totalFinds = (findings ?? []).length;
+
+
   return (
     <div className="min-h-screen bg-paper text-ink">
       <Nav />
