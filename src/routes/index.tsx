@@ -4,6 +4,7 @@ import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
+import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 
