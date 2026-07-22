@@ -1,6 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { Nav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
+import pinkTape from "@/assets/tape_2.png.asset.json";
+import leafTape from "@/assets/tape_1.png.asset.json";
+import badgeCloud from "@/assets/badge_1.png.asset.json";
+import badgeCherry from "@/assets/badge_2.png.asset.json";
+import badgeApple from "@/assets/badge_3.png.asset.json";
 
 export const Route = createFileRoute("/calendar")({
   head: () => ({
