@@ -5,9 +5,8 @@ import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { QUESTS, questForDate } from "@/data/quests";
+import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
-import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
