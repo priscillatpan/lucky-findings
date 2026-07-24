@@ -2,11 +2,12 @@ import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { BottomNav } from "@/components/lucky/Nav";
-import cloverTape from "@/assets/tape_3.png.asset.json";
+import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { questForDate } from "@/data/quests";
+import { QUESTS, questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
+import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -76,7 +77,7 @@ function computeStreak(dates: string[]): number {
 
 function Home() {
   const today = new Date();
-  const quest = questForDate(today);
+  const realQuest = questForDate(today);
   const qc = useQueryClient();
 
   const { data: todayFinding } = useQuery({
@@ -93,6 +94,17 @@ function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
   const [caption, setCaption] = useState("");
+  const [cycleIdx, setCycleIdx] = useState(0);
+  const done = !!todayFinding;
+  const shouldCycle = !done && !pending;
+
+  useEffect(() => {
+    if (!shouldCycle) return;
+    const id = setInterval(() => setCycleIdx((i) => i + 1), 500);
+    return () => clearInterval(id);
+  }, [shouldCycle]);
+
+  const quest = shouldCycle ? QUESTS[cycleIdx % QUESTS.length] : realQuest;
 
   const save = useMutation({
     mutationFn: async () => {
@@ -119,7 +131,6 @@ function Home() {
     setPending({ file, preview: URL.createObjectURL(file) });
   }
 
-  const done = !!todayFinding;
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-paper text-ink paper-grid relative overflow-hidden">
@@ -158,7 +169,7 @@ function Home() {
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
             />
 
 
