@@ -25,10 +25,11 @@ export type FindingWithUrl = FindingRow & { photo_url: string };
 export async function signPhoto(
   admin: Awaited<ReturnType<typeof getAdmin>>,
   path: string,
+  transform?: { width: number; height: number; resize?: "cover" | "contain" | "fill"; quality?: number },
 ): Promise<string> {
   const { data, error } = await admin.storage
     .from(BUCKET)
-    .createSignedUrl(path, 60 * 60);
+    .createSignedUrl(path, 60 * 60, transform ? { transform } : undefined);
   if (error || !data) return "";
   return data.signedUrl;
 }
