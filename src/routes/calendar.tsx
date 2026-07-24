@@ -138,7 +138,7 @@ function CalendarPage() {
                     <>
                       <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
                         {finding.photo_url ? (
-                          <img src={finding.photo_url} alt="" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
+                          <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
                         ) : (
                           <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
                         )}
@@ -173,7 +173,7 @@ function CalendarPage() {
                 <li key={f.id} className="flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5">
                   <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
                     {f.photo_url ? (
-                      <img src={f.photo_url} alt="" className="size-9 object-cover" />
+                      <img src={f.thumb_url || f.photo_url} alt="" loading="lazy" decoding="async" className="size-9 object-cover" />
                     ) : (
                       <div className="size-9 bg-lime" />
                     )}
