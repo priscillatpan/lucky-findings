@@ -10,6 +10,7 @@
 
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UiKitRouteImport } from './routes/ui-kit'
+import { Route as MockupFlashRouteImport } from './routes/mockup-flash'
 import { Route as MockupRouteImport } from './routes/mockup'
 import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
@@ -18,6 +19,11 @@ import { Route as ApiPublicSeedJulyRouteImport } from './routes/api/public/seed-
 const UiKitRoute = UiKitRouteImport.update({
   id: '/ui-kit',
   path: '/ui-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const MockupFlashRoute = MockupFlashRouteImport.update({
+  id: '/mockup-flash',
+  path: '/mockup-flash',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MockupRoute = MockupRouteImport.update({
@@ -45,6 +51,7 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
@@ -52,6 +59,7 @@ export interface FileRoutesByTo {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
@@ -60,19 +68,33 @@ export interface FileRoutesById {
   '/': typeof IndexRoute
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
+  '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/calendar' | '/mockup' | '/ui-kit' | '/api/public/seed-july'
+  fullPaths:
+    | '/'
+    | '/calendar'
+    | '/mockup'
+    | '/mockup-flash'
+    | '/ui-kit'
+    | '/api/public/seed-july'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/calendar' | '/mockup' | '/ui-kit' | '/api/public/seed-july'
+  to:
+    | '/'
+    | '/calendar'
+    | '/mockup'
+    | '/mockup-flash'
+    | '/ui-kit'
+    | '/api/public/seed-july'
   id:
     | '__root__'
     | '/'
     | '/calendar'
     | '/mockup'
+    | '/mockup-flash'
     | '/ui-kit'
     | '/api/public/seed-july'
   fileRoutesById: FileRoutesById
@@ -81,6 +103,7 @@ export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   CalendarRoute: typeof CalendarRoute
   MockupRoute: typeof MockupRoute
+  MockupFlashRoute: typeof MockupFlashRoute
   UiKitRoute: typeof UiKitRoute
   ApiPublicSeedJulyRoute: typeof ApiPublicSeedJulyRoute
 }
@@ -92,6 +115,13 @@ declare module '@tanstack/react-router' {
       path: '/ui-kit'
       fullPath: '/ui-kit'
       preLoaderRoute: typeof UiKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/mockup-flash': {
+      id: '/mockup-flash'
+      path: '/mockup-flash'
+      fullPath: '/mockup-flash'
+      preLoaderRoute: typeof MockupFlashRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mockup': {
@@ -129,6 +159,7 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   CalendarRoute: CalendarRoute,
   MockupRoute: MockupRoute,
+  MockupFlashRoute: MockupFlashRoute,
   UiKitRoute: UiKitRoute,
   ApiPublicSeedJulyRoute: ApiPublicSeedJulyRoute,
 }
