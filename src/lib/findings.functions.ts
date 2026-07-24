@@ -43,7 +43,7 @@ export const getFindingForDateFn = createServerFn({ method: "GET" })
       .maybeSingle();
     if (error) throw error;
     if (!row) return null;
-    return { ...row, photo_url: await signPhoto(admin, row.photo_path) };
+    return { ...row, photo_url: await signPhoto(admin, row.photo_path, { width: 800, height: 800, resize: "contain", quality: 80 }) };
   });
 
 export const saveFindingFn = createServerFn({ method: "POST" })
