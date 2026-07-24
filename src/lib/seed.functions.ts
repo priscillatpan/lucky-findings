@@ -44,6 +44,7 @@ export const seedJulyMockFn = createServerFn({ method: "POST" }).handler(async (
     .eq("user_id", owner)
     .gte("completed_on", "2026-07-01")
     .lte("completed_on", "2026-07-31")
+    .like("photo_path", "mock/%")
     .not("completed_on", "in", `(${keepDates.map((d) => `"${d}"`).join(",")})`);
 
   const payload = rows.map((r) => ({
