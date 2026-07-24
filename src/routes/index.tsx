@@ -131,7 +131,6 @@ function Home() {
     setPending({ file, preview: URL.createObjectURL(file) });
   }
 
-  const done = !!todayFinding;
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-paper text-ink paper-grid relative overflow-hidden">
