@@ -169,7 +169,7 @@ function Home() {
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm"
             />
 
 
