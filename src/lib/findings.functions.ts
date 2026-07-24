@@ -19,7 +19,11 @@ export const listFindingsFn = createServerFn({ method: "GET" }).handler(async ()
   if (error) throw error;
   const rows = data ?? [];
   return Promise.all(
-    rows.map(async (r) => ({ ...r, photo_url: await signPhoto(admin, r.photo_path) })),
+    rows.map(async (r) => ({
+      ...r,
+      photo_url: await signPhoto(admin, r.photo_path, { width: 800, height: 800, resize: "contain", quality: 75 }),
+      thumb_url: await signPhoto(admin, r.photo_path, { width: 160, height: 160, resize: "cover", quality: 60 }),
+    })),
   );
 });
 
