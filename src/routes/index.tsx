@@ -133,43 +133,43 @@ function Home() {
         <img src={cloverIcon.url} alt="" aria-hidden className="size-4 -rotate-6 object-contain opacity-90" />
         <span className="font-display text-sm tracking-tight text-forest/80">Lucky Findings</span>
       </header>
-      <main className="flex-1 flex flex-col items-center justify-center px-5 pt-4 pb-28 relative">
+      <main className="flex-1 flex flex-col items-center justify-center px-5 pt-2 pb-24 relative">
 
-        <section className="w-full max-w-[19rem]">
+        <section className="w-full max-w-[18rem]">
 
           <div className="text-center mb-1">
             <img
               src={cloverIcon.url}
               alt=""
               aria-hidden
-              className="size-8 mx-auto mb-2 -rotate-6 object-contain opacity-90"
+              className="size-6 mx-auto mb-1.5 -rotate-6 object-contain opacity-90"
             />
-            <h2 className="font-display text-3xl leading-none">
+            <h2 className="font-display text-2xl leading-none">
               {done ? "Today's find" : "Today's Quest"}
             </h2>
-            <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
+            <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
               {formatDate(today)}
             </p>
 
           </div>
 
-          <div className="relative mt-6">
+          <div className="relative mt-5">
             <img
               src={cloverTape.url}
               alt=""
               aria-hidden
-              className="absolute -top-5 left-1/2 -translate-x-1/2 w-36 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-32 -rotate-3 z-10 pointer-events-none select-none drop-shadow-sm bg-card"
             />
 
 
-            <article className={`bg-card rounded-2xl p-5 pt-8 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative`}>
-              <span className="absolute top-3 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
+            <article className={`bg-card rounded-2xl p-4 pt-7 shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative`}>
+              <span className="absolute top-2.5 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
                 <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
                 {quest.category}
               </span>
               {done && todayFinding ? (
                 <>
-                  <div className="bg-card p-1.5 pb-3 -rotate-2 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-1.5 pb-2.5 -rotate-2 shadow-md ring-1 ring-forest/10">
                     {todayFinding.photo_url ? (
                       <img
                         src={todayFinding.photo_url}
@@ -180,21 +180,21 @@ function Home() {
                       <div className="w-full aspect-square bg-paper" />
                     )}
                   </div>
-                  <p className="font-display text-base text-center mt-3 text-balance leading-tight">
+                  <p className="font-display text-sm text-center mt-2.5 text-balance leading-tight">
                     {todayFinding.quest_title}
                   </p>
                   {todayFinding.caption && (
-                    <p className="text-xs text-ink/70 text-center mt-1 italic">
+                    <p className="text-[11px] text-ink/70 text-center mt-1 italic">
                       "{todayFinding.caption}"
                     </p>
                   )}
-                  <p className="mt-2 text-center text-[9px] uppercase tracking-widest text-forest/60">
+                  <p className="mt-1.5 text-center text-[9px] uppercase tracking-widest text-forest/60">
                     ✓ Logged for today
                   </p>
                 </>
               ) : pending ? (
                 <>
-                  <div className="bg-card p-1.5 pb-3 -rotate-1 shadow-md ring-1 ring-forest/10">
+                  <div className="bg-card p-1.5 pb-2.5 -rotate-1 shadow-md ring-1 ring-forest/10">
                     <img src={pending.preview} alt="" className="w-full aspect-square object-cover" />
                   </div>
                   <input
@@ -202,7 +202,7 @@ function Home() {
                     placeholder="a little caption (optional)"
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="w-full mt-3 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 text-xs outline-none focus:ring-forest/40"
+                    className="w-full mt-2.5 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 text-xs outline-none focus:ring-forest/40"
                   />
                   {save.error && (
                     <p className="text-xs text-red-700 mt-2">
@@ -211,11 +211,11 @@ function Home() {
                   )}
                 </>
               ) : (
-                <header className="text-center pt-1">
-                  <h1 className="font-display text-xl leading-tight text-balance">
+                <header className="text-center pt-1 pb-1">
+                  <h1 className="font-display text-lg leading-tight text-balance">
                     {quest.title}
                   </h1>
-                  <p className="text-xs text-ink/75 mt-2 max-w-[24ch] mx-auto">
+                  <p className="text-[11px] text-ink/75 mt-1.5 max-w-[24ch] mx-auto">
                     {quest.hint}
                   </p>
                 </header>
@@ -239,7 +239,7 @@ function Home() {
                     type="button"
                     disabled={save.isPending}
                     onClick={() => save.mutate()}
-                    className="w-full mt-4 bg-forest text-paper py-2.5 rounded-xl font-display text-base disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
+                    className="w-full mt-3 bg-forest text-paper py-2 rounded-xl font-display text-base disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
                   >
                     {save.isPending ? "Saving…" : "Check it off"}
                   </button>
@@ -258,7 +258,7 @@ function Home() {
                 <button
                   type="button"
                   onClick={() => fileRef.current?.click()}
-                  className="w-full mt-4 bg-forest text-paper py-2.5 rounded-xl font-display text-base shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
+                  className="w-full mt-3 bg-forest text-paper py-2 rounded-xl font-display text-base shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)] hover:bg-forest/90 active:scale-[0.98] transition-all"
                 >
                   Complete!
                 </button>
@@ -266,8 +266,8 @@ function Home() {
             </>
           )}
 
-          <p className="text-center mt-4 text-[10px] font-semibold uppercase tracking-[0.25em] text-forest/50">
-            one little reason to go outside · streak {streak}
+          <p className="text-center mt-3 text-[10px] font-semibold uppercase tracking-[0.25em] text-forest/50">
+            takes 5 minutes · streak {streak}
           </p>
         </section>
       </main>
