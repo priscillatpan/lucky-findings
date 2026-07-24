@@ -77,7 +77,7 @@ function computeStreak(dates: string[]): number {
 
 function Home() {
   const today = new Date();
-  const quest = questForDate(today);
+  const realQuest = questForDate(today);
   const qc = useQueryClient();
 
   const { data: todayFinding } = useQuery({
