@@ -17,7 +17,7 @@ export type FindingRow = {
   created_at: string;
 };
 
-export type FindingWithUrl = FindingRow & { photo_url: string };
+export type FindingWithUrl = FindingRow & { photo_url: string; thumb_url?: string };
 
 export async function listFindings(): Promise<FindingWithUrl[]> {
   return (await listFindingsFn()) as FindingWithUrl[];
