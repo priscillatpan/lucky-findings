@@ -164,7 +164,7 @@ function Home() {
             />
 
 
-            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative ${shouldCycle ? 'flex flex-col justify-center' : ''}`}>
+            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative flex flex-col justify-center`}>
               <span className="absolute top-2.5 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
                 <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
                 {quest.category}
