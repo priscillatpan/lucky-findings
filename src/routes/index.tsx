@@ -94,6 +94,17 @@ function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
   const [caption, setCaption] = useState("");
+  const [cycleIdx, setCycleIdx] = useState(0);
+  const done = !!todayFinding;
+  const shouldCycle = !done && !pending;
+
+  useEffect(() => {
+    if (!shouldCycle) return;
+    const id = setInterval(() => setCycleIdx((i) => i + 1), 500);
+    return () => clearInterval(id);
+  }, [shouldCycle]);
+
+  const quest = shouldCycle ? QUESTS[cycleIdx % QUESTS.length] : realQuest;
 
   const save = useMutation({
     mutationFn: async () => {
