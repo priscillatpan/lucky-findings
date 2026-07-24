@@ -135,14 +135,16 @@ function CalendarPage() {
                   title={finding?.quest_title}
                 >
                   {finding ? (
-                    <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
-                      {finding.photo_url ? (
-                        <img src={finding.photo_url} alt="" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
-                      ) : (
-                        <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
-                      )}
-                      <span className="absolute top-0.5 left-1 z-10 text-[9px] font-bold text-forest bg-paper/90 rounded-full px-1 leading-tight">{day}</span>
-                    </div>
+                    <>
+                      <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
+                        {finding.photo_url ? (
+                          <img src={finding.photo_url} alt="" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
+                        ) : (
+                          <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
+                        )}
+                      </div>
+                      <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
+                    </>
                   ) : (
                     <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
                       <span className="text-[10px] font-semibold text-forest/30">{day}</span>
