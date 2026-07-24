@@ -5,9 +5,8 @@ import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { QUESTS, questForDate } from "@/data/quests";
+import { questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
-import { useEffect } from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,17 +93,9 @@ function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
   const [caption, setCaption] = useState("");
-  const [cycleIdx, setCycleIdx] = useState(0);
   const done = !!todayFinding;
-  const shouldCycle = !done && !pending;
 
-  useEffect(() => {
-    if (!shouldCycle) return;
-    const id = setInterval(() => setCycleIdx((i) => i + 1), 500);
-    return () => clearInterval(id);
-  }, [shouldCycle]);
-
-  const quest = shouldCycle ? QUESTS[cycleIdx % QUESTS.length] : realQuest;
+  const quest = realQuest;
 
   const save = useMutation({
     mutationFn: async () => {
@@ -173,7 +164,7 @@ function Home() {
             />
 
 
-            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative ${shouldCycle ? 'flex flex-col justify-center' : ''}`}>
+            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative flex flex-col justify-center`}>
               <span className="absolute top-2.5 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
                 <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
                 {quest.category}
