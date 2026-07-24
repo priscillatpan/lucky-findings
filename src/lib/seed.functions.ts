@@ -24,7 +24,7 @@ export const seedJulyMockFn = createServerFn({ method: "POST" }).handler(async (
   // Each real photo used on exactly one day. Other July days stay empty
   // until the user uploads more (via the app's camera flow, or more chat uploads).
   const rows = [
-    { iso: "2026-07-01", id: "n8", title: "Notice one color that keeps repeating.", category: "Notice", caption: "turquoise everywhere today", photo: "mock/p12.jpg" },
+    { iso: "2026-07-21", id: "n8", title: "Notice one color that keeps repeating.", category: "Notice", caption: "turquoise everywhere today", photo: "mock/p12.jpg" },
     { iso: "2026-07-02", id: "n6", title: "Find where the light hits weirdest.", category: "Notice", caption: "sunlight over the bridge", photo: "mock/p2.jpg" },
     { iso: "2026-07-03", id: "s1", title: "Look through a patch of clovers.", category: "Search", caption: "FOUR LEAVES!! today feels lucky", photo: "mock/p11.jpg" },
     { iso: "2026-07-04", id: "n9", title: "Watch the sky until the sun goes down.", category: "Notice", caption: "two gulls at golden hour", photo: "mock/p13.jpg" },
