@@ -138,7 +138,7 @@ function CalendarPage() {
                     <>
                       <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
                         {finding.photo_url ? (
-                          <img src={finding.photo_url} alt="" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
+                          <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
                         ) : (
                           <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
                         )}
