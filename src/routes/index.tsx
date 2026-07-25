@@ -6,7 +6,7 @@ import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { isoDate, questForDate } from "@/data/quests";
-import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
+import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 export const Route = createFileRoute("/")({
