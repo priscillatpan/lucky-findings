@@ -139,6 +139,7 @@ function Home() {
 
   return (
     <div className="min-h-[100dvh] flex flex-col bg-paper text-ink paper-grid relative overflow-hidden">
+      {celebrate && <CloverConfetti />}
       <img
         src={cloverBg.url}
         alt=""
@@ -204,9 +205,16 @@ function Home() {
                       "{todayFinding.caption}"
                     </p>
                   )}
-                  <p className="mt-1.5 text-center text-[9px] uppercase tracking-widest text-forest/60">
-                    ✓ Logged for today
-                  </p>
+                  {celebrate ? (
+                    <div className="mt-2 mx-auto flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1 animate-scale-in">
+                      <span className="font-display text-xs text-ink">Lucky find logged!</span>
+                      <span className="text-sm">🍀</span>
+                    </div>
+                  ) : (
+                    <p className="mt-1.5 text-center text-[9px] uppercase tracking-widest text-forest/60">
+                      ✓ Logged for today
+                    </p>
+                  )}
                 </>
               ) : pending ? (
                 <>
