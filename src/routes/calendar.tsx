@@ -159,6 +159,8 @@ function CalendarPage() {
                       </div>
                       <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
                     </>
+                  ) : loading ? (
+                    <div className={cn("absolute inset-0.5 bg-forest/5 animate-pulse", shape)} />
                   ) : (
                     <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
                       <span className="text-[10px] font-semibold text-forest/30">{day}</span>
