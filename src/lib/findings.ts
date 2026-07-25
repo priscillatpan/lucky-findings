@@ -27,7 +27,7 @@ export async function getFindingForDate(date: Date): Promise<FindingWithUrl | nu
   return (await getFindingForDateFn({ data: { date: isoDate(date) } })) as FindingWithUrl | null;
 }
 
-function fileToBase64(file: File): Promise<string> {
+function blobToBase64(blob: Blob): Promise<string> {
   return new Promise((resolve, reject) => {
     const reader = new FileReader();
     reader.onload = () => {
@@ -36,8 +36,48 @@ function fileToBase64(file: File): Promise<string> {
       resolve(comma >= 0 ? result.slice(comma + 1) : result);
     };
     reader.onerror = () => reject(reader.error);
-    reader.readAsDataURL(file);
+    reader.readAsDataURL(blob);
   });
+}
+
+async function compressImage(
+  file: File,
+  maxDim = 1600,
+  quality = 0.85,
+): Promise<{ blob: Blob; ext: string; type: string }> {
+  if (!file.type.startsWith("image/") || typeof createImageBitmap === "undefined") {
+    return {
+      blob: file,
+      ext: file.name.split(".").pop()?.toLowerCase() || "jpg",
+      type: file.type || "image/jpeg",
+    };
+  }
+  try {
+    const bitmap = await createImageBitmap(file);
+    const scale = Math.min(1, maxDim / Math.max(bitmap.width, bitmap.height));
+    const w = Math.max(1, Math.round(bitmap.width * scale));
+    const h = Math.max(1, Math.round(bitmap.height * scale));
+    const canvas = document.createElement("canvas");
+    canvas.width = w;
+    canvas.height = h;
+    const ctx = canvas.getContext("2d");
+    if (!ctx) throw new Error("no ctx");
+    ctx.drawImage(bitmap, 0, 0, w, h);
+    const blob: Blob = await new Promise((resolve, reject) =>
+      canvas.toBlob(
+        (b) => (b ? resolve(b) : reject(new Error("toBlob failed"))),
+        "image/jpeg",
+        quality,
+      ),
+    );
+    return { blob, ext: "jpg", type: "image/jpeg" };
+  } catch {
+    return {
+      blob: file,
+      ext: file.name.split(".").pop()?.toLowerCase() || "jpg",
+      type: file.type || "image/jpeg",
+    };
+  }
 }
 
 export async function saveFinding(input: {
@@ -47,8 +87,8 @@ export async function saveFinding(input: {
   questCategory: QuestCategory;
   caption?: string;
 }): Promise<FindingWithUrl> {
-  const photoBase64 = await fileToBase64(input.file);
-  const ext = input.file.name.split(".").pop()?.toLowerCase() || "jpg";
+  const { blob, ext, type } = await compressImage(input.file);
+  const photoBase64 = await blobToBase64(blob);
   return (await saveFindingFn({
     data: {
       questId: input.questId,
@@ -56,7 +96,7 @@ export async function saveFinding(input: {
       questCategory: input.questCategory,
       caption: input.caption ?? null,
       photoBase64,
-      contentType: input.file.type || "image/jpeg",
+      contentType: type,
       ext,
     },
   })) as FindingWithUrl;
