@@ -99,12 +99,22 @@ function CalendarPage() {
                 s.ring,
               )}
             >
-              <p className="font-display text-2xl leading-none text-forest">{s.value}</p>
+              <p className="font-display text-2xl leading-none text-forest">
+                {loading ? <span className="inline-block h-5 w-6 rounded bg-forest/10 animate-pulse align-middle" /> : s.value}
+              </p>
               <p className="text-[9px] uppercase tracking-widest text-forest/70 mt-1.5">{s.label}</p>
-              <p className="text-[9px] text-forest/50 mt-0.5">{s.suffix}</p>
+              <p className="text-[9px] text-forest/50 mt-0.5">{loading ? "loading…" : s.suffix}</p>
             </div>
           ))}
         </section>
+        {isError && (
+          <div className="text-center text-xs text-forest/70 bg-butter/60 ring-1 ring-forest/15 rounded-lg py-2 px-3">
+            Couldn't load your finds just now — nothing's lost.{" "}
+            <button onClick={() => refetch()} className="underline font-semibold">
+              {isFetching ? "retrying…" : "try again"}
+            </button>
+          </div>
+        )}
 
         <section className="relative bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
           <img
