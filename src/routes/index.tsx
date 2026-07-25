@@ -5,7 +5,7 @@ import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { questForDate } from "@/data/quests";
+import { isoDate, questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 
 export const Route = createFileRoute("/")({
@@ -76,11 +76,12 @@ function computeStreak(dates: string[]): number {
 
 function Home() {
   const today = new Date();
+  const todayKey = isoDate(today);
   const realQuest = questForDate(today);
   const qc = useQueryClient();
 
   const { data: todayFinding } = useQuery({
-    queryKey: ["finding", "today"],
+    queryKey: ["finding", todayKey],
     queryFn: () => getFindingForDate(today),
   });
   const { data: all } = useQuery({
@@ -108,10 +109,11 @@ function Home() {
         caption: caption.trim() || undefined,
       });
     },
-    onSuccess: () => {
+    onSuccess: (finding) => {
+      qc.setQueryData(["finding", todayKey], finding);
       setPending(null);
       setCaption("");
-      qc.invalidateQueries({ queryKey: ["finding", "today"] });
+      qc.invalidateQueries({ queryKey: ["finding", todayKey] });
       qc.invalidateQueries({ queryKey: ["findings"] });
     },
     onError: (err) => {
