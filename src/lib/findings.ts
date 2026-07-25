@@ -87,6 +87,7 @@ export async function saveFinding(input: {
   questCategory: QuestCategory;
   caption?: string;
 }): Promise<FindingWithUrl> {
+  const completedOn = isoDate(new Date());
   const { blob, ext, type } = await compressImage(input.file);
   const photoBase64 = await blobToBase64(blob);
   return (await saveFindingFn({
@@ -98,6 +99,7 @@ export async function saveFinding(input: {
       photoBase64,
       contentType: type,
       ext,
+      completedOn,
     },
   })) as FindingWithUrl;
 }

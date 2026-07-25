@@ -1,13 +1,5 @@
 import { createServerFn } from "@tanstack/react-start";
 
-function isoToday() {
-  const d = new Date();
-  const y = d.getFullYear();
-  const m = String(d.getMonth() + 1).padStart(2, "0");
-  const dd = String(d.getDate()).padStart(2, "0");
-  return `${y}-${m}-${dd}`;
-}
-
 export const listFindingsFn = createServerFn({ method: "GET" }).handler(async () => {
   const { ownerId, getAdmin, signPhoto } = await import("./findings.server");
   const admin = await getAdmin();
@@ -56,9 +48,11 @@ export const saveFindingFn = createServerFn({ method: "POST" })
       photoBase64: string;
       contentType: string;
       ext: string;
+      completedOn: string;
     }) => {
       if (!data?.questId || !data?.questTitle || !data?.questCategory) throw new Error("Missing quest");
       if (!data?.photoBase64) throw new Error("Missing photo");
+      if (!/^\d{4}-\d{2}-\d{2}$/.test(data.completedOn ?? "")) throw new Error("Bad date");
       if (data.photoBase64.length > 12_000_000) throw new Error("Photo too large");
       return data;
     },
@@ -67,9 +61,8 @@ export const saveFindingFn = createServerFn({ method: "POST" })
     const { ownerId, getAdmin, BUCKET, signPhoto } = await import("./findings.server");
     const admin = await getAdmin();
 
-    const today = isoToday();
     const safeExt = (data.ext || "jpg").replace(/[^a-z0-9]/gi, "").slice(0, 5) || "jpg";
-    const path = `${ownerId()}/${today}-${Date.now()}.${safeExt}`;
+    const path = `${ownerId()}/${data.completedOn}-${Date.now()}.${safeExt}`;
     const bytes = Buffer.from(data.photoBase64, "base64");
 
     const { error: upErr } = await admin.storage
@@ -91,7 +84,7 @@ export const saveFindingFn = createServerFn({ method: "POST" })
           quest_category: data.questCategory,
           photo_path: path,
           caption: data.caption ?? null,
-          completed_on: today,
+          completed_on: data.completedOn,
         },
         { onConflict: "user_id,completed_on" },
       )
