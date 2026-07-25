@@ -224,10 +224,11 @@ function Home() {
                     </p>
                   )}
                   <div className="mt-2 flex flex-col items-center gap-2">
-                    <div className="flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1 animate-scale-in">
-                      <span className="font-display text-xs text-ink">Lucky find logged!</span>
+                    <div className="flex items-center gap-1.5 rounded-lg bg-lime/40 border border-dashed border-forest/40 px-3 py-1.5 -rotate-1 animate-scale-in shadow-none">
+                      <span className="font-display text-xs text-forest/90">Lucky find logged!</span>
                       <span className="text-sm">🍀</span>
                     </div>
+
                     <button
                       type="button"
                       onClick={() => {
