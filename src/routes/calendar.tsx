@@ -20,10 +20,14 @@ export const Route = createFileRoute("/calendar")({
 });
 
 function CalendarPage() {
-  const { data: findings } = useQuery({
+  const { data: findings, isPending, isError, refetch, isFetching } = useQuery({
     queryKey: ["findings"],
     queryFn: () => listFindings(),
+    staleTime: 60_000,
+    gcTime: 10 * 60_000,
+    retry: 3,
   });
+  const loading = isPending || (isError && !findings);
 
   const now = new Date();
   const year = now.getFullYear();
