@@ -221,26 +221,29 @@ function Home() {
                       "{todayFinding.caption}"
                     </p>
                   )}
-                  {celebrate ? (
-                    <div className="mt-2 flex flex-col items-center gap-1.5 animate-scale-in">
-                      <div className="flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1">
+                  <div className="mt-2 flex flex-col items-center gap-1.5">
+                    {celebrate ? (
+                      <div className="flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1 animate-scale-in">
                         <span className="font-display text-xs text-ink">Lucky find logged!</span>
                         <span className="text-sm">🍀</span>
                       </div>
-                      <button
-                        type="button"
-                        onClick={() => undo.mutate()}
-                        disabled={undo.isPending}
-                        className="text-[10px] font-semibold uppercase tracking-widest text-forest/70 underline underline-offset-4 decoration-forest/30 hover:text-forest disabled:opacity-50"
-                      >
-                        {undo.isPending ? "Undoing…" : "Undo · reupload"}
-                      </button>
-                    </div>
-                  ) : (
-                    <p className="mt-1.5 text-center text-[9px] uppercase tracking-widest text-forest/60">
-                      ✓ Logged for today
-                    </p>
-                  )}
+                    ) : (
+                      <p className="text-[9px] uppercase tracking-widest text-forest/60">
+                        ✓ Logged for today
+                      </p>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        if (typeof window !== "undefined" && !window.confirm("Undo today's find and reupload?")) return;
+                        undo.mutate();
+                      }}
+                      disabled={undo.isPending}
+                      className="text-[10px] font-semibold uppercase tracking-widest text-forest/70 underline underline-offset-4 decoration-forest/30 hover:text-forest disabled:opacity-50"
+                    >
+                      {undo.isPending ? "Undoing…" : "Undo · reupload"}
+                    </button>
+                  </div>
                 </>
               ) : pending ? (
                 <>
