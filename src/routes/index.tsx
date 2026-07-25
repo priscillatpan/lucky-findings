@@ -1,6 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { RotateCcw } from "lucide-react";
 import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
@@ -8,6 +9,7 @@ import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { isoDate, questForDate } from "@/data/quests";
 import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
+
 
 export const Route = createFileRoute("/")({
   head: () => ({
