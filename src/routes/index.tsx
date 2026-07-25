@@ -114,6 +114,12 @@ function Home() {
       qc.invalidateQueries({ queryKey: ["finding", "today"] });
       qc.invalidateQueries({ queryKey: ["findings"] });
     },
+    onError: (err) => {
+      console.error("saveFinding failed", err);
+      if (typeof window !== "undefined") {
+        window.alert(`Couldn't save: ${(err as Error).message}`);
+      }
+    },
   });
 
   function onPick(e: React.ChangeEvent<HTMLInputElement>) {
