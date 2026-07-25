@@ -6,7 +6,7 @@ import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { isoDate, questForDate } from "@/data/quests";
-import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
+import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 export const Route = createFileRoute("/")({
@@ -130,6 +130,22 @@ function Home() {
     },
   });
 
+  const undo = useMutation({
+    mutationFn: () => deleteFindingForDate(today),
+    onSuccess: () => {
+      qc.setQueryData(["finding", todayKey], null);
+      setCelebrate(false);
+      qc.invalidateQueries({ queryKey: ["finding", todayKey] });
+      qc.invalidateQueries({ queryKey: ["findings"] });
+    },
+    onError: (err) => {
+      console.error("undo failed", err);
+      if (typeof window !== "undefined") {
+        window.alert(`Couldn't undo: ${(err as Error).message}`);
+      }
+    },
+  });
+
   function onPick(e: React.ChangeEvent<HTMLInputElement>) {
     const file = e.target.files?.[0];
     if (!file) return;
@@ -206,9 +222,19 @@ function Home() {
                     </p>
                   )}
                   {celebrate ? (
-                    <div className="mt-2 mx-auto flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1 animate-scale-in">
-                      <span className="font-display text-xs text-ink">Lucky find logged!</span>
-                      <span className="text-sm">🍀</span>
+                    <div className="mt-2 flex flex-col items-center gap-1.5 animate-scale-in">
+                      <div className="flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1">
+                        <span className="font-display text-xs text-ink">Lucky find logged!</span>
+                        <span className="text-sm">🍀</span>
+                      </div>
+                      <button
+                        type="button"
+                        onClick={() => undo.mutate()}
+                        disabled={undo.isPending}
+                        className="text-[10px] font-semibold uppercase tracking-widest text-forest/70 underline underline-offset-4 decoration-forest/30 hover:text-forest disabled:opacity-50"
+                      >
+                        {undo.isPending ? "Undoing…" : "Undo · reupload"}
+                      </button>
                     </div>
                   ) : (
                     <p className="mt-1.5 text-center text-[9px] uppercase tracking-widest text-forest/60">

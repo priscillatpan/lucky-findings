@@ -3,6 +3,7 @@ import {
   listFindingsFn,
   getFindingForDateFn,
   saveFindingFn,
+  deleteFindingForDateFn,
 } from "./findings.functions";
 
 export type FindingRow = {
@@ -25,6 +26,10 @@ export async function listFindings(): Promise<FindingWithUrl[]> {
 
 export async function getFindingForDate(date: Date): Promise<FindingWithUrl | null> {
   return (await getFindingForDateFn({ data: { date: isoDate(date) } })) as FindingWithUrl | null;
+}
+
+export async function deleteFindingForDate(date: Date): Promise<void> {
+  await deleteFindingForDateFn({ data: { date: isoDate(date) } });
 }
 
 function blobToBase64(blob: Blob): Promise<string> {
