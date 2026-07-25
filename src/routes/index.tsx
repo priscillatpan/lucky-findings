@@ -223,7 +223,7 @@ function Home() {
                       "{todayFinding.caption}"
                     </p>
                   )}
-                  <div className="mt-2 flex flex-col items-center gap-1.5">
+                  <div className="mt-2 flex flex-col items-center gap-2">
                     <div className="flex items-center gap-1.5 rounded-full bg-lime/70 ring-1 ring-forest/40 px-3 py-1 animate-scale-in">
                       <span className="font-display text-xs text-ink">Lucky find logged!</span>
                       <span className="text-sm">🍀</span>
@@ -235,11 +235,14 @@ function Home() {
                         undo.mutate();
                       }}
                       disabled={undo.isPending}
-                      className="text-[10px] font-semibold uppercase tracking-widest text-forest/70 underline underline-offset-4 decoration-forest/30 hover:text-forest disabled:opacity-50"
+                      className="group flex items-center gap-1 text-[11px] text-forest/60 hover:text-forest disabled:opacity-50 transition-colors"
+                      aria-label="Reupload today's photo"
                     >
-                      {undo.isPending ? "Reuploading…" : "reupload"}
+                      <RotateCcw className="size-3 transition-transform group-hover:-rotate-90" aria-hidden />
+                      {undo.isPending ? "Reuploading…" : "Reupload photo"}
                     </button>
                   </div>
+
                 </>
               ) : pending ? (
                 <>
