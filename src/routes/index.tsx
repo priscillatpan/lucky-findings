@@ -235,13 +235,13 @@ function Home() {
                     <button
                       type="button"
                       onClick={() => {
-                        if (typeof window !== "undefined" && !window.confirm("Undo today's find and reupload?")) return;
+                        if (typeof window !== "undefined" && !window.confirm("Reupload today's find?")) return;
                         undo.mutate();
                       }}
                       disabled={undo.isPending}
                       className="text-[10px] font-semibold uppercase tracking-widest text-forest/70 underline underline-offset-4 decoration-forest/30 hover:text-forest disabled:opacity-50"
                     >
-                      {undo.isPending ? "Undoing…" : "Undo · reupload"}
+                      {undo.isPending ? "Reuploading…" : "reupload"}
                     </button>
                   </div>
                 </>
