@@ -20,10 +20,14 @@ export const Route = createFileRoute("/calendar")({
 });
 
 function CalendarPage() {
-  const { data: findings } = useQuery({
+  const { data: findings, isPending, isError, refetch, isFetching } = useQuery({
     queryKey: ["findings"],
     queryFn: () => listFindings(),
+    staleTime: 60_000,
+    gcTime: 10 * 60_000,
+    retry: 3,
   });
+  const loading = isPending || (isError && !findings);
 
   const now = new Date();
   const year = now.getFullYear();
@@ -95,12 +99,22 @@ function CalendarPage() {
                 s.ring,
               )}
             >
-              <p className="font-display text-2xl leading-none text-forest">{s.value}</p>
+              <p className="font-display text-2xl leading-none text-forest">
+                {loading ? <span className="inline-block h-5 w-6 rounded bg-forest/10 animate-pulse align-middle" /> : s.value}
+              </p>
               <p className="text-[9px] uppercase tracking-widest text-forest/70 mt-1.5">{s.label}</p>
-              <p className="text-[9px] text-forest/50 mt-0.5">{s.suffix}</p>
+              <p className="text-[9px] text-forest/50 mt-0.5">{loading ? "loading…" : s.suffix}</p>
             </div>
           ))}
         </section>
+        {isError && (
+          <div className="text-center text-xs text-forest/70 bg-butter/60 ring-1 ring-forest/15 rounded-lg py-2 px-3">
+            Couldn't load your finds just now — nothing's lost.{" "}
+            <button onClick={() => refetch()} className="underline font-semibold">
+              {isFetching ? "retrying…" : "try again"}
+            </button>
+          </div>
+        )}
 
         <section className="relative bg-white rounded-3xl p-4 md:p-6 shadow-[0_20px_60px_-30px_rgba(13,61,20,0.22)] ring-1 ring-forest/5">
           <img
@@ -145,6 +159,8 @@ function CalendarPage() {
                       </div>
                       <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
                     </>
+                  ) : loading ? (
+                    <div className={cn("absolute inset-0.5 bg-forest/5 animate-pulse", shape)} />
                   ) : (
                     <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
                       <span className="text-[10px] font-semibold text-forest/30">{day}</span>
