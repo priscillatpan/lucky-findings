@@ -93,3 +93,27 @@ export const saveFindingFn = createServerFn({ method: "POST" })
     if (error) throw error;
     return { ...row, photo_url: await signPhoto(admin, row.photo_path) };
   });
+
+export const deleteFindingForDateFn = createServerFn({ method: "POST" })
+  .inputValidator((data: { date: string }) => {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(data?.date ?? "")) throw new Error("Bad date");
+    return { date: data.date };
+  })
+  .handler(async ({ data }) => {
+    const { ownerId, getAdmin, BUCKET } = await import("./findings.server");
+    const admin = await getAdmin();
+    const { data: row, error } = await admin
+      .from("findings")
+      .select("id, photo_path")
+      .eq("user_id", ownerId())
+      .eq("completed_on", data.date)
+      .maybeSingle();
+    if (error) throw error;
+    if (!row) return { ok: true };
+    if (row.photo_path) {
+      await admin.storage.from(BUCKET).remove([row.photo_path]);
+    }
+    const { error: delErr } = await admin.from("findings").delete().eq("id", row.id);
+    if (delErr) throw delErr;
+    return { ok: true };
+  });
