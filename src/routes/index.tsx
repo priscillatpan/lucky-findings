@@ -7,6 +7,7 @@ import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { isoDate, questForDate } from "@/data/quests";
 import { getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
+import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -94,6 +95,7 @@ function Home() {
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
   const [caption, setCaption] = useState("");
+  const [celebrate, setCelebrate] = useState(false);
   const done = !!todayFinding;
 
   const quest = realQuest;
@@ -115,6 +117,10 @@ function Home() {
       setCaption("");
       qc.invalidateQueries({ queryKey: ["finding", todayKey] });
       qc.invalidateQueries({ queryKey: ["findings"] });
+      setCelebrate(true);
+      if (typeof window !== "undefined") {
+        window.setTimeout(() => setCelebrate(false), 3200);
+      }
     },
     onError: (err) => {
       console.error("saveFinding failed", err);
