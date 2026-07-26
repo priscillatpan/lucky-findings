@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import { BottomNav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
 import pinkTape from "@/assets/tape_2.png.asset.json";
+import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
 
 export const Route = createFileRoute("/calendar")({
