@@ -32,6 +32,36 @@ function CalendarPage() {
   });
   const loading = isPending || (isError && !findings);
 
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected: FindingWithUrl | null =
+    (findings ?? []).find((f) => f.id === selectedId) ?? null;
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [selected]);
+
+  function categoryDotClass(cat: string) {
+    switch (cat) {
+      case "Search": return "bg-lime";
+      case "Notice": return "bg-sky";
+      case "Serendipity": return "bg-pink";
+      case "Encounter": return "bg-butter";
+      case "Make": return "bg-forest";
+      default: return "bg-forest";
+    }
+  }
+
+
   const now = new Date();
   const year = now.getFullYear();
   const month = now.getMonth();
