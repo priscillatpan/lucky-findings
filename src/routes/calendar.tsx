@@ -226,26 +226,89 @@ function CalendarPage() {
           ) : (
             <ul className="space-y-1.5">
               {(findings ?? []).slice(0, 8).map((f) => (
-                <li key={f.id} className="flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5">
-                  <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
-                    {f.photo_url ? (
-                      <img src={f.thumb_url || f.photo_url} alt="" loading="lazy" decoding="async" className="size-9 object-cover" />
-                    ) : (
-                      <div className="size-9 bg-lime" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
-                    <p className="text-[9px] uppercase tracking-widest text-forest/40">
-                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
-                    </p>
-                  </div>
+                <li key={f.id}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedId(f.id)}
+                    className="w-full flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5 text-left hover:ring-forest/20 transition"
+                  >
+                    <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
+                      {f.photo_url ? (
+                        <img src={f.thumb_url || f.photo_url} alt="" loading="lazy" decoding="async" className="size-9 object-cover" />
+                      ) : (
+                        <div className="size-9 bg-lime" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
+                      <p className="text-[9px] uppercase tracking-widest text-forest/40">
+                        {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                      </p>
+                      {f.caption && (
+                        <p className="text-[10px] italic text-forest/60 truncate mt-0.5">"{f.caption}"</p>
+                      )}
+                    </div>
+                  </button>
                 </li>
               ))}
             </ul>
           )}
         </section>
       </main>
+
+      {selected && (
+        <div
+          className="fixed inset-0 z-50 bg-forest/40 backdrop-blur-sm flex items-center justify-center p-5 animate-fade-in"
+          onClick={() => setSelectedId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.quest_title}
+        >
+          <div
+            className="relative bg-paper rounded-3xl w-full max-w-sm p-5 pt-8 shadow-[0_30px_80px_-20px_rgba(13,61,20,0.5)] ring-1 ring-forest/10 paper-grid animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={cloverTape.url}
+              alt=""
+              aria-hidden
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-28 -rotate-3 pointer-events-none select-none drop-shadow-sm"
+            />
+            <button
+              type="button"
+              onClick={() => setSelectedId(null)}
+              className="absolute top-2 right-2 z-10 size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:bg-white"
+              aria-label="Close"
+            >
+              <X className="size-4" />
+            </button>
+            <div className="bg-white p-2 pb-4 -rotate-1 shadow-[0_14px_36px_-16px_rgba(13,61,20,0.4)] ring-1 ring-forest/10">
+              {selected.photo_url ? (
+                <img
+                  src={selected.photo_url}
+                  alt={selected.quest_title}
+                  className="w-full aspect-square object-cover"
+                />
+              ) : (
+                <div className="w-full aspect-square bg-lime" />
+              )}
+            </div>
+            <div className="mt-4 text-center">
+              <p className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-forest/70">
+                <span className={cn("size-2 rounded-full ring-1 ring-forest/30", categoryDotClass(selected.quest_category))} />
+                {selected.quest_category}
+              </p>
+              <h3 className="font-display text-xl leading-tight mt-1.5 text-balance">{selected.quest_title}</h3>
+              <p className="text-[10px] uppercase tracking-widest text-forest/50 mt-1">
+                {new Date(selected.completed_on + "T00:00:00").toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}
+              </p>
+              {selected.caption && (
+                <p className="text-sm italic text-ink/75 mt-3 text-balance">"{selected.caption}"</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
 
