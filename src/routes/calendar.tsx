@@ -1,8 +1,11 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
+import { X } from "lucide-react";
 import { BottomNav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
 import pinkTape from "@/assets/tape_2.png.asset.json";
+import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
 
 export const Route = createFileRoute("/calendar")({
@@ -28,6 +31,36 @@ function CalendarPage() {
     retry: 3,
   });
   const loading = isPending || (isError && !findings);
+
+  const [selectedId, setSelectedId] = useState<string | null>(null);
+  const selected: FindingWithUrl | null =
+    (findings ?? []).find((f) => f.id === selectedId) ?? null;
+
+  useEffect(() => {
+    if (!selected) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setSelectedId(null);
+    };
+    window.addEventListener("keydown", onKey);
+    const prev = document.body.style.overflow;
+    document.body.style.overflow = "hidden";
+    return () => {
+      window.removeEventListener("keydown", onKey);
+      document.body.style.overflow = prev;
+    };
+  }, [selected]);
+
+  function categoryDotClass(cat: string) {
+    switch (cat) {
+      case "Search": return "bg-lime";
+      case "Notice": return "bg-sky";
+      case "Serendipity": return "bg-pink";
+      case "Encounter": return "bg-butter";
+      case "Make": return "bg-forest";
+      default: return "bg-forest";
+    }
+  }
+
 
   const now = new Date();
   const year = now.getFullYear();
@@ -139,27 +172,34 @@ function CalendarPage() {
               // Vary shapes per day for whimsy
               const shapes = ["rounded-2xl", "rounded-full", "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]", "rounded-[30%]"];
               const shape = shapes[day % shapes.length];
+              const commonClass = cn(
+                "aspect-square relative flex items-center justify-center transition-transform hover:scale-110",
+                isFuture && !finding && "opacity-40",
+              );
+              if (finding) {
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedId(finding.id)}
+                    className={cn(commonClass, "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-forest rounded-2xl")}
+                    title={finding.quest_title}
+                    aria-label={`${finding.quest_title} — ${new Date(finding.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}`}
+                  >
+                    <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
+                      {finding.photo_url ? (
+                        <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
+                      ) : (
+                        <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
+                      )}
+                    </div>
+                    <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
+                  </button>
+                );
+              }
               return (
-                <div
-                  key={idx}
-                  className={cn(
-                    "aspect-square relative flex items-center justify-center transition-transform hover:scale-110",
-                    isFuture && !finding && "opacity-40",
-                  )}
-                  title={finding?.quest_title}
-                >
-                  {finding ? (
-                    <>
-                      <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
-                        {finding.photo_url ? (
-                          <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
-                        ) : (
-                          <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
-                        )}
-                      </div>
-                      <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
-                    </>
-                  ) : loading ? (
+                <div key={idx} className={commonClass}>
+                  {loading ? (
                     <div className={cn("absolute inset-0.5 bg-forest/5 animate-pulse", shape)} />
                   ) : (
                     <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
@@ -186,26 +226,89 @@ function CalendarPage() {
           ) : (
             <ul className="space-y-1.5">
               {(findings ?? []).slice(0, 8).map((f) => (
-                <li key={f.id} className="flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5">
-                  <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
-                    {f.photo_url ? (
-                      <img src={f.thumb_url || f.photo_url} alt="" loading="lazy" decoding="async" className="size-9 object-cover" />
-                    ) : (
-                      <div className="size-9 bg-lime" />
-                    )}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
-                    <p className="text-[9px] uppercase tracking-widest text-forest/40">
-                      {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
-                    </p>
-                  </div>
+                <li key={f.id}>
+                  <button
+                    type="button"
+                    onClick={() => setSelectedId(f.id)}
+                    className="w-full flex items-center gap-3 bg-white rounded-lg px-2.5 py-2 ring-1 ring-forest/5 text-left hover:ring-forest/20 transition"
+                  >
+                    <div className="shrink-0 bg-white p-1 pb-1.5 shadow-[0_6px_14px_-6px_rgba(13,61,20,0.35)] ring-1 ring-forest/10 -rotate-3">
+                      {f.photo_url ? (
+                        <img src={f.thumb_url || f.photo_url} alt="" loading="lazy" decoding="async" className="size-9 object-cover" />
+                      ) : (
+                        <div className="size-9 bg-lime" />
+                      )}
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <p className="font-display text-sm leading-tight truncate">{f.quest_title}</p>
+                      <p className="text-[9px] uppercase tracking-widest text-forest/40">
+                        {f.quest_category} · {new Date(f.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}
+                      </p>
+                      {f.caption && (
+                        <p className="text-[10px] italic text-forest/60 truncate mt-0.5">"{f.caption}"</p>
+                      )}
+                    </div>
+                  </button>
                 </li>
               ))}
             </ul>
           )}
         </section>
       </main>
+
+      {selected && (
+        <div
+          className="fixed inset-0 z-50 bg-forest/40 backdrop-blur-sm flex items-center justify-center p-5 animate-fade-in"
+          onClick={() => setSelectedId(null)}
+          role="dialog"
+          aria-modal="true"
+          aria-label={selected.quest_title}
+        >
+          <div
+            className="relative bg-paper rounded-3xl w-full max-w-sm p-5 pt-8 shadow-[0_30px_80px_-20px_rgba(13,61,20,0.5)] ring-1 ring-forest/10 paper-grid animate-scale-in"
+            onClick={(e) => e.stopPropagation()}
+          >
+            <img
+              src={cloverTape.url}
+              alt=""
+              aria-hidden
+              className="absolute -top-4 left-1/2 -translate-x-1/2 w-28 -rotate-3 pointer-events-none select-none drop-shadow-sm"
+            />
+            <button
+              type="button"
+              onClick={() => setSelectedId(null)}
+              className="absolute top-2 right-2 z-10 size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:bg-white"
+              aria-label="Close"
+            >
+              <X className="size-4" />
+            </button>
+            <div className="bg-white p-2 pb-4 -rotate-1 shadow-[0_14px_36px_-16px_rgba(13,61,20,0.4)] ring-1 ring-forest/10">
+              {selected.photo_url ? (
+                <img
+                  src={selected.photo_url}
+                  alt={selected.quest_title}
+                  className="w-full aspect-square object-cover"
+                />
+              ) : (
+                <div className="w-full aspect-square bg-lime" />
+              )}
+            </div>
+            <div className="mt-4 text-center">
+              <p className="inline-flex items-center gap-1.5 text-[9px] font-bold uppercase tracking-[0.25em] text-forest/70">
+                <span className={cn("size-2 rounded-full ring-1 ring-forest/30", categoryDotClass(selected.quest_category))} />
+                {selected.quest_category}
+              </p>
+              <h3 className="font-display text-xl leading-tight mt-1.5 text-balance">{selected.quest_title}</h3>
+              <p className="text-[10px] uppercase tracking-widest text-forest/50 mt-1">
+                {new Date(selected.completed_on + "T00:00:00").toLocaleDateString(undefined, { weekday: "long", month: "long", day: "numeric" })}
+              </p>
+              {selected.caption && (
+                <p className="text-sm italic text-ink/75 mt-3 text-balance">"{selected.caption}"</p>
+              )}
+            </div>
+          </div>
+        </div>
+      )}
 
       <Footer />
 
