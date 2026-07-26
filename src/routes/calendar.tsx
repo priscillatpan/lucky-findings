@@ -172,27 +172,34 @@ function CalendarPage() {
               // Vary shapes per day for whimsy
               const shapes = ["rounded-2xl", "rounded-full", "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]", "rounded-[30%]"];
               const shape = shapes[day % shapes.length];
+              const commonClass = cn(
+                "aspect-square relative flex items-center justify-center transition-transform hover:scale-110",
+                isFuture && !finding && "opacity-40",
+              );
+              if (finding) {
+                return (
+                  <button
+                    key={idx}
+                    type="button"
+                    onClick={() => setSelectedId(finding.id)}
+                    className={cn(commonClass, "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-forest rounded-2xl")}
+                    title={finding.quest_title}
+                    aria-label={`${finding.quest_title} — ${new Date(finding.completed_on + "T00:00:00").toLocaleDateString(undefined, { month: "short", day: "numeric" })}`}
+                  >
+                    <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
+                      {finding.photo_url ? (
+                        <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
+                      ) : (
+                        <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
+                      )}
+                    </div>
+                    <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
+                  </button>
+                );
+              }
               return (
-                <div
-                  key={idx}
-                  className={cn(
-                    "aspect-square relative flex items-center justify-center transition-transform hover:scale-110",
-                    isFuture && !finding && "opacity-40",
-                  )}
-                  title={finding?.quest_title}
-                >
-                  {finding ? (
-                    <>
-                      <div className={cn("absolute inset-0.5 overflow-hidden isolate ring-1 ring-forest/15 shadow-[0_5px_12px_-5px_rgba(13,61,20,0.35)]", shape, isToday && "ring-2 ring-forest")}>
-                        {finding.photo_url ? (
-                          <img src={finding.thumb_url || finding.photo_url} alt="" loading="lazy" decoding="async" className={cn("absolute inset-0 w-full h-full object-cover", shape)} />
-                        ) : (
-                          <div className={cn("absolute inset-0 w-full h-full bg-lime", shape)} />
-                        )}
-                      </div>
-                      <span className="absolute top-1 left-1 z-10 text-[9px] font-bold text-forest bg-paper/95 rounded-full px-1.5 leading-tight shadow-sm">{day}</span>
-                    </>
-                  ) : loading ? (
+                <div key={idx} className={commonClass}>
+                  {loading ? (
                     <div className={cn("absolute inset-0.5 bg-forest/5 animate-pulse", shape)} />
                   ) : (
                     <div className={cn("absolute inset-0.5 border border-dashed border-forest/15 bg-paper/40 p-1.5 flex flex-col justify-between", shape, isToday && "ring-2 ring-forest ring-offset-2 ring-offset-white border-solid")}>
