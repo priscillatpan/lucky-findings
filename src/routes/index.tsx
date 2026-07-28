@@ -255,7 +255,8 @@ function Home() {
                     placeholder="a little caption (optional)"
                     value={caption}
                     onChange={(e) => setCaption(e.target.value)}
-                    className="w-full mt-2.5 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 text-xs outline-none focus:ring-forest/40"
+                    style={{ fontSize: "16px" }}
+                    className="w-full mt-2.5 px-3 py-2 rounded-xl bg-paper/80 ring-1 ring-forest/15 outline-none focus:ring-forest/40"
                   />
                   {save.error && (
                     <p className="text-xs text-red-700 mt-2">
