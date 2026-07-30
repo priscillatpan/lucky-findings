@@ -35,11 +35,11 @@ export const QUESTS: Quest[] = [
   { id: "r6", category: "Serendipity", title: "Find a message meant for no one.", hint: "Sidewalk chalk, a sticker, a note." },
 
   // Encounter — small human/creature contact
-  { id: "e1", category: "Encounter", title: "Talk to a stranger for one minute.", hint: "Compliment their dog, ask directions." },
+  { id: "e1", category: "Encounter", title: "Say hi to someone (or something) alive.", hint: "A stranger, a dog, a very good tree." },
   { id: "e2", category: "Encounter", title: "Spot an animal doing its thing.", hint: "A squirrel, a bird, a cat on a fence." },
   { id: "e3", category: "Encounter", title: "Wave at someone unexpectedly.", hint: "Bonus if they wave back." },
   { id: "e4", category: "Encounter", title: "Find a bug worth watching.", hint: "Follow it for a whole minute." },
-  { id: "e5", category: "Encounter", title: "Ask a stranger for their favorite spot nearby.", hint: "Then go there." },
+  { id: "e5", category: "Encounter", title: "Find a spot you'd recommend to someone.", hint: "Ask a local, or just pick your own." },
   { id: "e6", category: "Encounter", title: "Share something small with someone.", hint: "A snack, a seat, a smile." },
 
   // Make — tiny creative acts
@@ -57,14 +57,31 @@ export function dayIndex(date: Date = new Date()): number {
   return Math.floor(utc / 86_400_000);
 }
 
+const CATEGORY_ORDER: QuestCategory[] = ["Search", "Notice", "Serendipity", "Encounter", "Make"];
+
+function pickInCategory(category: QuestCategory, idx: number): Quest {
+  const inCategory = QUESTS.filter((q) => q.category === category);
+  return inCategory[Math.floor(idx / CATEGORY_ORDER.length) % inCategory.length];
+}
+
 export function questForDate(date: Date = new Date()): Quest {
   // Cycle through categories daily, and rotate quest within each category.
-  const categories: QuestCategory[] = ["Search", "Notice", "Serendipity", "Encounter", "Make"];
   const idx = dayIndex(date);
-  const category = categories[idx % categories.length];
-  const inCategory = QUESTS.filter((q) => q.category === category);
-  const pick = inCategory[Math.floor(idx / categories.length) % inCategory.length];
-  return pick;
+  return pickInCategory(CATEGORY_ORDER[idx % CATEGORY_ORDER.length], idx);
+}
+
+// Today's quest plus two backups from other categories, so there's always
+// something doable (e.g. if nobody's around for an Encounter quest).
+export function questsForDate(date: Date = new Date()): Quest[] {
+  const idx = dayIndex(date);
+  const start = idx % CATEGORY_ORDER.length;
+  const out: Quest[] = [];
+  for (let i = 0; i < CATEGORY_ORDER.length && out.length < 3; i++) {
+    const category = CATEGORY_ORDER[(start + i) % CATEGORY_ORDER.length];
+    const q = pickInCategory(category, idx + i);
+    if (!out.some((x) => x.id === q.id)) out.push(q);
+  }
+  return out;
 }
 
 export function isoDate(date: Date = new Date()): string {
