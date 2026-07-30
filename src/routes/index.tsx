@@ -1,7 +1,7 @@
 import { createFileRoute } from "@tanstack/react-router";
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { RotateCcw, Shuffle } from "lucide-react";
+import { RotateCcw } from "lucide-react";
 import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
