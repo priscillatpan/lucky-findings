@@ -1,12 +1,12 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
-import { RotateCcw } from "lucide-react";
+import { RotateCcw, Shuffle } from "lucide-react";
 import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { isoDate, questForDate } from "@/data/quests";
+import { isoDate, questsForDate } from "@/data/quests";
 import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
@@ -80,8 +80,20 @@ function computeStreak(dates: string[]): number {
 function Home() {
   const today = new Date();
   const todayKey = isoDate(today);
-  const realQuest = questForDate(today);
+  const options = questsForDate(today);
   const qc = useQueryClient();
+
+  const [optionIdx, setOptionIdx] = useState(0);
+  useEffect(() => {
+    const stored = window.localStorage.getItem(`quest-option-${todayKey}`);
+    if (stored) setOptionIdx(Number(stored) % options.length);
+  }, [todayKey, options.length]);
+
+  function swapQuest() {
+    const next = (optionIdx + 1) % options.length;
+    setOptionIdx(next);
+    window.localStorage.setItem(`quest-option-${todayKey}`, String(next));
+  }
 
   const { data: todayFinding } = useQuery({
     queryKey: ["finding", todayKey],
@@ -100,7 +112,7 @@ function Home() {
   const [celebrate, setCelebrate] = useState(false);
   const done = !!todayFinding;
 
-  const quest = realQuest;
+  const quest = options[optionIdx] ?? options[0];
 
   const save = useMutation({
     mutationFn: async () => {
