@@ -289,6 +289,21 @@ function Home() {
             </article>
           </div>
 
+          {!done && !pending && options.length > 1 && (
+            <div className="mt-2 flex justify-center">
+              <button
+                type="button"
+                onClick={swapQuest}
+                className="group flex items-center gap-1 text-[11px] text-forest/60 hover:text-forest transition-colors"
+                aria-label="Swap for a different quest"
+              >
+                <Shuffle className="size-3 transition-transform group-hover:rotate-12" aria-hidden />
+                Not today? Swap quest ({optionIdx + 1}/{options.length})
+              </button>
+            </div>
+          )}
+
+
           {!done && (
             <>
               <input
