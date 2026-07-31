@@ -9,6 +9,7 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as UiKitRouteImport } from './routes/ui-kit'
 import { Route as MockupFlashRouteImport } from './routes/mockup-flash'
 import { Route as MockupRouteImport } from './routes/mockup'
@@ -16,6 +17,11 @@ import { Route as CalendarRouteImport } from './routes/calendar'
 import { Route as IndexRouteImport } from './routes/index'
 import { Route as ApiPublicSeedJulyRouteImport } from './routes/api/public/seed-july'
 
+const UnlockRoute = UnlockRouteImport.update({
+  id: '/unlock',
+  path: '/unlock',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const UiKitRoute = UiKitRouteImport.update({
   id: '/ui-kit',
   path: '/ui-kit',
@@ -53,6 +59,7 @@ export interface FileRoutesByFullPath {
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
+  '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesByTo {
@@ -61,6 +68,7 @@ export interface FileRoutesByTo {
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
+  '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesById {
@@ -70,6 +78,7 @@ export interface FileRoutesById {
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
   '/ui-kit': typeof UiKitRoute
+  '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRouteTypes {
@@ -80,6 +89,7 @@ export interface FileRouteTypes {
     | '/mockup'
     | '/mockup-flash'
     | '/ui-kit'
+    | '/unlock'
     | '/api/public/seed-july'
   fileRoutesByTo: FileRoutesByTo
   to:
@@ -88,6 +98,7 @@ export interface FileRouteTypes {
     | '/mockup'
     | '/mockup-flash'
     | '/ui-kit'
+    | '/unlock'
     | '/api/public/seed-july'
   id:
     | '__root__'
@@ -96,6 +107,7 @@ export interface FileRouteTypes {
     | '/mockup'
     | '/mockup-flash'
     | '/ui-kit'
+    | '/unlock'
     | '/api/public/seed-july'
   fileRoutesById: FileRoutesById
 }
@@ -105,11 +117,19 @@ export interface RootRouteChildren {
   MockupRoute: typeof MockupRoute
   MockupFlashRoute: typeof MockupFlashRoute
   UiKitRoute: typeof UiKitRoute
+  UnlockRoute: typeof UnlockRoute
   ApiPublicSeedJulyRoute: typeof ApiPublicSeedJulyRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/unlock': {
+      id: '/unlock'
+      path: '/unlock'
+      fullPath: '/unlock'
+      preLoaderRoute: typeof UnlockRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/ui-kit': {
       id: '/ui-kit'
       path: '/ui-kit'
@@ -161,6 +181,7 @@ const rootRouteChildren: RootRouteChildren = {
   MockupRoute: MockupRoute,
   MockupFlashRoute: MockupFlashRoute,
   UiKitRoute: UiKitRoute,
+  UnlockRoute: UnlockRoute,
   ApiPublicSeedJulyRoute: ApiPublicSeedJulyRoute,
 }
 export const routeTree = rootRouteImport

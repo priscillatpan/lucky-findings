@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { redirect } from "@tanstack/react-router";
+import { isUnlocked } from "@/lib/gate.functions";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 import { X } from "lucide-react";
@@ -9,6 +11,10 @@ import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
 
 export const Route = createFileRoute("/calendar")({
+  beforeLoad: async () => {
+    const { unlocked } = await isUnlocked();
+    if (!unlocked) throw redirect({ to: "/unlock" });
+  },
   head: () => ({
     meta: [
       { title: "Calendar — Lucky Findings" },
