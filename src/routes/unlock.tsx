@@ -42,9 +42,10 @@ function Unlock() {
 
   return (
     <div className="min-h-[100dvh] flex flex-col items-center justify-center bg-paper text-ink paper-grid px-6">
-      <img src={cloverIcon.url} alt="" aria-hidden className="size-8 -rotate-6 object-contain mb-3 opacity-90" />
-      <h1 className="font-display text-2xl">Lucky Findings</h1>
-      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">private for now</p>
+      <img src={cloverIcon.url} alt="" aria-hidden className="size-10 -rotate-6 object-contain mb-3 opacity-90" />
+      <h1 className="font-display text-3xl">Lucky Findings</h1>
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">coming soon</p>
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/40 mt-0.5">private beta</p>
 
       <form onSubmit={onSubmit} className="w-full max-w-[16rem] mt-6">
         <input
