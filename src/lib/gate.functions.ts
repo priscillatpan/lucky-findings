@@ -9,7 +9,7 @@ function sessionConfig() {
     password: process.env.SESSION_SECRET!,
     name: "lucky-gate",
     maxAge: 60 * 60 * 24 * 30,
-    cookie: { httpOnly: true, secure: true, sameSite: "lax" as const, path: "/" },
+    cookie: { httpOnly: true, secure: true, sameSite: "none" as const, path: "/" },
   };
 }
 
