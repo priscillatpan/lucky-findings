@@ -86,20 +86,9 @@ function computeStreak(dates: string[]): number {
 function Home() {
   const today = new Date();
   const todayKey = isoDate(today);
-  const options = questsForDate(today);
   const qc = useQueryClient();
 
   const [optionIdx, setOptionIdx] = useState(0);
-  useEffect(() => {
-    const stored = window.localStorage.getItem(`quest-option-${todayKey}`);
-    if (stored) setOptionIdx(Number(stored) % options.length);
-  }, [todayKey, options.length]);
-
-  function swapQuest() {
-    const next = (optionIdx + 1) % options.length;
-    setOptionIdx(next);
-    window.localStorage.setItem(`quest-option-${todayKey}`, String(next));
-  }
 
   const { data: todayFinding } = useQuery({
     queryKey: ["finding", todayKey],
@@ -111,6 +100,19 @@ function Home() {
   });
 
   const streak = computeStreak((all ?? []).map((f) => f.completed_on));
+  const completedQuestIds = (all ?? []).map((f) => f.quest_id);
+  const options = questsForDate(today, completedQuestIds);
+
+  useEffect(() => {
+    const stored = window.localStorage.getItem(`quest-option-${todayKey}`);
+    if (stored) setOptionIdx(Number(stored) % options.length);
+  }, [todayKey, options.length]);
+
+  function swapQuest() {
+    const next = (optionIdx + 1) % options.length;
+    setOptionIdx(next);
+    window.localStorage.setItem(`quest-option-${todayKey}`, String(next));
+  }
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
@@ -119,6 +121,7 @@ function Home() {
   const done = !!todayFinding;
 
   const quest = options[optionIdx] ?? options[0];
+
 
   const save = useMutation({
     mutationFn: async () => {
