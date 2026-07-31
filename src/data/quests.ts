@@ -59,30 +59,39 @@ export function dayIndex(date: Date = new Date()): number {
 
 const CATEGORY_ORDER: QuestCategory[] = ["Search", "Notice", "Serendipity", "Encounter", "Make"];
 
-function pickInCategory(category: QuestCategory, idx: number): Quest {
-  const inCategory = QUESTS.filter((q) => q.category === category);
-  return inCategory[Math.floor(idx / CATEGORY_ORDER.length) % inCategory.length];
-}
+// Interleave the 30 quests so consecutive entries are always different
+// categories: Search1, Notice1, Serendipity1, ... then round 2, etc.
+const ROTATION: Quest[] = (() => {
+  const byCat = CATEGORY_ORDER.map((c) => QUESTS.filter((q) => q.category === c));
+  const rounds = Math.max(...byCat.map((l) => l.length));
+  const out: Quest[] = [];
+  for (let r = 0; r < rounds; r++) {
+    for (const list of byCat) {
+      if (list[r]) out.push(list[r]);
+    }
+  }
+  return out;
+})();
+
+const PER_DAY = 3;
 
 export function questForDate(date: Date = new Date()): Quest {
-  // Cycle through categories daily, and rotate quest within each category.
-  const idx = dayIndex(date);
-  return pickInCategory(CATEGORY_ORDER[idx % CATEGORY_ORDER.length], idx);
+  return questsForDate(date)[0];
 }
 
-// Today's quest plus two backups from other categories, so there's always
-// something doable (e.g. if nobody's around for an Encounter quest).
+// Today's quest plus two backups from other categories. Each day consumes the
+// next 3 quests in the rotation, so nothing repeats until the whole list
+// (30 quests / 3 per day = 10 days) has cycled through.
 export function questsForDate(date: Date = new Date()): Quest[] {
   const idx = dayIndex(date);
-  const start = idx % CATEGORY_ORDER.length;
+  const start = (((idx * PER_DAY) % ROTATION.length) + ROTATION.length) % ROTATION.length;
   const out: Quest[] = [];
-  for (let i = 0; i < CATEGORY_ORDER.length && out.length < 3; i++) {
-    const category = CATEGORY_ORDER[(start + i) % CATEGORY_ORDER.length];
-    const q = pickInCategory(category, idx + i);
-    if (!out.some((x) => x.id === q.id)) out.push(q);
+  for (let i = 0; i < PER_DAY; i++) {
+    out.push(ROTATION[(start + i) % ROTATION.length]);
   }
   return out;
 }
+
 
 export function isoDate(date: Date = new Date()): string {
   const y = date.getFullYear();
