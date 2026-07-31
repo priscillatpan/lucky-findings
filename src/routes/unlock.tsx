@@ -1,6 +1,7 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
 import { useState } from "react";
+import { Eye, EyeOff } from "lucide-react";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { unlockSite } from "@/lib/gate.functions";
 
