@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { redirect } from "@tanstack/react-router";
+import { isUnlocked } from "@/lib/gate.functions";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import cloverIconAlt from "@/assets/icon_1.png.asset.json";
 import tape1 from "@/assets/tape_1.png.asset.json";
@@ -9,6 +11,10 @@ import badge2 from "@/assets/badge_2.png.asset.json";
 import badge3 from "@/assets/badge_3.png.asset.json";
 
 export const Route = createFileRoute("/ui-kit")({
+  beforeLoad: async () => {
+    const { unlocked } = await isUnlocked();
+    if (!unlocked) throw redirect({ to: "/unlock" });
+  },
   head: () => ({
     meta: [
       { title: "UI Kit — Lucky Findings" },

@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { redirect } from "@tanstack/react-router";
+import { isUnlocked } from "@/lib/gate.functions";
 import { useEffect, useRef, useState } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { RotateCcw } from "lucide-react";
@@ -12,6 +14,10 @@ import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 
 export const Route = createFileRoute("/")({
+  beforeLoad: async () => {
+    const { unlocked } = await isUnlocked();
+    if (!unlocked) throw redirect({ to: "/unlock" });
+  },
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },

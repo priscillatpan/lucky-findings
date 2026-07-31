@@ -1,4 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
+import { redirect } from "@tanstack/react-router";
+import { isUnlocked } from "@/lib/gate.functions";
 import { useState, useEffect } from "react";
 
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
@@ -6,6 +8,10 @@ import cloverIcon from "@/assets/icon_2.png.asset.json";
 import { QUESTS } from "@/data/quests";
 
 export const Route = createFileRoute("/mockup-flash")({
+  beforeLoad: async () => {
+    const { unlocked } = await isUnlocked();
+    if (!unlocked) throw redirect({ to: "/unlock" });
+  },
   head: () => ({
     meta: [
       { title: "Lucky Findings — All Quests Demo" },
