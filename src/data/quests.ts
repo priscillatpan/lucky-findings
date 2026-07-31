@@ -75,22 +75,41 @@ const ROTATION: Quest[] = (() => {
 
 const PER_DAY = 3;
 
-export function questForDate(date: Date = new Date()): Quest {
-  return questsForDate(date)[0];
+export function questForDate(
+  date: Date = new Date(),
+  completedIds: string[] = [],
+): Quest {
+  return questsForDate(date, completedIds)[0];
 }
 
 // Today's quest plus two backups from other categories. Each day consumes the
 // next 3 quests in the rotation, so nothing repeats until the whole list
-// (30 quests / 3 per day = 10 days) has cycled through.
-export function questsForDate(date: Date = new Date()): Quest[] {
+// (30 quests / 3 per day = 10 days) has cycled through. Completed quest IDs
+// are skipped, so the user never sees a quest they've already finished.
+export function questsForDate(
+  date: Date = new Date(),
+  completedIds: string[] = [],
+): Quest[] {
   const idx = dayIndex(date);
-  const start = (((idx * PER_DAY) % ROTATION.length) + ROTATION.length) % ROTATION.length;
+  const start =
+    (((idx * PER_DAY) % ROTATION.length) + ROTATION.length) % ROTATION.length;
+  const completed = new Set(completedIds);
   const out: Quest[] = [];
-  for (let i = 0; i < PER_DAY; i++) {
-    out.push(ROTATION[(start + i) % ROTATION.length]);
+  let i = 0;
+  while (out.length < PER_DAY && i < ROTATION.length) {
+    const q = ROTATION[(start + i) % ROTATION.length];
+    if (!completed.has(q.id)) out.push(q);
+    i++;
+  }
+  // If every quest has been completed, the cycle starts fresh.
+  if (out.length === 0) {
+    for (let j = 0; j < PER_DAY; j++) {
+      out.push(ROTATION[(start + j) % ROTATION.length]);
+    }
   }
   return out;
 }
+
 
 
 export function isoDate(date: Date = new Date()): string {
