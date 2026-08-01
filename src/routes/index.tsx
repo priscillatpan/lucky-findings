@@ -8,7 +8,7 @@ import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { isoDate, questsForDate } from "@/data/quests";
+import { isoDate, questsForDate, QUESTS } from "@/data/quests";
 import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
