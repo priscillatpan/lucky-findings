@@ -73,7 +73,7 @@ const ROTATION: Quest[] = (() => {
   return out;
 })();
 
-const PER_DAY = 3;
+const PER_DAY = 5;
 
 export function questForDate(
   date: Date = new Date(),
