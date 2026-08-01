@@ -8,7 +8,7 @@ import { BottomNav } from "@/components/lucky/Nav";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import cloverBg from "@/assets/background.png.asset.json";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
-import { isoDate, questsForDate } from "@/data/quests";
+import { isoDate, questsForDate, QUESTS } from "@/data/quests";
 import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } from "@/lib/findings";
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
@@ -101,6 +101,8 @@ function Home() {
 
   const streak = computeStreak((all ?? []).map((f) => f.completed_on));
   const completedQuestIds = (all ?? []).map((f) => f.quest_id);
+  const foundCount = new Set(completedQuestIds.filter((id) => QUESTS.some((q) => q.id === id))).size;
+  const TOTAL_QUESTS = QUESTS.length;
   const options = questsForDate(today, completedQuestIds);
 
   useEffect(() => {
@@ -298,16 +300,21 @@ function Home() {
             </article>
           </div>
 
-          {!done && !pending && options.length > 1 && (
-            <div className="mt-1.5 flex justify-center">
-              <button
-                type="button"
-                onClick={swapQuest}
-                className="text-[10px] text-ink/40 hover:text-forest/70 transition-colors"
-                aria-label="Swap for a different quest"
-              >
-                swap quest ({optionIdx + 1}/{options.length})
-              </button>
+          {!done && !pending && (
+            <div className="mt-1.5 flex flex-col items-center gap-0.5">
+              {options.length > 1 && (
+                <button
+                  type="button"
+                  onClick={swapQuest}
+                  className="text-[10px] text-ink/40 hover:text-forest/70 transition-colors"
+                  aria-label="Swap for a different quest"
+                >
+                  swap quest ({optionIdx + 1}/{options.length})
+                </button>
+              )}
+              <p className="text-[9px] text-ink/30">
+                {foundCount} of {TOTAL_QUESTS} quests found · done ones retire
+              </p>
             </div>
           )}
 
