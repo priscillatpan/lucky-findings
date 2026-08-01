@@ -101,8 +101,6 @@ function Home() {
 
   const streak = computeStreak((all ?? []).map((f) => f.completed_on));
   const completedQuestIds = (all ?? []).map((f) => f.quest_id);
-  const foundCount = new Set(completedQuestIds.filter((id) => QUESTS.some((q) => q.id === id))).size;
-  const TOTAL_QUESTS = QUESTS.length;
   const options = questsForDate(today, completedQuestIds);
 
   useEffect(() => {
