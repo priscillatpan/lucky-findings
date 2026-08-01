@@ -69,12 +69,21 @@ function CalendarPage() {
 
 
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const monthLabel = now.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const [view, setView] = useState(() => ({ year: now.getFullYear(), month: now.getMonth() }));
+  const { year, month } = view;
+  const viewDate = new Date(year, month, 1);
+  const isCurrentMonth = year === now.getFullYear() && month === now.getMonth();
+  const monthLabel = viewDate.toLocaleDateString(undefined, { month: "long", year: "numeric" });
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
-  const today = now.getDate();
+  const today = isCurrentMonth ? now.getDate() : daysInMonth;
+
+  function shiftMonth(delta: number) {
+    setView((v) => {
+      const d = new Date(v.year, v.month + delta, 1);
+      return { year: d.getFullYear(), month: d.getMonth() };
+    });
+  }
 
   const byDay = new Map<number, FindingWithUrl>();
   for (const f of findings ?? []) {
