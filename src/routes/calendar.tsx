@@ -127,7 +127,35 @@ function CalendarPage() {
           <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-1.5">
             A month of small findings
           </p>
-          <h1 className="font-display text-3xl">{monthLabel}</h1>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => shiftMonth(-1)}
+              aria-label="Previous month"
+              className="size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:ring-forest/40 transition"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <h1 className="font-display text-3xl min-w-[8.5rem]">{monthLabel}</h1>
+            <button
+              type="button"
+              onClick={() => shiftMonth(1)}
+              disabled={isCurrentMonth}
+              aria-label="Next month"
+              className="size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:ring-forest/40 disabled:opacity-30 disabled:hover:ring-forest/15 transition"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+          {!isCurrentMonth && (
+            <button
+              type="button"
+              onClick={() => setView({ year: now.getFullYear(), month: now.getMonth() })}
+              className="mt-1 text-[10px] uppercase tracking-widest text-forest/50 hover:text-forest underline"
+            >
+              back to this month
+            </button>
+          )}
           <p className="text-forest/60 mt-1.5 max-w-md mx-auto text-xs">
             One quest a day to get you outside. Every polaroid is a day you noticed something.
           </p>
