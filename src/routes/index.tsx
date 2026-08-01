@@ -309,7 +309,7 @@ function Home() {
                   className="text-[10px] text-ink/40 hover:text-forest/70 transition-colors"
                   aria-label="Swap for a different quest"
                 >
-                  swap quest ({optionIdx + 1}/{options.length})
+                  swap quest
                 </button>
               )}
               <p className="text-[9px] text-ink/30">
