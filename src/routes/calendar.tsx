@@ -3,7 +3,7 @@ import { redirect } from "@tanstack/react-router";
 import { isUnlocked } from "@/lib/gate.functions";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
-import { X } from "lucide-react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { BottomNav, Footer } from "@/components/lucky/Nav";
 import { cn } from "@/lib/utils";
 import pinkTape from "@/assets/tape_2.png.asset.json";
@@ -69,12 +69,21 @@ function CalendarPage() {
 
 
   const now = new Date();
-  const year = now.getFullYear();
-  const month = now.getMonth();
-  const monthLabel = now.toLocaleDateString(undefined, { month: "long", year: "numeric" });
+  const [view, setView] = useState(() => ({ year: now.getFullYear(), month: now.getMonth() }));
+  const { year, month } = view;
+  const viewDate = new Date(year, month, 1);
+  const isCurrentMonth = year === now.getFullYear() && month === now.getMonth();
+  const monthLabel = viewDate.toLocaleDateString(undefined, { month: "long", year: "numeric" });
   const daysInMonth = new Date(year, month + 1, 0).getDate();
   const startDay = new Date(year, month, 1).getDay();
-  const today = now.getDate();
+  const today = isCurrentMonth ? now.getDate() : daysInMonth;
+
+  function shiftMonth(delta: number) {
+    setView((v) => {
+      const d = new Date(v.year, v.month + delta, 1);
+      return { year: d.getFullYear(), month: d.getMonth() };
+    });
+  }
 
   const byDay = new Map<number, FindingWithUrl>();
   for (const f of findings ?? []) {
@@ -118,7 +127,35 @@ function CalendarPage() {
           <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/50 mb-1.5">
             A month of small findings
           </p>
-          <h1 className="font-display text-3xl">{monthLabel}</h1>
+          <div className="flex items-center justify-center gap-3">
+            <button
+              type="button"
+              onClick={() => shiftMonth(-1)}
+              aria-label="Previous month"
+              className="size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:ring-forest/40 transition"
+            >
+              <ChevronLeft className="size-4" />
+            </button>
+            <h1 className="font-display text-3xl min-w-[8.5rem]">{monthLabel}</h1>
+            <button
+              type="button"
+              onClick={() => shiftMonth(1)}
+              disabled={isCurrentMonth}
+              aria-label="Next month"
+              className="size-8 rounded-full bg-white ring-1 ring-forest/15 flex items-center justify-center text-forest/70 hover:text-forest hover:ring-forest/40 disabled:opacity-30 disabled:hover:ring-forest/15 transition"
+            >
+              <ChevronRight className="size-4" />
+            </button>
+          </div>
+          {!isCurrentMonth && (
+            <button
+              type="button"
+              onClick={() => setView({ year: now.getFullYear(), month: now.getMonth() })}
+              className="mt-1 text-[10px] uppercase tracking-widest text-forest/50 hover:text-forest underline"
+            >
+              back to this month
+            </button>
+          )}
           <p className="text-forest/60 mt-1.5 max-w-md mx-auto text-xs">
             One quest a day to get you outside. Every polaroid is a day you noticed something.
           </p>
@@ -173,7 +210,7 @@ function CalendarPage() {
             {cells.map((day, idx) => {
               if (day === null) return <div key={idx} className="aspect-square" />;
               const finding = byDay.get(day);
-              const isToday = day === today;
+              const isToday = isCurrentMonth && day === today;
               const isFuture = day > today;
               // Vary shapes per day for whimsy
               const shapes = ["rounded-2xl", "rounded-full", "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]", "rounded-[30%]"];
