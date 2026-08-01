@@ -182,7 +182,7 @@ function CalendarPage() {
             {cells.map((day, idx) => {
               if (day === null) return <div key={idx} className="aspect-square" />;
               const finding = byDay.get(day);
-              const isToday = day === today;
+              const isToday = isCurrentMonth && day === today;
               const isFuture = day > today;
               // Vary shapes per day for whimsy
               const shapes = ["rounded-2xl", "rounded-full", "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]", "rounded-[30%]"];
