@@ -298,16 +298,21 @@ function Home() {
             </article>
           </div>
 
-          {!done && !pending && options.length > 1 && (
-            <div className="mt-1.5 flex justify-center">
-              <button
-                type="button"
-                onClick={swapQuest}
-                className="text-[10px] text-ink/40 hover:text-forest/70 transition-colors"
-                aria-label="Swap for a different quest"
-              >
-                swap quest ({optionIdx + 1}/{options.length})
-              </button>
+          {!done && !pending && (
+            <div className="mt-1.5 flex flex-col items-center gap-0.5">
+              {options.length > 1 && (
+                <button
+                  type="button"
+                  onClick={swapQuest}
+                  className="text-[10px] text-ink/40 hover:text-forest/70 transition-colors"
+                  aria-label="Swap for a different quest"
+                >
+                  swap quest ({optionIdx + 1}/{options.length})
+                </button>
+              )}
+              <p className="text-[9px] text-ink/30">
+                {foundCount} of {TOTAL_QUESTS} quests found · done ones retire
+              </p>
             </div>
           )}
 
