@@ -21,9 +21,9 @@ export const Route = createFileRoute("/today")({
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },
-      { name: "description", content: "Your daily nature quest — one tiny prompt, one snapped photo, a growing field journal of small lucky findings." },
+      { name: "description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:title", content: "Today's Quest — Lucky Findings" },
-      { property: "og:description", content: "A daily nature quest journal. One tiny prompt, one snapped photo, a growing collection of lucky findings." },
+      { property: "og:description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

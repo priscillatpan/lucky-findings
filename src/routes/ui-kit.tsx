@@ -18,9 +18,9 @@ export const Route = createFileRoute("/ui-kit")({
   head: () => ({
     meta: [
       { title: "UI Kit — Lucky Findings" },
-      { name: "description", content: "The Lucky Findings design system — colors, type, components, and hand-drawn assets in one place." },
+      { name: "description", content: "The Lucky Findings design system — colors, type, components, and hand-drawn assets for a daily nature quest app." },
       { property: "og:title", content: "UI Kit — Lucky Findings" },
-      { property: "og:description", content: "The Lucky Findings design system reference." },
+      { property: "og:description", content: "The Lucky Findings design system — colors, type, components, and hand-drawn assets for a daily nature quest app." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

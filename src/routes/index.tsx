@@ -22,13 +22,13 @@ export const Route = createFileRoute("/")({
       {
         name: "description",
         content:
-          "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings. Join the waitlist.",
+          "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings.",
       },
       { property: "og:title", content: "Lucky Findings — a little luck, once a day" },
       {
         property: "og:description",
         content:
-          "A daily nature quest that gets you outside for five minutes. One prompt, one photo, a field journal of small lucky findings.",
+          "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings.",
       },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
