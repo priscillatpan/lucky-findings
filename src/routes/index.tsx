@@ -89,15 +89,16 @@ function Hero() {
 }
 
 function Waitlist() {
-  const [height, setHeight] = useState(220);
+  const [height, setHeight] = useState(260);
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      if (typeof e.data !== "string" || !e.data.includes("Tally.FormLoaded")) return;
+      if (typeof e.data !== "string" || !e.data.includes("Tally.")) return;
       try {
         const payload = JSON.parse(e.data);
-        if (payload?.event === "Tally.FormLoaded" && payload?.payload?.height) {
-          setHeight(payload.payload.height);
+        const newHeight = payload?.payload?.height;
+        if (newHeight && (payload?.event === "Tally.FormLoaded" || payload?.event === "Tally.HeightChanged")) {
+          setHeight(newHeight);
         }
       } catch {
         /* ignore */
@@ -109,15 +110,15 @@ function Waitlist() {
 
   return (
     <section className="mt-8">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-5 pt-6 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-3 pt-4 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
           alt=""
           aria-hidden
           className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 rotate-2 object-contain pointer-events-none"
         />
-        <p className="text-center font-display text-xl text-forest mt-2">Coming soon! 🍀</p>
-        <p className="text-center text-[11px] text-ink/55 mt-1 mb-2">
+        <p className="text-center font-display text-lg text-forest mt-1">Coming soon! 🍀</p>
+        <p className="text-center text-[11px] text-ink/55 mt-1 mb-1">
           Drop in your email and we'll email you when the app is ready.
         </p>
         <iframe
@@ -204,16 +205,15 @@ function PeekInside() {
       <div className="mt-5 flex justify-center">
         <div className="flex flex-col items-center gap-2">
           <div className="relative w-[240px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-10" />
-            <div className="w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-20" />
+            <div className="relative w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
               {SHOTS.map((s, i) => (
                 <img
                   key={s.src}
                   src={s.src}
                   alt="Lucky Findings app screen"
-                  loading="lazy"
-                  className={`w-full h-full object-cover object-top transition-opacity duration-300 ${
-                    i === step ? "opacity-100" : "opacity-0 absolute inset-2"
+                  className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
+                    i === step ? "opacity-100 z-10" : "opacity-0 z-0"
                   }`}
                 />
               ))}
