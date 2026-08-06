@@ -10,9 +10,9 @@ export const Route = createFileRoute("/mockup")({
   head: () => ({
     meta: [
       { title: "Lucky Findings — Screens Mockup" },
-      { name: "description", content: "Side-by-side mobile mockup of the Lucky Findings screens." },
+      { name: "description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:title", content: "Lucky Findings — Screens Mockup" },
-      { property: "og:description", content: "Side-by-side mobile mockup of the Lucky Findings screens." },
+      { property: "og:description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],

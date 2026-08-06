@@ -18,9 +18,9 @@ export const Route = createFileRoute("/calendar")({
   head: () => ({
     meta: [
       { title: "Calendar — Lucky Findings" },
-      { name: "description", content: "A month at a glance — every day you snapped a finding, mapped like a stamp album across the calendar." },
+      { name: "description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:title", content: "Calendar — Lucky Findings" },
-      { property: "og:description", content: "A month at a glance — every day you snapped a finding, mapped like a stamp album." },
+      { property: "og:description", content: "A daily nature quest that gets you outside for five minutes. One tiny prompt, one snapped photo, a growing field journal of lucky findings." },
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary" },
     ],
