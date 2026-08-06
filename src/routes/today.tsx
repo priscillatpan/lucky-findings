@@ -13,7 +13,7 @@ import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } fr
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 
-export const Route = createFileRoute("/")({
+export const Route = createFileRoute("/today")({
   beforeLoad: async () => {
     const { unlocked } = await isUnlocked();
     if (!unlocked) throw redirect({ to: "/unlock" });
