@@ -159,7 +159,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mt-6">
+    <section className="mt-4">
       <h2 className="font-display text-xl text-forest text-center">How it works</h2>
       <ul className="mt-2 grid grid-cols-3 gap-2">
         {STEPS.map((s) => (
@@ -173,7 +173,7 @@ function HowItWorks() {
               {s.n}
             </span>
             <p className="font-display text-sm leading-none text-forest mt-1.5">{s.title}</p>
-            <p className="text-[10px] text-ink/70 mt-1 leading-snug">{s.body}</p>
+            <p className="text-[9px] text-ink/70 mt-1 leading-tight">{s.body}</p>
           </li>
         ))}
       </ul>
