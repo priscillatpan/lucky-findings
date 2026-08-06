@@ -71,7 +71,7 @@ function Hero() {
         a little luck, once a day
       </p>
       <p className="text-sm text-ink/75 mt-4 leading-relaxed">
-        A daily creative quest to get you outside — in under five minutes.
+        Daily, creative quests to get you outside
       </p>
     </header>
   );
@@ -113,9 +113,9 @@ function Waitlist() {
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-2">
-            <p className="text-center font-display text-xl text-forest">Want in?</p>
+            <p className="text-center font-display text-xl text-forest">Coming soon! 🍀</p>
             <p className="text-center text-[11px] text-ink/55 mt-1 mb-3">
-              Leave your email and I'll send you the first quest.
+              Drop in your email and we'll email you when the app is ready.
             </p>
             <input
               type="email"
@@ -152,7 +152,7 @@ const STEPS = [
   {
     n: "2",
     title: "Go outside",
-    body: "It takes five minutes or less, gets you out of the house, and sends you off to find something lucky — maybe even a four-leaf clover.",
+    body: "Complete your quest in under 5 minutes — search, notice, make, wander, or meet someone. You might even find something lucky.",
     dot: "bg-sky",
   },
   {
