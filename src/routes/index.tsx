@@ -199,7 +199,7 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-4">
+    <section className="mt-2">
       <h2 className="font-display text-xl text-forest text-center">A peek inside</h2>
       <div className="mt-2 flex justify-center">
         <div className="flex flex-col items-center gap-2">
