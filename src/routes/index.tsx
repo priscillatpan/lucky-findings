@@ -109,15 +109,15 @@ function Waitlist() {
 
   return (
     <section className="mt-8">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-5 pt-6 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-4 pt-5 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
           alt=""
           aria-hidden
           className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 rotate-2 object-contain pointer-events-none"
         />
-        <p className="text-center font-display text-xl text-forest mt-2">Coming soon! 🍀</p>
-        <p className="text-center text-[11px] text-ink/55 mt-1 mb-2">
+        <p className="text-center font-display text-lg text-forest mt-1">Coming soon! 🍀</p>
+        <p className="text-center text-[11px] text-ink/55 mt-1 mb-1">
           Drop in your email and we'll email you when the app is ready.
         </p>
         <iframe
