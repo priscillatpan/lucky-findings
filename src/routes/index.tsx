@@ -48,8 +48,24 @@ function Landing() {
         <PeekInside />
         
         <SecretDoor />
+        <Footer />
       </main>
     </div>
+  );
+}
+
+function Footer() {
+  return (
+    <footer className="mt-12 text-center">
+      <a
+        href="https://www.instagram.com/priscilla.png/"
+        target="_blank"
+        rel="noreferrer"
+        className="text-[11px] text-ink/50 hover:text-forest transition-colors"
+      >
+        made with love by priscilla
+      </a>
+    </footer>
   );
 }
 
