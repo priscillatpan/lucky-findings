@@ -185,153 +185,46 @@ function HowItWorks() {
   );
 }
 
-function PhoneFrame({ children, label }: { children: React.ReactNode; label: string }) {
-  return (
-    <div className="flex flex-col items-center gap-2">
-      <div className="relative w-[152px] h-[310px] rounded-[1.75rem] bg-forest p-1.5 shadow-[0_20px_50px_-24px_rgba(13,61,20,0.55)]">
-        <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-12 h-3 bg-forest rounded-b-xl z-10" />
-        <div className="w-full h-full rounded-[1.4rem] overflow-hidden bg-paper paper-grid relative">
-          {children}
-        </div>
-      </div>
-      <p className="text-[10px] uppercase tracking-[0.2em] text-forest/55">{label}</p>
-    </div>
-  );
-}
-
-function TodayPreview({
-  quest,
-}: {
-  quest: { text: string; cat: string; dot: string; border: string };
-}) {
-  return (
-    <div className="p-2.5 pt-5 h-full flex flex-col">
-      <p className="text-[8px] uppercase tracking-[0.2em] text-forest/50 text-center">
-        Lucky Findings
-      </p>
-      <p className="font-display text-[13px] text-forest text-center mt-0.5">Today's Quest</p>
-      <div
-        className={`relative mt-3 bg-card rounded-lg ring-1 ring-forest/20 border-l-4 ${quest.border} p-2.5`}
-      >
-        <img
-          src={cloverTape.url}
-          alt=""
-          aria-hidden
-          className="absolute -top-2.5 right-2 w-9 rotate-6 object-contain"
-        />
-        <span className="inline-flex items-center gap-1 text-[7px] uppercase tracking-[0.15em] text-forest/60">
-          <span className={`size-1.5 rounded-full ${quest.dot}`} /> {quest.cat}
-        </span>
-        <p className="font-display text-[12px] leading-snug text-ink mt-1">{quest.text}</p>
-      </div>
-      <p className="text-[7px] text-center text-forest/40 mt-1.5">swap quest</p>
-      <div className="mt-auto">
-        <div className="bg-forest text-paper text-[9px] font-display text-center rounded-lg py-1.5">
-          Complete
-        </div>
-        <div className="mt-2 mx-auto w-[92%] bg-paper/90 rounded-full ring-1 ring-forest/15 flex text-[7px] uppercase tracking-widest text-forest/70">
-          <span className="flex-1 text-center py-1 rounded-full bg-lime text-forest">Today</span>
-          <span className="flex-1 text-center py-1">Calendar</span>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-const CAL_SHAPES = [
-  "rounded-[40%_60%_55%_45%/50%_45%_55%_50%]",
-  "rounded-lg",
-  "rounded-full",
-  "rounded-[45%_55%_40%_60%/55%_40%_60%_45%]",
-];
-const CAL_FILLS = ["bg-lime", "bg-sky", "bg-pink", "bg-butter"];
-
-function CalendarPreview() {
-  const days = Array.from({ length: 30 }, (_, i) => i + 1);
-  const filled = new Set([2, 3, 5, 8, 9, 12, 13, 16, 19, 20, 23, 26]);
-  return (
-    <div className="p-2.5 pt-5 h-full flex flex-col">
-      <p className="font-display text-[13px] text-forest text-center">August</p>
-      <div className="flex gap-1 mt-2">
-        <div className="flex-1 bg-lime/70 rounded-md py-1 text-center ring-1 ring-forest/15">
-          <p className="font-display text-[11px] leading-none text-forest">12</p>
-          <p className="text-[5.5px] uppercase tracking-widest text-forest/70 mt-0.5">
-            days outside
-          </p>
-        </div>
-        <div className="flex-1 bg-pink/60 rounded-md py-1 text-center ring-1 ring-forest/15">
-          <p className="font-display text-[11px] leading-none text-forest">4</p>
-          <p className="text-[5.5px] uppercase tracking-widest text-forest/70 mt-0.5">
-            streak of luck
-          </p>
-        </div>
-      </div>
-      <div className="relative mt-2 bg-card rounded-lg ring-1 ring-forest/15 p-1.5">
-        <img
-          src={pinkTape.url}
-          alt=""
-          aria-hidden
-          className="absolute -top-2 left-3 w-9 -rotate-6 object-contain"
-        />
-        <div className="grid grid-cols-7 gap-[3px]">
-          {days.map((d) => {
-            const on = filled.has(d);
-            return (
-              <div
-                key={d}
-                className={`aspect-square flex items-center justify-center text-[6px] text-forest/60 ${
-                  on
-                    ? `${CAL_FILLS[d % 4]} ${CAL_SHAPES[d % 4]} ring-1 ring-forest/20`
-                    : "rounded-[4px] bg-paper/60"
-                }`}
-              >
-                {d}
-              </div>
-            );
-          })}
-        </div>
-      </div>
-      <div className="mt-auto mx-auto w-[92%] bg-paper/90 rounded-full ring-1 ring-forest/15 flex text-[7px] uppercase tracking-widest text-forest/70">
-        <span className="flex-1 text-center py-1">Today</span>
-        <span className="flex-1 text-center py-1 rounded-full bg-sky text-forest">Calendar</span>
-      </div>
-    </div>
-  );
-}
-
-const PREVIEW_QUESTS = [
-  { text: "Find a shape in the clouds", cat: "Notice", dot: "bg-sky", border: "border-l-sky" },
-  {
-    text: "Find the oldest thing you can see",
-    cat: "Search",
-    dot: "bg-lime",
-    border: "border-l-lime",
-  },
-  {
-    text: "Follow whichever way the wind's blowing",
-    cat: "Serendipity",
-    dot: "bg-pink",
-    border: "border-l-pink",
-  },
+const SHOTS = [
+  { src: shotToday1.url, label: "Today" },
+  { src: shotToday2.url, label: "Today" },
+  { src: shotToday3.url, label: "Today" },
+  { src: shotCalendar.url, label: "Calendar" },
 ];
 
 function PeekInside() {
-  const [step, setStep] = useState(0); // 0-2 quests, 3 calendar
+  const [step, setStep] = useState(0);
 
   useEffect(() => {
-    const t = setTimeout(() => setStep((s) => (s + 1) % 4), step === 3 ? 2800 : 1200);
+    const t = setTimeout(() => setStep((s) => (s + 1) % SHOTS.length), step === 3 ? 3600 : 1500);
     return () => clearTimeout(t);
   }, [step]);
 
-  const onCalendar = step === 3;
+  const shot = SHOTS[step]!;
 
   return (
     <section className="mt-12">
       <h2 className="font-display text-2xl text-forest text-center">A peek inside</h2>
       <div className="mt-5 flex justify-center">
-        <PhoneFrame label={onCalendar ? "Calendar" : "Today"}>
-          {onCalendar ? <CalendarPreview /> : <TodayPreview quest={PREVIEW_QUESTS[step]!} />}
-        </PhoneFrame>
+        <div className="flex flex-col items-center gap-2">
+          <div className="relative w-[240px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-10" />
+            <div className="w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
+              {SHOTS.map((s, i) => (
+                <img
+                  key={s.src}
+                  src={s.src}
+                  alt="Lucky Findings app screen"
+                  loading="lazy"
+                  className={`w-full h-full object-cover object-top transition-opacity duration-300 ${
+                    i === step ? "opacity-100" : "opacity-0 absolute inset-2"
+                  }`}
+                />
+              ))}
+            </div>
+          </div>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-forest/55">{shot.label}</p>
+        </div>
       </div>
     </section>
   );
