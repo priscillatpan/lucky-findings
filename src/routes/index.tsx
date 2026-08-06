@@ -110,7 +110,7 @@ function Waitlist() {
   }, []);
 
   return (
-    <section className="mt-6">
+    <section className="mt-4">
       <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-2 pt-3 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
