@@ -11,6 +11,7 @@
 import { Route as rootRouteImport } from './routes/__root'
 import { Route as UnlockRouteImport } from './routes/unlock'
 import { Route as UiKitRouteImport } from './routes/ui-kit'
+import { Route as TodayRouteImport } from './routes/today'
 import { Route as MockupFlashRouteImport } from './routes/mockup-flash'
 import { Route as MockupRouteImport } from './routes/mockup'
 import { Route as CalendarRouteImport } from './routes/calendar'
@@ -25,6 +26,11 @@ const UnlockRoute = UnlockRouteImport.update({
 const UiKitRoute = UiKitRouteImport.update({
   id: '/ui-kit',
   path: '/ui-kit',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const TodayRoute = TodayRouteImport.update({
+  id: '/today',
+  path: '/today',
   getParentRoute: () => rootRouteImport,
 } as any)
 const MockupFlashRoute = MockupFlashRouteImport.update({
@@ -58,6 +64,7 @@ export interface FileRoutesByFullPath {
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
+  '/today': typeof TodayRoute
   '/ui-kit': typeof UiKitRoute
   '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
@@ -67,6 +74,7 @@ export interface FileRoutesByTo {
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
+  '/today': typeof TodayRoute
   '/ui-kit': typeof UiKitRoute
   '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
@@ -77,6 +85,7 @@ export interface FileRoutesById {
   '/calendar': typeof CalendarRoute
   '/mockup': typeof MockupRoute
   '/mockup-flash': typeof MockupFlashRoute
+  '/today': typeof TodayRoute
   '/ui-kit': typeof UiKitRoute
   '/unlock': typeof UnlockRoute
   '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
@@ -88,6 +97,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/mockup'
     | '/mockup-flash'
+    | '/today'
     | '/ui-kit'
     | '/unlock'
     | '/api/public/seed-july'
@@ -97,6 +107,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/mockup'
     | '/mockup-flash'
+    | '/today'
     | '/ui-kit'
     | '/unlock'
     | '/api/public/seed-july'
@@ -106,6 +117,7 @@ export interface FileRouteTypes {
     | '/calendar'
     | '/mockup'
     | '/mockup-flash'
+    | '/today'
     | '/ui-kit'
     | '/unlock'
     | '/api/public/seed-july'
@@ -116,6 +128,7 @@ export interface RootRouteChildren {
   CalendarRoute: typeof CalendarRoute
   MockupRoute: typeof MockupRoute
   MockupFlashRoute: typeof MockupFlashRoute
+  TodayRoute: typeof TodayRoute
   UiKitRoute: typeof UiKitRoute
   UnlockRoute: typeof UnlockRoute
   ApiPublicSeedJulyRoute: typeof ApiPublicSeedJulyRoute
@@ -135,6 +148,13 @@ declare module '@tanstack/react-router' {
       path: '/ui-kit'
       fullPath: '/ui-kit'
       preLoaderRoute: typeof UiKitRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/today': {
+      id: '/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof TodayRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/mockup-flash': {
@@ -180,6 +200,7 @@ const rootRouteChildren: RootRouteChildren = {
   CalendarRoute: CalendarRoute,
   MockupRoute: MockupRoute,
   MockupFlashRoute: MockupFlashRoute,
+  TodayRoute: TodayRoute,
   UiKitRoute: UiKitRoute,
   UnlockRoute: UnlockRoute,
   ApiPublicSeedJulyRoute: ApiPublicSeedJulyRoute,
@@ -187,13 +208,3 @@ const rootRouteChildren: RootRouteChildren = {
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
-
-import type { getRouter } from './router.tsx'
-import type { startInstance } from './start.ts'
-declare module '@tanstack/react-start' {
-  interface Register {
-    ssr: true
-    router: Awaited<ReturnType<typeof getRouter>>
-    config: Awaited<ReturnType<typeof startInstance.getOptions>>
-  }
-}

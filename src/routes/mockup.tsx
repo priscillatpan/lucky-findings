@@ -52,7 +52,7 @@ function MockupPage() {
         </Link>
       </header>
       <main className="max-w-5xl mx-auto px-5 py-10 flex flex-wrap gap-10 justify-center">
-        <Phone src="/" label="Today" />
+        <Phone src="/today" label="Today" />
         <Phone src="/calendar" label="Calendar" />
       </main>
     </div>

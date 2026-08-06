@@ -5,7 +5,7 @@ export function Nav() {
   return (
     <nav className="sticky top-0 z-50 bg-paper/85 backdrop-blur-md border-b border-forest/10">
       <div className="max-w-3xl mx-auto px-5 py-3 flex justify-between items-center">
-        <Link to="/" className="flex items-center gap-2">
+        <Link to="/today" className="flex items-center gap-2">
           <img
             src={cloverLogo.url}
             alt="Lucky Findings clover"
@@ -17,7 +17,7 @@ export function Nav() {
         </Link>
         <div className="flex gap-4 text-[11px] font-medium uppercase tracking-widest text-forest/70 items-center">
           <Link
-            to="/"
+            to="/today"
             activeOptions={{ exact: true }}
             activeProps={{ className: "text-forest underline underline-offset-4 decoration-2 decoration-lime" }}
             className="hover:text-forest transition-colors"
@@ -69,7 +69,7 @@ export function BottomNav() {
     <nav className="fixed bottom-0 inset-x-0 z-50 px-4 pb-5 pt-2 pointer-events-none">
       <div className="max-w-[19rem] mx-auto bg-paper/90 backdrop-blur-md rounded-full px-2 py-2 shadow-[0_12px_40px_-16px_rgba(13,61,20,0.35)] ring-1 ring-forest/15 border-b-4 border-forest/20 pointer-events-auto flex justify-around items-center">
         <Link
-          to="/"
+          to="/today"
           activeOptions={{ exact: true }}
           activeProps={{ className: "bg-lime text-forest ring-1 ring-forest/40 shadow-sm" }}
           className="flex-1 flex items-center justify-center gap-2 rounded-full py-2.5 text-[12px] font-semibold uppercase tracking-widest text-forest/70 hover:bg-forest/5 transition-all"

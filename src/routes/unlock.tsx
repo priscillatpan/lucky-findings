@@ -36,7 +36,7 @@ function Unlock() {
     setBusy(false);
     if (ok) {
       await router.invalidate();
-      await router.navigate({ to: "/" });
+      await router.navigate({ to: "/today" });
     } else {
       setError(true);
     }
