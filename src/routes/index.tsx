@@ -57,7 +57,7 @@ function Landing() {
 
 function Footer() {
   return (
-    <footer className="mt-6 text-center">
+    <footer className="mt-4 text-center">
       <a
         href="https://www.instagram.com/priscilla.png/"
         target="_blank"
