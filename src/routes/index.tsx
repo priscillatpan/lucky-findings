@@ -33,6 +33,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [{ src: "https://tally.so/widgets/embed.js", async: true }],
   }),
   component: Landing,
 });
@@ -41,12 +42,12 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
-      <main className="max-w-md mx-auto px-6 pt-10 pb-14">
+      <main className="max-w-md mx-auto px-6 pt-10 pb-12">
         <Hero />
         <Waitlist />
         <HowItWorks />
         <PeekInside />
-        
+
         <SecretDoor />
         <Footer />
       </main>
@@ -56,7 +57,7 @@ function Landing() {
 
 function Footer() {
   return (
-    <footer className="mt-8 text-center">
+    <footer className="mt-6 text-center">
       <a
         href="https://www.instagram.com/priscilla.png/"
         target="_blank"
@@ -89,7 +90,7 @@ function Hero() {
 }
 
 function Waitlist() {
-  const [height, setHeight] = useState(220);
+  const [height, setHeight] = useState(260);
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
@@ -139,42 +140,40 @@ const STEPS = [
   {
     n: "1",
     title: "Receive your quest",
-    body: "Every morning a new quest arrives, waiting for you to complete.",
+    body: "Every morning a new quest arrives.",
     dot: "bg-lime",
   },
   {
     n: "2",
     title: "Go outside",
-    body: "Complete your quest in under 5 minutes — search, notice, make, wander, or meet someone. You might even find something lucky.",
+    body: "Complete it in under 5 minutes.",
     dot: "bg-sky",
   },
   {
     n: "3",
     title: "Snap it",
-    body: "Take a photo to stamp the day into your calendar.",
+    body: "Take a photo to stamp the day.",
     dot: "bg-pink",
   },
 ];
 
 function HowItWorks() {
   return (
-    <section className="mt-8">
+    <section className="mt-6">
       <h2 className="font-display text-xl text-forest text-center">How it works</h2>
-      <ul className="mt-3 space-y-2">
+      <ul className="mt-2 grid grid-cols-3 gap-2">
         {STEPS.map((s) => (
           <li
             key={s.n}
-            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-3 flex gap-3"
+            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-2 text-center"
           >
             <span
-              className={`shrink-0 size-6 rounded-full ${s.dot} text-forest font-display text-sm flex items-center justify-center ring-1 ring-forest/30`}
+              className={`inline-grid shrink-0 size-6 rounded-full ${s.dot} text-forest font-display text-sm place-items-center ring-1 ring-forest/30`}
             >
               {s.n}
             </span>
-            <div>
-              <p className="font-display text-base leading-none text-forest">{s.title}</p>
-              <p className="text-[11px] text-ink/70 mt-1 leading-relaxed">{s.body}</p>
-            </div>
+            <p className="font-display text-sm leading-none text-forest mt-1.5">{s.title}</p>
+            <p className="text-[10px] text-ink/70 mt-1 leading-snug">{s.body}</p>
           </li>
         ))}
       </ul>
@@ -200,11 +199,11 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-8">
+    <section className="mt-6">
       <h2 className="font-display text-xl text-forest text-center">A peek inside</h2>
-      <div className="mt-3 flex justify-center">
+      <div className="mt-2 flex justify-center">
         <div className="flex flex-col items-center gap-2">
-          <div className="relative w-[200px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
+          <div className="relative w-[180px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
             <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-20" />
             <div className="relative w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
               {SHOTS.map((s, i) => (
@@ -257,7 +256,7 @@ function SecretDoor() {
   }
 
   return (
-    <footer className="mt-12 text-center">
+    <footer className="mt-8 text-center">
       <button
         type="button"
         onClick={onTap}
