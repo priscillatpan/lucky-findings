@@ -78,69 +78,50 @@ function Hero() {
 }
 
 function Waitlist() {
-  const [email, setEmail] = useState("");
-  const [error, setError] = useState<string | null>(null);
-  const [done, setDone] = useState(false);
+  const [height, setHeight] = useState(220);
 
-  function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    const parsed = emailSchema.safeParse(email);
-    if (!parsed.success) {
-      setError(parsed.error.issues[0]?.message ?? "Invalid email");
-      return;
+  useEffect(() => {
+    function onMessage(e: MessageEvent) {
+      if (typeof e.data !== "string" || !e.data.includes("Tally.FormLoaded")) return;
+      try {
+        const payload = JSON.parse(e.data);
+        if (payload?.event === "Tally.FormLoaded" && payload?.payload?.height) {
+          setHeight(payload.payload.height);
+        }
+      } catch {
+        /* ignore */
+      }
     }
-    setError(null);
-    if (WAITLIST_URL) {
-      window.location.href = `${WAITLIST_URL}?email=${encodeURIComponent(parsed.data)}`;
-      return;
-    }
-    setDone(true);
-  }
+    window.addEventListener("message", onMessage);
+    return () => window.removeEventListener("message", onMessage);
+  }, []);
 
   return (
     <section className="mt-8">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-5 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-5 pt-6 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
           alt=""
           aria-hidden
           className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 rotate-2 object-contain pointer-events-none"
         />
-        {done ? (
-          <div className="text-center py-2">
-            <p className="font-display text-2xl text-forest">You're in 🍀</p>
-            <p className="text-[12px] text-ink/60 mt-1">I'll ping you when the door opens.</p>
-          </div>
-        ) : (
-          <form onSubmit={onSubmit} className="mt-2">
-            <p className="text-center font-display text-xl text-forest">Coming soon! 🍀</p>
-            <p className="text-center text-[11px] text-ink/55 mt-1 mb-3">
-              Drop in your email and we'll email you when the app is ready.
-            </p>
-            <input
-              type="email"
-              name="email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              placeholder="you@email.com"
-              autoComplete="email"
-              maxLength={255}
-              style={{ fontSize: "16px" }}
-              className="w-full px-3 py-2.5 rounded-xl bg-paper ring-1 ring-forest/25 outline-none focus:ring-forest/50 text-center"
-            />
-            {error && <p className="text-[11px] text-red-700 text-center mt-2">{error}</p>}
-            <button
-              type="submit"
-              className="w-full mt-3 bg-forest text-paper py-2.5 rounded-xl font-display text-lg shadow-[0_10px_24px_-10px_rgba(13,102,34,0.6)]"
-            >
-              Save my spot
-            </button>
-          </form>
-        )}
+        <p className="text-center font-display text-xl text-forest mt-2">Coming soon! 🍀</p>
+        <p className="text-center text-[11px] text-ink/55 mt-1 mb-2">
+          Drop in your email and we'll email you when the app is ready.
+        </p>
+        <iframe
+          src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+          title="Join the Lucky Findings waitlist"
+          loading="lazy"
+          width="100%"
+          height={height}
+          style={{ border: 0, margin: 0 }}
+        />
       </div>
     </section>
   );
 }
+
 
 const STEPS = [
   {
