@@ -159,8 +159,8 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mt-4">
-      <h2 className="font-display text-xl text-forest text-center">How it works</h2>
+    <section className="mt-2">
+      <h2 className="font-display text-lg text-forest text-center">How it works</h2>
       <ul className="mt-2 grid grid-cols-3 gap-2">
         {STEPS.map((s) => (
           <li
