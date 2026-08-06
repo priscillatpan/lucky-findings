@@ -12,8 +12,8 @@ import shotToday3 from "@/assets/shot_today3.png.asset.json";
 import shotCalendar from "@/assets/shot_cal_july.png.asset.json";
 import { unlockSite } from "@/lib/gate.functions";
 
-// Waitlist form (Tally). Email typed here is passed along as a prefill param.
-const WAITLIST_URL = "https://tally.so/r/QKqXrp";
+// Waitlist form (Tally), embedded inline.
+const WAITLIST_EMBED_URL = "https://tally.so/embed/QKqXrp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
