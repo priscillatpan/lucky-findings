@@ -204,16 +204,15 @@ function PeekInside() {
       <div className="mt-5 flex justify-center">
         <div className="flex flex-col items-center gap-2">
           <div className="relative w-[240px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-10" />
-            <div className="w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-20" />
+            <div className="relative w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
               {SHOTS.map((s, i) => (
                 <img
                   key={s.src}
                   src={s.src}
                   alt="Lucky Findings app screen"
-                  loading="lazy"
-                  className={`w-full h-full object-cover object-top transition-opacity duration-300 ${
-                    i === step ? "opacity-100" : "opacity-0 absolute inset-2"
+                  className={`absolute inset-0 w-full h-full object-cover object-top transition-opacity duration-500 ${
+                    i === step ? "opacity-100 z-10" : "opacity-0 z-0"
                   }`}
                 />
               ))}
