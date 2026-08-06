@@ -37,11 +37,6 @@ export const Route = createFileRoute("/")({
   component: Landing,
 });
 
-const emailSchema = z
-  .string()
-  .trim()
-  .email({ message: "That email looks a little off" })
-  .max(255);
 
 function Landing() {
   return (
