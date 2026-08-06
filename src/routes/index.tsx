@@ -44,9 +44,9 @@ function Landing() {
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
       <main className="max-w-md mx-auto px-6 pt-8 pb-10">
         <Hero />
-        <Waitlist />
-        <HowItWorks />
         <PeekInside />
+        <HowItWorks />
+        <Waitlist />
 
         <SecretDoor />
         <Footer />
