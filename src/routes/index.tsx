@@ -1,6 +1,6 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
 import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { z } from "zod";
 import { Eye, EyeOff } from "lucide-react";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
@@ -48,7 +48,7 @@ function Landing() {
         <Waitlist />
         <HowItWorks />
         <PeekInside />
-        <QuestExamples />
+        
         <SecretDoor />
       </main>
     </div>
@@ -68,8 +68,7 @@ function Hero() {
         a little luck, once a day
       </p>
       <p className="text-sm text-ink/75 mt-4 leading-relaxed">
-        One tiny nature quest a day. Takes five minutes, gets you outside, and leaves you with a
-        field journal of small lucky findings.
+        A daily creative quest to get you outside — in under five minutes.
       </p>
     </header>
   );
@@ -106,16 +105,14 @@ function Waitlist() {
         />
         {done ? (
           <div className="text-center py-2">
-            <p className="font-display text-2xl text-forest">You're on the list 🍀</p>
-            <p className="text-[12px] text-ink/60 mt-1">
-              I'll email you the moment it opens up.
-            </p>
+            <p className="font-display text-2xl text-forest">You're in 🍀</p>
+            <p className="text-[12px] text-ink/60 mt-1">I'll ping you when the door opens.</p>
           </div>
         ) : (
           <form onSubmit={onSubmit} className="mt-2">
-            <p className="text-center font-display text-xl text-forest">Join the waitlist</p>
+            <p className="text-center font-display text-xl text-forest">Want in?</p>
             <p className="text-center text-[11px] text-ink/55 mt-1 mb-3">
-              Early access, no spam, one clover at a time.
+              Leave your email and I'll send you the first quest.
             </p>
             <input
               type="email"
@@ -145,20 +142,20 @@ function Waitlist() {
 const STEPS = [
   {
     n: "1",
-    title: "Get a quest",
-    body: "Every morning a new five-minute prompt lands — notice, search, make, or wander.",
+    title: "Receive your quest",
+    body: "Every morning a new quest arrives, waiting for you to complete.",
     dot: "bg-lime",
   },
   {
     n: "2",
     title: "Go outside",
-    body: "Head out, look properly, and find the thing. Swap the quest if it's not your day.",
+    body: "It takes five minutes or less, gets you out of the house, and sends you off to find something lucky — maybe even a four-leaf clover.",
     dot: "bg-sky",
   },
   {
     n: "3",
     title: "Snap it",
-    body: "One photo (plus a note if you like) stamps the day into your calendar.",
+    body: "Take a photo to stamp the day into your calendar.",
     dot: "bg-pink",
   },
 ];
@@ -203,14 +200,20 @@ function PhoneFrame({ children, label }: { children: React.ReactNode; label: str
   );
 }
 
-function TodayPreview() {
+function TodayPreview({
+  quest,
+}: {
+  quest: { text: string; cat: string; dot: string; border: string };
+}) {
   return (
     <div className="p-2.5 pt-5 h-full flex flex-col">
       <p className="text-[8px] uppercase tracking-[0.2em] text-forest/50 text-center">
         Lucky Findings
       </p>
       <p className="font-display text-[13px] text-forest text-center mt-0.5">Today's Quest</p>
-      <div className="relative mt-3 bg-card rounded-lg ring-1 ring-forest/20 border-l-4 border-l-sky p-2.5">
+      <div
+        className={`relative mt-3 bg-card rounded-lg ring-1 ring-forest/20 border-l-4 ${quest.border} p-2.5`}
+      >
         <img
           src={cloverTape.url}
           alt=""
@@ -218,11 +221,9 @@ function TodayPreview() {
           className="absolute -top-2.5 right-2 w-9 rotate-6 object-contain"
         />
         <span className="inline-flex items-center gap-1 text-[7px] uppercase tracking-[0.15em] text-forest/60">
-          <span className="size-1.5 rounded-full bg-sky" /> Notice
+          <span className={`size-1.5 rounded-full ${quest.dot}`} /> {quest.cat}
         </span>
-        <p className="font-display text-[12px] leading-snug text-ink mt-1">
-          Find a shape in the clouds
-        </p>
+        <p className="font-display text-[12px] leading-snug text-ink mt-1">{quest.text}</p>
       </div>
       <p className="text-[7px] text-center text-forest/40 mt-1.5">swap quest</p>
       <div className="mt-auto">
@@ -299,47 +300,40 @@ function CalendarPreview() {
   );
 }
 
+const PREVIEW_QUESTS = [
+  { text: "Find a shape in the clouds", cat: "Notice", dot: "bg-sky", border: "border-l-sky" },
+  {
+    text: "Find the oldest thing you can see",
+    cat: "Search",
+    dot: "bg-lime",
+    border: "border-l-lime",
+  },
+  {
+    text: "Follow whichever way the wind's blowing",
+    cat: "Serendipity",
+    dot: "bg-pink",
+    border: "border-l-pink",
+  },
+];
+
 function PeekInside() {
+  const [step, setStep] = useState(0); // 0-2 quests, 3 calendar
+
+  useEffect(() => {
+    const t = setTimeout(() => setStep((s) => (s + 1) % 4), step === 3 ? 2800 : 1200);
+    return () => clearTimeout(t);
+  }, [step]);
+
+  const onCalendar = step === 3;
+
   return (
     <section className="mt-12">
       <h2 className="font-display text-2xl text-forest text-center">A peek inside</h2>
-      <div className="mt-5 flex justify-center gap-4">
-        <PhoneFrame label="Today">
-          <TodayPreview />
-        </PhoneFrame>
-        <PhoneFrame label="Calendar">
-          <CalendarPreview />
+      <div className="mt-5 flex justify-center">
+        <PhoneFrame label={onCalendar ? "Calendar" : "Today"}>
+          {onCalendar ? <CalendarPreview /> : <TodayPreview quest={PREVIEW_QUESTS[step]!} />}
         </PhoneFrame>
       </div>
-    </section>
-  );
-}
-
-const EXAMPLES: { text: string; cat: string; dot: string }[] = [
-  { text: "Find a shape in the clouds", cat: "Notice", dot: "bg-sky" },
-  { text: "Find the oldest thing you can see", cat: "Search", dot: "bg-lime" },
-  { text: "Follow whichever way the wind's blowing", cat: "Serendipity", dot: "bg-pink" },
-  { text: "Find something someone dropped and left behind", cat: "Search", dot: "bg-lime" },
-];
-
-function QuestExamples() {
-  return (
-    <section className="mt-12">
-      <h2 className="font-display text-2xl text-forest text-center">Quests you might get</h2>
-      <ul className="mt-4 space-y-2">
-        {EXAMPLES.map((q) => (
-          <li
-            key={q.text}
-            className="bg-card rounded-xl ring-1 ring-forest/15 px-3.5 py-2.5 flex items-center gap-2.5"
-          >
-            <span className={`size-2 rounded-full shrink-0 ${q.dot}`} />
-            <span className="text-[13px] text-ink/85">{q.text}</span>
-            <span className="ml-auto text-[8px] uppercase tracking-[0.15em] text-forest/45">
-              {q.cat}
-            </span>
-          </li>
-        ))}
-      </ul>
     </section>
   );
 }
@@ -384,9 +378,6 @@ function SecretDoor() {
       >
         <img src={cloverIcon.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
       </button>
-      <p className="text-[10px] uppercase tracking-[0.25em] text-forest/40">
-        hand-crafted · no. 001
-      </p>
 
       {open && (
         <form onSubmit={onSubmit} className="w-full max-w-[15rem] mx-auto mt-4">
