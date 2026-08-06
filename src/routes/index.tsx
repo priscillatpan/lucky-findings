@@ -33,6 +33,7 @@ export const Route = createFileRoute("/")({
       { property: "og:type", content: "website" },
       { name: "twitter:card", content: "summary_large_image" },
     ],
+    scripts: [{ src: "https://tally.so/widgets/embed.js", async: true }],
   }),
   component: Landing,
 });
@@ -41,12 +42,12 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
-      <main className="max-w-md mx-auto px-6 pt-14 pb-20">
+      <main className="max-w-md mx-auto px-6 pt-6 pb-8">
         <Hero />
-        <Waitlist />
-        <HowItWorks />
         <PeekInside />
-        
+        <HowItWorks />
+        <Waitlist />
+
         <SecretDoor />
         <Footer />
       </main>
@@ -56,7 +57,7 @@ function Landing() {
 
 function Footer() {
   return (
-    <footer className="mt-12 text-center">
+    <footer className="mt-4 text-center">
       <a
         href="https://www.instagram.com/priscilla.png/"
         target="_blank"
@@ -75,13 +76,13 @@ function Hero() {
       <img
         src={cloverIcon.url}
         alt="Lucky Findings clover"
-        className="size-14 -rotate-6 object-contain mx-auto"
+        className="size-12 -rotate-6 object-contain mx-auto"
       />
-      <h1 className="font-display text-4xl leading-tight mt-3 text-forest">Lucky Findings</h1>
-      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-2">
+      <h1 className="font-display text-3xl leading-tight mt-2 text-forest">Lucky Findings</h1>
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
         a little luck, once a day
       </p>
-      <p className="text-sm text-ink/75 mt-4 leading-relaxed">
+      <p className="text-sm text-ink/75 mt-2 leading-relaxed">
         Daily, creative quests to get you outside
       </p>
     </header>
@@ -109,16 +110,16 @@ function Waitlist() {
   }, []);
 
   return (
-    <section className="mt-8">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-3 pt-4 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
+    <section className="mt-4">
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-2 pt-3 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
           alt=""
           aria-hidden
-          className="absolute -top-4 left-1/2 -translate-x-1/2 w-24 rotate-2 object-contain pointer-events-none"
+          className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
         />
-        <p className="text-center font-display text-lg text-forest mt-1">Coming soon! 🍀</p>
-        <p className="text-center text-[11px] text-ink/55 mt-1 mb-1">
+        <p className="text-center font-display text-base text-forest mt-1">Coming soon! 🍀</p>
+        <p className="text-center text-[10px] text-ink/55 mt-0.5 mb-1">
           Drop in your email and we'll email you when the app is ready.
         </p>
         <iframe
@@ -139,42 +140,40 @@ const STEPS = [
   {
     n: "1",
     title: "Receive your quest",
-    body: "Every morning a new quest arrives, waiting for you to complete.",
+    body: "Every morning a new quest arrives.",
     dot: "bg-lime",
   },
   {
     n: "2",
     title: "Go outside",
-    body: "Complete your quest in under 5 minutes — search, notice, make, wander, or meet someone. You might even find something lucky.",
+    body: "Complete it in under 5 minutes.",
     dot: "bg-sky",
   },
   {
     n: "3",
     title: "Snap it",
-    body: "Take a photo to stamp the day into your calendar.",
+    body: "Take a photo to stamp the day.",
     dot: "bg-pink",
   },
 ];
 
 function HowItWorks() {
   return (
-    <section className="mt-12">
-      <h2 className="font-display text-2xl text-forest text-center">How it works</h2>
-      <ul className="mt-4 space-y-3">
+    <section className="mt-2">
+      <h2 className="font-display text-lg text-forest text-center">How it works</h2>
+      <ul className="mt-2 grid grid-cols-3 gap-2">
         {STEPS.map((s) => (
           <li
             key={s.n}
-            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-4 flex gap-3"
+            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-2 text-center"
           >
             <span
-              className={`shrink-0 size-7 rounded-full ${s.dot} text-forest font-display text-base flex items-center justify-center ring-1 ring-forest/30`}
+              className={`inline-grid shrink-0 size-6 rounded-full ${s.dot} text-forest font-display text-sm place-items-center ring-1 ring-forest/30`}
             >
               {s.n}
             </span>
-            <div>
-              <p className="font-display text-lg leading-none text-forest">{s.title}</p>
-              <p className="text-[12px] text-ink/70 mt-1.5 leading-relaxed">{s.body}</p>
-            </div>
+            <p className="font-display text-sm leading-none text-forest mt-1.5">{s.title}</p>
+            <p className="text-[9px] text-ink/70 mt-1 leading-tight">{s.body}</p>
           </li>
         ))}
       </ul>
@@ -200,13 +199,13 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-12">
-      <h2 className="font-display text-2xl text-forest text-center">A peek inside</h2>
-      <div className="mt-5 flex justify-center">
+    <section className="mt-2">
+      <h2 className="font-display text-xl text-forest text-center">A peek inside</h2>
+      <div className="mt-2 flex justify-center">
         <div className="flex flex-col items-center gap-2">
-          <div className="relative w-[240px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
+          <div className="relative w-[180px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
             <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-20" />
-            <div className="relative w-full aspect-[390/844] rounded-[1.85rem] overflow-hidden bg-paper">
+            <div className="relative w-full aspect-[9/16] rounded-[1.85rem] overflow-hidden bg-paper">
               {SHOTS.map((s, i) => (
                 <img
                   key={s.src}
@@ -257,7 +256,7 @@ function SecretDoor() {
   }
 
   return (
-    <footer className="mt-16 text-center">
+    <footer className="mt-4 text-center">
       <button
         type="button"
         onClick={onTap}
