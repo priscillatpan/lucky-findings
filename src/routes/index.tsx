@@ -256,7 +256,7 @@ function SecretDoor() {
   }
 
   return (
-    <footer className="mt-8 text-center">
+    <footer className="mt-4 text-center">
       <button
         type="button"
         onClick={onTap}
