@@ -89,15 +89,16 @@ function Hero() {
 }
 
 function Waitlist() {
-  const [height, setHeight] = useState(220);
+  const [height, setHeight] = useState(260);
 
   useEffect(() => {
     function onMessage(e: MessageEvent) {
-      if (typeof e.data !== "string" || !e.data.includes("Tally.FormLoaded")) return;
+      if (typeof e.data !== "string" || !e.data.includes("Tally.")) return;
       try {
         const payload = JSON.parse(e.data);
-        if (payload?.event === "Tally.FormLoaded" && payload?.payload?.height) {
-          setHeight(payload.payload.height);
+        const newHeight = payload?.payload?.height;
+        if (newHeight && (payload?.event === "Tally.FormLoaded" || payload?.event === "Tally.HeightChanged")) {
+          setHeight(newHeight);
         }
       } catch {
         /* ignore */
