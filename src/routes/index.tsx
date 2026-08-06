@@ -8,9 +8,8 @@ import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import pinkTape from "@/assets/tape_2.png.asset.json";
 import { unlockSite } from "@/lib/gate.functions";
 
-// Drop your Tally / Typeform / etc. link here when it's ready.
-// Leave empty to show the built-in "you're on the list" confirmation.
-const WAITLIST_URL = "";
+// Waitlist form (Tally). Email typed here is passed along as a prefill param.
+const WAITLIST_URL = "https://tally.so/r/QKqXrp";
 
 export const Route = createFileRoute("/")({
   head: () => ({
