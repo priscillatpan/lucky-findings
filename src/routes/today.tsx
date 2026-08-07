@@ -208,8 +208,9 @@ function Home() {
               className="size-6 mx-auto mb-1.5 -rotate-6 object-contain opacity-90"
             />
             <h2 className="font-display text-2xl leading-none">
-              {done ? "Today's find" : "Today's Quest"}
+              {ready && done ? "Today's find" : "Today's Quest"}
             </h2>
+
             <p className="text-[9px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
               {formatDate(today)}
             </p>
