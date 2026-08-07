@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
-      <main className="max-w-md mx-auto px-6 pt-6 pb-8">
+      <main className="max-w-md mx-auto px-6 pt-3 pb-6">
         <Hero />
         <Waitlist />
         <HowItWorks />
