@@ -24,6 +24,7 @@ function Unlock() {
   const router = useRouter();
   const unlock = useServerFn(unlockSite);
   const [error, setError] = useState(false);
+  const [locked, setLocked] = useState(false);
   const [busy, setBusy] = useState(false);
   const [showPassword, setShowPassword] = useState(false);
 
@@ -31,14 +32,16 @@ function Unlock() {
     e.preventDefault();
     setBusy(true);
     setError(false);
+    setLocked(false);
     const password = String(new FormData(e.currentTarget).get("password") ?? "");
-    const { ok } = await unlock({ data: { password } });
+    const result = await unlock({ data: { password } });
     setBusy(false);
-    if (ok) {
+    if (result.ok) {
       await router.invalidate();
       await router.navigate({ to: "/today" });
     } else {
-      setError(true);
+      if ("locked" in result && result.locked) setLocked(true);
+      else setError(true);
     }
   }
 
@@ -56,8 +59,9 @@ function Unlock() {
             type={showPassword ? "text" : "password"}
             autoComplete="current-password"
             placeholder="password"
+            disabled={busy || locked}
             style={{ fontSize: "16px" }}
-            className="w-full px-3 pr-10 py-2 rounded-xl bg-card ring-1 ring-forest/25 outline-none focus:ring-forest/50 text-center"
+            className="w-full px-3 pr-10 py-2 rounded-xl bg-card ring-1 ring-forest/25 outline-none focus:ring-forest/50 text-center disabled:opacity-50"
           />
           <button
             type="button"
@@ -68,10 +72,15 @@ function Unlock() {
             {showPassword ? <EyeOff size={18} /> : <Eye size={18} />}
           </button>
         </div>
+        {locked && (
+          <p className="text-[11px] text-red-700 text-center mt-2">
+            Too many tries. Wait 15 minutes and try again.
+          </p>
+        )}
         {error && <p className="text-[11px] text-red-700 text-center mt-2">Not quite — try again</p>}
         <button
           type="submit"
-          disabled={busy}
+          disabled={busy || locked}
           className="w-full mt-3 bg-forest text-paper py-2 rounded-xl font-display text-base disabled:opacity-60 shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]"
         >
           {busy ? "Checking…" : "Enter"}
