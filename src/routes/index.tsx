@@ -3,6 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
 import { Eye, EyeOff } from "lucide-react";
+import logoClover from "@/assets/icon_1.png.asset.json";
 import bgClover from "@/assets/background.png.asset.json";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 
@@ -43,10 +44,10 @@ function Landing() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid relative overflow-hidden">
       <img
-        src={cloverIcon.url}
+        src={bgClover.url}
         alt=""
         aria-hidden
-        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] opacity-[0.06] pointer-events-none rotate-12"
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] opacity-[0.08] pointer-events-none rotate-12"
       />
       <main className="relative max-w-md mx-auto px-8 pt-8 pb-10">
         <Hero />
@@ -80,7 +81,7 @@ function Hero() {
   return (
     <header className="text-center pt-2">
       <img
-        src={cloverIcon.url}
+        src={logoClover.url}
         alt="Lucky Findings clover"
         className="size-12 -rotate-6 object-contain mx-auto"
       />
@@ -270,7 +271,7 @@ function SecretDoor() {
         aria-label="Lucky Findings clover"
         className="p-2 opacity-60 hover:opacity-100 transition-opacity"
       >
-        <img src={cloverIcon.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
+        <img src={logoClover.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
       </button>
 
       {open && (
