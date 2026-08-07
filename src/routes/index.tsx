@@ -42,7 +42,7 @@ export const Route = createFileRoute("/")({
 function Landing() {
   return (
     <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
-      <main className="max-w-md mx-auto px-6 pt-3 pb-6">
+      <main className="max-w-md mx-auto px-8 pt-8 pb-10">
         <Hero />
         <Waitlist />
         <HowItWorks />
@@ -72,17 +72,17 @@ function Footer() {
 
 function Hero() {
   return (
-    <header className="text-center">
+    <header className="text-center pt-2">
       <img
         src={cloverIcon.url}
         alt="Lucky Findings clover"
-        className="size-10 -rotate-6 object-contain mx-auto"
+        className="size-12 -rotate-6 object-contain mx-auto"
       />
-      <h1 className="font-display text-2xl leading-tight mt-1 text-forest">Lucky Findings</h1>
-      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-0.5">
+      <h1 className="font-display text-3xl leading-tight mt-2 text-forest">Lucky Findings</h1>
+      <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
         daily creative tasks
       </p>
-      <p className="text-xs text-ink/75 mt-1 leading-relaxed">
+      <p className="text-sm text-ink/75 mt-2 leading-relaxed">
         Daily, creative quests to get you outside
       </p>
     </header>
@@ -110,27 +110,21 @@ function Waitlist() {
   }, []);
 
   return (
-    <section className="mt-4">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-2 pt-3 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
-        <img
-          src={cloverTape.url}
-          alt=""
-          aria-hidden
-          className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
-        />
-        <p className="text-center font-display text-lg text-forest mt-1">Coming soon! 🍀</p>
-        <p className="text-center text-xs text-ink/70 mt-0.5 mb-1">
-          We'll email you when the app is ready!
+    <section className="mt-8">
+      <div className="text-center mb-4">
+        <p className="font-display text-xl text-forest">Coming soon! 🍀</p>
+        <p className="text-sm text-ink/70 mt-1">
+          We'll email you when the app is ready.
         </p>
-        <iframe
-          src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
-          title="Join the Lucky Findings waitlist"
-          loading="lazy"
-          width="100%"
-          height={height}
-          style={{ border: 0, margin: 0 }}
-        />
       </div>
+      <iframe
+        src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+        title="Join the Lucky Findings waitlist"
+        loading="lazy"
+        width="100%"
+        height={height}
+        style={{ border: 0, margin: 0 }}
+      />
     </section>
   );
 }
@@ -159,22 +153,22 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mt-5">
+    <section className="mt-10">
       <h2 className="font-display text-lg text-forest text-center">How it works</h2>
-      <ul className="mt-2 flex flex-col gap-2">
+      <ul className="mt-4 flex flex-col gap-4">
         {STEPS.map((s) => (
           <li
             key={s.n}
-            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-3 flex items-center gap-3"
+            className="flex items-start gap-4"
           >
             <span
               className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
             >
               {s.n}
             </span>
-            <div>
+            <div className="pt-1">
               <p className="font-display text-sm leading-none text-forest">{s.title}</p>
-              <p className="text-xs text-ink/70 mt-0.5 leading-snug">{s.body}</p>
+              <p className="text-sm text-ink/70 mt-1 leading-snug">{s.body}</p>
             </div>
           </li>
         ))}
@@ -201,9 +195,9 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-5">
+    <section className="mt-10">
       <h2 className="font-display text-lg text-forest text-center">A peek inside</h2>
-      <div className="mt-2 flex justify-center">
+      <div className="mt-4 flex justify-center">
         <div className="flex flex-col items-center gap-1">
           <div className="relative w-[160px] rounded-[2rem] bg-forest p-1.5 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
             <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-forest rounded-b-2xl z-20" />
