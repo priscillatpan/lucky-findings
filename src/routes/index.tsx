@@ -3,7 +3,7 @@ import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
 import { Eye, EyeOff } from "lucide-react";
-import logoClover from "@/assets/icon_1.png.asset.json";
+import cloverIcon from "@/assets/icon_2.png.asset.json";
 import bgClover from "@/assets/background.png.asset.json";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 
@@ -81,7 +81,7 @@ function Hero() {
   return (
     <header className="text-center pt-2">
       <img
-        src={logoClover.url}
+        src={cloverIcon.url}
         alt="Lucky Findings clover"
         className="size-12 -rotate-6 object-contain mx-auto"
       />
@@ -271,7 +271,7 @@ function SecretDoor() {
         aria-label="Lucky Findings clover"
         className="p-2 opacity-60 hover:opacity-100 transition-opacity"
       >
-        <img src={logoClover.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
+        <img src={cloverIcon.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
       </button>
 
       {open && (
