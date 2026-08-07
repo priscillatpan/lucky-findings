@@ -76,13 +76,13 @@ function Hero() {
       <img
         src={cloverIcon.url}
         alt="Lucky Findings clover"
-        className="size-12 -rotate-6 object-contain mx-auto"
+        className="size-10 -rotate-6 object-contain mx-auto"
       />
-      <h1 className="font-display text-3xl leading-tight mt-2 text-forest">Lucky Findings</h1>
-      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
+      <h1 className="font-display text-2xl leading-tight mt-1 text-forest">Lucky Findings</h1>
+      <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-0.5">
         a little luck, once a day
       </p>
-      <p className="text-sm text-ink/75 mt-2 leading-relaxed">
+      <p className="text-xs text-ink/75 mt-1 leading-relaxed">
         Daily, creative quests to get you outside
       </p>
     </header>
@@ -110,7 +110,7 @@ function Waitlist() {
   }, []);
 
   return (
-    <section className="mt-4">
+    <section className="mt-2">
       <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-2 pt-3 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
