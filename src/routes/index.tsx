@@ -161,19 +161,21 @@ function HowItWorks() {
   return (
     <section className="mt-2">
       <h2 className="font-display text-lg text-forest text-center">How it works</h2>
-      <ul className="mt-2 grid grid-cols-3 gap-2">
+      <ul className="mt-2 flex flex-col gap-2">
         {STEPS.map((s) => (
           <li
             key={s.n}
-            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-2 text-center"
+            className="bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-3 flex items-center gap-3"
           >
             <span
-              className={`inline-grid shrink-0 size-6 rounded-full ${s.dot} text-forest font-display text-sm place-items-center ring-1 ring-forest/30`}
+              className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
             >
               {s.n}
             </span>
-            <p className="font-display text-sm leading-none text-forest mt-1.5">{s.title}</p>
-            <p className="text-[9px] text-ink/70 mt-1 leading-tight">{s.body}</p>
+            <div>
+              <p className="font-display text-sm leading-none text-forest">{s.title}</p>
+              <p className="text-xs text-ink/70 mt-0.5 leading-snug">{s.body}</p>
+            </div>
           </li>
         ))}
       </ul>
