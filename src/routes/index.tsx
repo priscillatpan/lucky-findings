@@ -114,20 +114,28 @@ function Waitlist() {
 
   return (
     <section className="mt-8">
-      <div className="text-center mb-4">
-        <p className="font-display text-xl text-forest">Coming soon! 🍀</p>
-        <p className="text-sm text-ink/70 mt-1">
-          Join the waitlist & we'll email when the app is ready.
-        </p>
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-5 pt-6 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.35)]">
+        <img
+          src={cloverTape.url}
+          alt=""
+          aria-hidden
+          className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
+        />
+        <div className="text-center mb-4">
+          <p className="font-display text-xl text-forest">Coming soon! 🍀</p>
+          <p className="text-sm text-ink/70 mt-1">
+            Join the waitlist & we'll email when the app is ready.
+          </p>
+        </div>
+        <iframe
+          src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
+          title="Join the Lucky Findings waitlist"
+          loading="lazy"
+          width="100%"
+          height={height}
+          style={{ border: 0, margin: 0 }}
+        />
       </div>
-      <iframe
-        src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
-        title="Join the Lucky Findings waitlist"
-        loading="lazy"
-        width="100%"
-        height={height}
-        style={{ border: 0, margin: 0 }}
-      />
     </section>
   );
 }
@@ -157,33 +165,25 @@ const STEPS = [
 function HowItWorks() {
   return (
     <section className="mt-10">
-      <div className="relative bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-4 pt-5 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.35)]">
-        <img
-          src={cloverTape.url}
-          alt=""
-          aria-hidden
-          className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
-        />
-        <h2 className="font-display text-lg text-forest text-center">How it works</h2>
-        <ul className="mt-4 flex flex-col gap-4">
-          {STEPS.map((s) => (
-            <li
-              key={s.n}
-              className="flex items-start gap-4"
+      <h2 className="font-display text-lg text-forest text-center">How it works</h2>
+      <ul className="mt-4 flex flex-col gap-4">
+        {STEPS.map((s) => (
+          <li
+            key={s.n}
+            className="flex items-start gap-4"
+          >
+            <span
+              className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
             >
-              <span
-                className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
-              >
-                {s.n}
-              </span>
-              <div className="pt-1">
-                <p className="font-display text-sm leading-none text-forest">{s.title}</p>
-                <p className="text-sm text-ink/70 mt-1 leading-snug">{s.body}</p>
-              </div>
-            </li>
-          ))}
-        </ul>
-      </div>
+              {s.n}
+            </span>
+            <div className="pt-1">
+              <p className="font-display text-sm leading-none text-forest">{s.title}</p>
+              <p className="text-sm text-ink/70 mt-1 leading-snug">{s.body}</p>
+            </div>
+          </li>
+        ))}
+      </ul>
     </section>
   );
 }
