@@ -225,12 +225,21 @@ function Home() {
             />
 
 
-            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${categoryBorderClass(quest.category)} relative flex flex-col justify-center`}>
-              <span className="absolute top-2.5 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
-                <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
-                {quest.category}
-              </span>
-              {done && todayFinding ? (
+            <article className={`bg-card rounded-2xl p-4 pt-7 min-h-[10rem] shadow-[0_14px_36px_-18px_rgba(13,61,20,0.35)] ring-1 ring-forest/20 border-2 border-forest/30 border-l-4 ${ready ? categoryBorderClass(quest.category) : "border-l-forest/20"} relative flex flex-col justify-center`}>
+              {ready && (
+                <span className="absolute top-2.5 right-3 flex items-center gap-1 text-[8px] font-bold uppercase tracking-[0.2em] text-forest/70">
+                  <span className={"size-2 rounded-full ring-1 ring-forest/30 " + categoryDotClass(quest.category)} />
+                  {quest.category}
+                </span>
+              )}
+              {!ready ? (
+                <div className="flex flex-col items-center justify-center gap-2 py-6 animate-pulse">
+                  <div className="h-4 w-40 rounded-full bg-forest/10" />
+                  <div className="h-4 w-28 rounded-full bg-forest/10" />
+                  <div className="h-2.5 w-32 rounded-full bg-forest/5 mt-1" />
+                </div>
+              ) : done && todayFinding ? (
+
                 <>
                   <div className="bg-card p-1.5 pb-2.5 -rotate-2 shadow-md ring-1 ring-forest/10">
                     {todayFinding.photo_url ? (
