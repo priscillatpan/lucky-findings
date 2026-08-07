@@ -41,8 +41,14 @@ export const Route = createFileRoute("/")({
 
 function Landing() {
   return (
-    <div className="min-h-[100dvh] bg-paper text-ink paper-grid">
-      <main className="max-w-md mx-auto px-8 pt-8 pb-10">
+    <div className="min-h-[100dvh] bg-paper text-ink paper-grid relative overflow-hidden">
+      <img
+        src={cloverIcon.url}
+        alt=""
+        aria-hidden
+        className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[320px] opacity-[0.06] pointer-events-none rotate-12"
+      />
+      <main className="relative max-w-md mx-auto px-8 pt-8 pb-10">
         <Hero />
         <Waitlist />
         <HowItWorks />
