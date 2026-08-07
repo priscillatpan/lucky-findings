@@ -89,12 +89,13 @@ function Home() {
   const qc = useQueryClient();
 
   const [optionIdx, setOptionIdx] = useState(0);
+  const [hydrated, setHydrated] = useState(false);
 
-  const { data: todayFinding } = useQuery({
+  const { data: todayFinding, isPending: findingPending } = useQuery({
     queryKey: ["finding", todayKey],
     queryFn: () => getFindingForDate(today),
   });
-  const { data: all } = useQuery({
+  const { data: all, isPending: allPending } = useQuery({
     queryKey: ["findings"],
     queryFn: () => listFindings(),
   });
@@ -106,13 +107,19 @@ function Home() {
   useEffect(() => {
     const stored = window.localStorage.getItem(`quest-option-${todayKey}`);
     if (stored) setOptionIdx(Number(stored) % options.length);
+    setHydrated(true);
   }, [todayKey, options.length]);
+
+  // Everything that decides *which* quest shows must be settled before we
+  // render it, otherwise the quest visibly swaps under the user.
+  const ready = hydrated && !findingPending && !allPending;
 
   function swapQuest() {
     const next = (optionIdx + 1) % options.length;
     setOptionIdx(next);
     window.localStorage.setItem(`quest-option-${todayKey}`, String(next));
   }
+
 
   const fileRef = useRef<HTMLInputElement>(null);
   const [pending, setPending] = useState<{ file: File; preview: string } | null>(null);
