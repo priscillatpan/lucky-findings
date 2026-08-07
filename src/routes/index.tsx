@@ -81,7 +81,7 @@ function Hero() {
   return (
     <header className="text-center pt-2">
       <img
-        src={logoClover.url}
+        src={cloverIcon.url}
         alt="Lucky Findings clover"
         className="size-12 -rotate-6 object-contain mx-auto"
       />
@@ -271,7 +271,7 @@ function SecretDoor() {
         aria-label="Lucky Findings clover"
         className="p-2 opacity-60 hover:opacity-100 transition-opacity"
       >
-        <img src={logoClover.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
+        <img src={cloverIcon.url} alt="" aria-hidden className="size-8 rotate-3 object-contain" />
       </button>
 
       {open && (
