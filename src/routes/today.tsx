@@ -315,7 +315,7 @@ function Home() {
             </article>
           </div>
 
-          {!done && !pending && options.length > 1 && (
+          {ready && !done && !pending && options.length > 1 && (
             <div className="mt-1.5 flex justify-center">
               <button
                 type="button"
@@ -329,7 +329,8 @@ function Home() {
           )}
 
 
-          {!done && (
+          {ready && !done && (
+
             <>
               <input
                 ref={fileRef}
