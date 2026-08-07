@@ -146,7 +146,7 @@ const STEPS = [
   {
     n: "2",
     title: "Go outside",
-    body: "Complete it in under 5 minutes.",
+    body: "Complete your quest in <5 minutes. Search, notice, or make something. Might even find something lucky.",
     dot: "bg-sky",
   },
   {
@@ -199,13 +199,13 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-2">
-      <h2 className="font-display text-xl text-forest text-center">A peek inside</h2>
-      <div className="mt-2 flex justify-center">
-        <div className="flex flex-col items-center gap-2">
-          <div className="relative w-[200px] rounded-[2.25rem] bg-forest p-2 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
-            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-16 h-4 bg-forest rounded-b-2xl z-20" />
-            <div className="relative w-full aspect-[1170/2532] rounded-[1.85rem] overflow-hidden bg-paper">
+    <section className="mt-1">
+      <h2 className="font-display text-lg text-forest text-center">A peek inside</h2>
+      <div className="mt-1 flex justify-center">
+        <div className="flex flex-col items-center gap-1">
+          <div className="relative w-[160px] rounded-[2rem] bg-forest p-1.5 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
+            <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-forest rounded-b-2xl z-20" />
+            <div className="relative w-full aspect-[1170/2532] rounded-[1.65rem] overflow-hidden bg-paper">
               {SHOTS.map((s, i) => (
                 <img
                   key={s.src}
