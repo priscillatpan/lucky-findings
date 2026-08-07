@@ -80,7 +80,7 @@ function Hero() {
       />
       <h1 className="font-display text-2xl leading-tight mt-1 text-forest">Lucky Findings</h1>
       <p className="text-[10px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-0.5">
-        a little luck, once a day
+        daily creative tasks
       </p>
       <p className="text-xs text-ink/75 mt-1 leading-relaxed">
         Daily, creative quests to get you outside
@@ -118,9 +118,9 @@ function Waitlist() {
           aria-hidden
           className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
         />
-        <p className="text-center font-display text-base text-forest mt-1">Coming soon! 🍀</p>
-        <p className="text-center text-[10px] text-ink/55 mt-0.5 mb-1">
-          Drop in your email and we'll email you when the app is ready.
+        <p className="text-center font-display text-lg text-forest mt-1">Coming soon! 🍀</p>
+        <p className="text-center text-xs text-ink/70 mt-0.5 mb-1">
+          We'll email you when the app is ready!
         </p>
         <iframe
           src={`${WAITLIST_EMBED_URL}?alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1`}
@@ -146,7 +146,7 @@ const STEPS = [
   {
     n: "2",
     title: "Go outside",
-    body: "Complete your quest in <5 minutes. Search, notice, or make something. Might even find something lucky.",
+    body: "Complete your quest in <5 minutes. Search, notice, or make something.",
     dot: "bg-sky",
   },
   {
