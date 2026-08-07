@@ -110,7 +110,7 @@ function Waitlist() {
   }, []);
 
   return (
-    <section className="mt-2">
+    <section className="mt-4">
       <div className="relative bg-card rounded-2xl ring-1 ring-forest/20 border-b-4 border-forest/15 p-2 pt-3 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.45)]">
         <img
           src={cloverTape.url}
@@ -159,7 +159,7 @@ const STEPS = [
 
 function HowItWorks() {
   return (
-    <section className="mt-2">
+    <section className="mt-5">
       <h2 className="font-display text-lg text-forest text-center">How it works</h2>
       <ul className="mt-2 flex flex-col gap-2">
         {STEPS.map((s) => (
@@ -201,9 +201,9 @@ function PeekInside() {
   const shot = SHOTS[step]!;
 
   return (
-    <section className="mt-1">
+    <section className="mt-5">
       <h2 className="font-display text-lg text-forest text-center">A peek inside</h2>
-      <div className="mt-1 flex justify-center">
+      <div className="mt-2 flex justify-center">
         <div className="flex flex-col items-center gap-1">
           <div className="relative w-[160px] rounded-[2rem] bg-forest p-1.5 shadow-[0_26px_60px_-26px_rgba(13,61,20,0.55)]">
             <div className="absolute top-1.5 left-1/2 -translate-x-1/2 w-14 h-3.5 bg-forest rounded-b-2xl z-20" />
