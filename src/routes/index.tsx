@@ -4,6 +4,7 @@ import { useEffect, useState } from "react";
 
 import { Eye, EyeOff } from "lucide-react";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
+import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 
 import shotToday1 from "@/assets/shot_today1.png.asset.json";
 import shotToday2 from "@/assets/shot_today2.png.asset.json";
@@ -81,9 +82,6 @@ function Hero() {
       <p className="text-[11px] font-bold uppercase tracking-[0.25em] text-forest/60 mt-1">
         daily creative tasks
       </p>
-      <p className="text-sm text-ink/75 mt-2 leading-relaxed">
-        Daily, creative quests to get you outside
-      </p>
     </header>
   );
 }
@@ -153,25 +151,33 @@ const STEPS = [
 function HowItWorks() {
   return (
     <section className="mt-10">
-      <h2 className="font-display text-lg text-forest text-center">How it works</h2>
-      <ul className="mt-4 flex flex-col gap-4">
-        {STEPS.map((s) => (
-          <li
-            key={s.n}
-            className="flex items-start gap-4"
-          >
-            <span
-              className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
+      <div className="relative bg-card rounded-2xl ring-1 ring-forest/15 border-b-4 border-forest/10 p-4 pt-5 shadow-[0_14px_40px_-24px_rgba(13,61,20,0.35)]">
+        <img
+          src={cloverTape.url}
+          alt=""
+          aria-hidden
+          className="absolute -top-3 left-1/2 -translate-x-1/2 w-20 rotate-2 object-contain pointer-events-none"
+        />
+        <h2 className="font-display text-lg text-forest text-center">How it works</h2>
+        <ul className="mt-4 flex flex-col gap-4">
+          {STEPS.map((s) => (
+            <li
+              key={s.n}
+              className="flex items-start gap-4"
             >
-              {s.n}
-            </span>
-            <div className="pt-1">
-              <p className="font-display text-sm leading-none text-forest">{s.title}</p>
-              <p className="text-sm text-ink/70 mt-1 leading-snug">{s.body}</p>
-            </div>
-          </li>
-        ))}
-      </ul>
+              <span
+                className={`inline-grid shrink-0 size-8 rounded-full ${s.dot} text-forest font-display text-base place-items-center ring-1 ring-forest/30`}
+              >
+                {s.n}
+              </span>
+              <div className="pt-1">
+                <p className="font-display text-sm leading-none text-forest">{s.title}</p>
+                <p className="text-sm text-ink/70 mt-1 leading-snug">{s.body}</p>
+              </div>
+            </li>
+          ))}
+        </ul>
+      </div>
     </section>
   );
 }
