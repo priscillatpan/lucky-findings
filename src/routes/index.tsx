@@ -117,7 +117,7 @@ function Waitlist() {
       <div className="text-center mb-4">
         <p className="font-display text-xl text-forest">Coming soon! 🍀</p>
         <p className="text-sm text-ink/70 mt-1">
-          We'll email you when the app is ready.
+          Join the waitlist & we'll email when the app is ready.
         </p>
       </div>
       <iframe
