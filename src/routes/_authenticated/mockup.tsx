@@ -1,12 +1,6 @@
 import { createFileRoute, Link } from "@tanstack/react-router";
-import { redirect } from "@tanstack/react-router";
-import { isUnlocked } from "@/lib/gate.functions";
 
-export const Route = createFileRoute("/mockup")({
-  beforeLoad: async () => {
-    const { unlocked } = await isUnlocked();
-    if (!unlocked) throw redirect({ to: "/unlock" });
-  },
+export const Route = createFileRoute("/_authenticated/mockup")({
   head: () => ({
     meta: [
       { title: "Lucky Findings — Screens Mockup" },
