@@ -1,8 +1,6 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
-import { Eye, EyeOff } from "lucide-react";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import bgClover from "@/assets/background.png.asset.json";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
@@ -11,7 +9,6 @@ import shotToday1 from "@/assets/shot_today1.png.asset.json";
 import shotToday2 from "@/assets/shot_today2.png.asset.json";
 import shotToday3 from "@/assets/shot_today3.png.asset.json";
 import shotCalendar from "@/assets/shot_cal_july.png.asset.json";
-import { unlockSite } from "@/lib/gate.functions";
 
 // Waitlist form (Tally), embedded inline.
 const WAITLIST_EMBED_URL = "https://tally.so/embed/QKqXrp";
@@ -235,32 +232,13 @@ function PeekInside() {
 
 function SecretDoor() {
   const router = useRouter();
-  const unlock = useServerFn(unlockSite);
   const [taps, setTaps] = useState(0);
   const [open, setOpen] = useState(false);
-  const [show, setShow] = useState(false);
-  const [busy, setBusy] = useState(false);
-  const [error, setError] = useState(false);
 
   function onTap() {
     const next = taps + 1;
     setTaps(next);
     if (next >= 3) setOpen(true);
-  }
-
-  async function onSubmit(e: React.FormEvent<HTMLFormElement>) {
-    e.preventDefault();
-    setBusy(true);
-    setError(false);
-    const password = String(new FormData(e.currentTarget).get("password") ?? "");
-    const { ok } = await unlock({ data: { password } });
-    setBusy(false);
-    if (ok) {
-      await router.invalidate();
-      await router.navigate({ to: "/today" });
-    } else {
-      setError(true);
-    }
   }
 
   return (
@@ -275,34 +253,16 @@ function SecretDoor() {
       </button>
 
       {open && (
-        <form onSubmit={onSubmit} className="w-full max-w-[15rem] mx-auto mt-4">
-          <div className="relative">
-            <input
-              name="password"
-              type={show ? "text" : "password"}
-              autoComplete="current-password"
-              placeholder="password"
-              style={{ fontSize: "16px" }}
-              className="w-full px-3 pr-10 py-2 rounded-xl bg-card ring-1 ring-forest/25 outline-none focus:ring-forest/50 text-center"
-            />
-            <button
-              type="button"
-              aria-label={show ? "Hide password" : "Show password"}
-              onClick={() => setShow((v) => !v)}
-              className="absolute right-2 top-1/2 -translate-y-1/2 p-1 text-forest/50 hover:text-forest transition-colors"
-            >
-              {show ? <EyeOff size={18} /> : <Eye size={18} />}
-            </button>
-          </div>
-          {error && <p className="text-[11px] text-red-700 mt-2">Not quite — try again</p>}
+        <div className="w-full max-w-[15rem] mx-auto mt-3">
           <button
-            type="submit"
-            disabled={busy}
-            className="w-full mt-2 bg-forest text-paper py-2 rounded-xl font-display text-base disabled:opacity-60"
+            type="button"
+            onClick={() => router.navigate({ to: "/auth" })}
+            className="w-full bg-forest text-paper py-2 rounded-xl font-display text-base"
           >
-            {busy ? "Checking…" : "Enter"}
+            Sign in
           </button>
-        </form>
+          <p className="text-[10px] uppercase tracking-[0.2em] text-forest/45 mt-2">invite only</p>
+        </div>
       )}
     </footer>
   );
