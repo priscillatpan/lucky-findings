@@ -1,8 +1,6 @@
 import { createFileRoute, useRouter } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
 import { useEffect, useState } from "react";
 
-import { Eye, EyeOff } from "lucide-react";
 import cloverIcon from "@/assets/icon_2.png.asset.json";
 import bgClover from "@/assets/background.png.asset.json";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
@@ -11,7 +9,6 @@ import shotToday1 from "@/assets/shot_today1.png.asset.json";
 import shotToday2 from "@/assets/shot_today2.png.asset.json";
 import shotToday3 from "@/assets/shot_today3.png.asset.json";
 import shotCalendar from "@/assets/shot_cal_july.png.asset.json";
-import { unlockSite } from "@/lib/gate.functions";
 
 // Waitlist form (Tally), embedded inline.
 const WAITLIST_EMBED_URL = "https://tally.so/embed/QKqXrp";
