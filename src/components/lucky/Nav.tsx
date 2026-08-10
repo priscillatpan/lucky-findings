@@ -1,4 +1,7 @@
-import { Link } from "@tanstack/react-router";
+import { Link, useRouter } from "@tanstack/react-router";
+import { useQueryClient } from "@tanstack/react-query";
+import { LogOut } from "lucide-react";
+import { supabase } from "@/integrations/supabase/client";
 import cloverLogo from "@/assets/icon_2.png.asset.json";
 
 export function Nav() {
@@ -65,6 +68,16 @@ export function Footer() {
 }
 
 export function BottomNav() {
+  const router = useRouter();
+  const queryClient = useQueryClient();
+
+  async function onSignOut() {
+    await queryClient.cancelQueries();
+    queryClient.clear();
+    await supabase.auth.signOut();
+    router.navigate({ to: "/auth", replace: true });
+  }
+
   return (
     <nav className="fixed bottom-0 inset-x-0 z-50 px-4 pb-5 pt-2 pointer-events-none">
       <div className="max-w-[19rem] mx-auto bg-paper/90 backdrop-blur-md rounded-full px-2 py-2 shadow-[0_12px_40px_-16px_rgba(13,61,20,0.35)] ring-1 ring-forest/15 border-b-4 border-forest/20 pointer-events-auto flex justify-around items-center">
@@ -83,6 +96,14 @@ export function BottomNav() {
         >
           <span>Calendar</span>
         </Link>
+        <button
+          type="button"
+          onClick={onSignOut}
+          aria-label="Sign out"
+          className="shrink-0 grid place-items-center size-9 rounded-full text-forest/60 hover:bg-forest/5 hover:text-forest transition-all"
+        >
+          <LogOut size={16} />
+        </button>
       </div>
     </nav>
   );
