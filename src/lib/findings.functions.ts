@@ -1,12 +1,14 @@
 import { createServerFn } from "@tanstack/react-start";
+import { requireSupabaseAuth } from "@/integrations/supabase/auth-middleware";
 
-export const listFindingsFn = createServerFn({ method: "GET" }).handler(async () => {
-  const { ownerId, getAdmin, signPhoto } = await import("./findings.server");
+export const listFindingsFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth]).handler(async ({ context }) => {
+  const { getAdmin, signPhoto } = await import("./findings.server");
   const admin = await getAdmin();
   const { data, error } = await admin
     .from("findings")
     .select("*")
-    .eq("user_id", ownerId())
+    .eq("user_id", context.userId)
     .order("completed_on", { ascending: false });
   if (error) throw error;
   const rows = data ?? [];
@@ -20,17 +22,18 @@ export const listFindingsFn = createServerFn({ method: "GET" }).handler(async ()
 });
 
 export const getFindingForDateFn = createServerFn({ method: "GET" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: { date: string }) => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data?.date ?? "")) throw new Error("Bad date");
     return { date: data.date };
   })
-  .handler(async ({ data }) => {
-    const { ownerId, getAdmin, signPhoto } = await import("./findings.server");
+  .handler(async ({ data, context }) => {
+    const { getAdmin, signPhoto } = await import("./findings.server");
     const admin = await getAdmin();
     const { data: row, error } = await admin
       .from("findings")
       .select("*")
-      .eq("user_id", ownerId())
+      .eq("user_id", context.userId)
       .eq("completed_on", data.date)
       .maybeSingle();
     if (error) throw error;
@@ -39,6 +42,7 @@ export const getFindingForDateFn = createServerFn({ method: "GET" })
   });
 
 export const saveFindingFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator(
     (data: {
       questId: string;
@@ -57,12 +61,12 @@ export const saveFindingFn = createServerFn({ method: "POST" })
       return data;
     },
   )
-  .handler(async ({ data }) => {
-    const { ownerId, getAdmin, BUCKET, signPhoto } = await import("./findings.server");
+  .handler(async ({ data, context }) => {
+    const { getAdmin, BUCKET, signPhoto } = await import("./findings.server");
     const admin = await getAdmin();
 
     const safeExt = (data.ext || "jpg").replace(/[^a-z0-9]/gi, "").slice(0, 5) || "jpg";
-    const path = `${ownerId()}/${data.completedOn}-${Date.now()}.${safeExt}`;
+    const path = `${context.userId}/${data.completedOn}-${Date.now()}.${safeExt}`;
     const bytes = Buffer.from(data.photoBase64, "base64");
 
     const { error: upErr } = await admin.storage
@@ -78,7 +82,7 @@ export const saveFindingFn = createServerFn({ method: "POST" })
       .from("findings")
       .upsert(
         {
-          user_id: ownerId(),
+          user_id: context.userId,
           quest_id: data.questId,
           quest_title: data.questTitle,
           quest_category: data.questCategory,
@@ -95,17 +99,18 @@ export const saveFindingFn = createServerFn({ method: "POST" })
   });
 
 export const deleteFindingForDateFn = createServerFn({ method: "POST" })
+  .middleware([requireSupabaseAuth])
   .inputValidator((data: { date: string }) => {
     if (!/^\d{4}-\d{2}-\d{2}$/.test(data?.date ?? "")) throw new Error("Bad date");
     return { date: data.date };
   })
-  .handler(async ({ data }) => {
-    const { ownerId, getAdmin, BUCKET } = await import("./findings.server");
+  .handler(async ({ data, context }) => {
+    const { getAdmin, BUCKET } = await import("./findings.server");
     const admin = await getAdmin();
     const { data: row, error } = await admin
       .from("findings")
       .select("id, photo_path")
-      .eq("user_id", ownerId())
+      .eq("user_id", context.userId)
       .eq("completed_on", data.date)
       .maybeSingle();
     if (error) throw error;
