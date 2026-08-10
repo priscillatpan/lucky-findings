@@ -11,7 +11,7 @@ import { deleteFindingForDate, getFindingForDate, listFindings, saveFinding } fr
 import { CloverConfetti } from "@/components/lucky/CloverConfetti";
 
 
-export const Route = createFileRoute("/_authenticated/_authenticated/today")({
+export const Route = createFileRoute("/_authenticated/today")({
   head: () => ({
     meta: [
       { title: "Today's Quest — Lucky Findings" },

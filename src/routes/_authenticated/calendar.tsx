@@ -8,7 +8,7 @@ import pinkTape from "@/assets/tape_2.png.asset.json";
 import cloverTape from "@/assets/tape_3_v2.png.asset.json";
 import { listFindings, type FindingWithUrl } from "@/lib/findings";
 
-export const Route = createFileRoute("/_authenticated/_authenticated/calendar")({
+export const Route = createFileRoute("/_authenticated/calendar")({
   head: () => ({
     meta: [
       { title: "Calendar — Lucky Findings" },
