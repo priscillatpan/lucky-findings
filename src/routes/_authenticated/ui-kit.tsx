@@ -109,7 +109,7 @@ function UiKit() {
               <p className="text-sm text-ink/75 text-center mt-2">Green fading to yellow, red tips, or a brown edge.</p>
             </article>
             <div className="flex flex-wrap items-center gap-3">
-              <button className="bg-forest text-paper py-3 px-6 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]">Complete!</button>
+              <button className="bg-forest text-paper py-3 px-6 rounded-xl font-display text-lg shadow-[0_8px_20px_-8px_rgba(13,102,34,0.5)]">I found it</button>
               <button className="bg-butter text-ink py-3 px-6 rounded-xl font-display text-lg ring-1 ring-forest/30">Retake</button>
               <button className="bg-paper text-forest py-2 px-4 rounded-full text-[11px] font-bold uppercase tracking-widest ring-1 ring-forest/20">Today</button>
             </div>
