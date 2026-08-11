@@ -347,7 +347,7 @@ function CalendarPage() {
         </div>
       )}
 
-      <Footer />
+      <BottomNav />
 
       <BottomNav />
     </div>
