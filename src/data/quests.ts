@@ -252,33 +252,64 @@ export function questForDate(
   return questsForDate(date, completedIds)[0];
 }
 
-// Today's quest plus two backups from other categories. Each day consumes the
-// next 3 quests in the rotation, so nothing repeats until the whole list
-// (30 quests / 3 per day = 10 days) has cycled through. Completed quest IDs
-// are skipped, so the user never sees a quest they've already finished.
+// Today's quest plus two backups from other categories. Each day owns its own
+// 3-quest slice of the rotation, so consecutive days never share a quest.
+// If a quest in today's slice was already completed, its replacement is pulled
+// from the far side of the rotation (never from a neighbouring day's slice),
+// so yesterday's skipped quests don't reappear today.
 export function questsForDate(
   date: Date = new Date(),
   completedIds: string[] = [],
 ): Quest[] {
+  const len = ROTATION.length;
   const idx = dayIndex(date);
-  const start =
-    (((idx * PER_DAY) % ROTATION.length) + ROTATION.length) % ROTATION.length;
+  const start = (((idx * PER_DAY) % len) + len) % len;
   const completed = new Set(completedIds);
-  const out: Quest[] = [];
-  let i = 0;
-  while (out.length < PER_DAY && i < ROTATION.length) {
-    const q = ROTATION[(start + i) % ROTATION.length];
-    if (!completed.has(q.id)) out.push(q);
-    i++;
+
+  // Indices reserved by nearby days (so substitutes never steal them).
+  const reserved = new Set<number>();
+  for (let d = -3; d <= 3; d++) {
+    const s = ((((idx + d) * PER_DAY) % len) + len) % len;
+    for (let j = 0; j < PER_DAY; j++) reserved.add((s + j) % len);
   }
-  // If every quest has been completed, the cycle starts fresh.
-  if (out.length === 0) {
-    for (let j = 0; j < PER_DAY; j++) {
-      out.push(ROTATION[(start + j) % ROTATION.length]);
+
+  const chosen: Quest[] = [];
+  const used = new Set<number>();
+
+  // Deterministic substitute cursor on the far side of the rotation.
+  let cursor = (start + Math.floor(len / 2)) % len;
+  const nextSubstitute = (): Quest | null => {
+    for (let k = 0; k < len; k++) {
+      const i = (cursor + k) % len;
+      const q = ROTATION[i];
+      if (!reserved.has(i) && !used.has(i) && !completed.has(q.id)) {
+        cursor = (i + 1) % len;
+        used.add(i);
+        return q;
+      }
+    }
+    return null;
+  };
+
+  for (let j = 0; j < PER_DAY; j++) {
+    const i = (start + j) % len;
+    const q = ROTATION[i];
+    if (!completed.has(q.id)) {
+      used.add(i);
+      chosen.push(q);
+    } else {
+      const sub = nextSubstitute();
+      if (sub) chosen.push(sub);
     }
   }
-  return out;
+
+  // If everything has been completed, fall back to the plain day slice.
+  if (chosen.length === 0) {
+    for (let j = 0; j < PER_DAY; j++) chosen.push(ROTATION[(start + j) % len]);
+  }
+  return chosen;
 }
+
 
 
 
