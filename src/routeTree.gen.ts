@@ -17,7 +17,6 @@ import { Route as AuthenticatedMockupRouteImport } from './routes/_authenticated
 import { Route as AuthenticatedMockupFlashRouteImport } from './routes/_authenticated/mockup-flash'
 import { Route as AuthenticatedTodayRouteImport } from './routes/_authenticated/today'
 import { Route as AuthenticatedUiKitRouteImport } from './routes/_authenticated/ui-kit'
-import { Route as ApiPublicSeedJulyRouteImport } from './routes/api/public/seed-july'
 
 const IndexRoute = IndexRouteImport.update({
   id: '/',
@@ -59,11 +58,6 @@ const AuthenticatedUiKitRoute = AuthenticatedUiKitRouteImport.update({
   path: '/ui-kit',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const ApiPublicSeedJulyRoute = ApiPublicSeedJulyRouteImport.update({
-  id: '/api/public/seed-july',
-  path: '/api/public/seed-july',
-  getParentRoute: () => rootRouteImport,
-} as any)
 
 export interface FileRoutesByFullPath {
   '/': typeof IndexRoute
@@ -73,7 +67,6 @@ export interface FileRoutesByFullPath {
   '/mockup-flash': typeof AuthenticatedMockupFlashRoute
   '/today': typeof AuthenticatedTodayRoute
   '/ui-kit': typeof AuthenticatedUiKitRoute
-  '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesByTo {
   '/': typeof IndexRoute
@@ -83,7 +76,6 @@ export interface FileRoutesByTo {
   '/mockup-flash': typeof AuthenticatedMockupFlashRoute
   '/today': typeof AuthenticatedTodayRoute
   '/ui-kit': typeof AuthenticatedUiKitRoute
-  '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
@@ -95,7 +87,6 @@ export interface FileRoutesById {
   '/_authenticated/mockup-flash': typeof AuthenticatedMockupFlashRoute
   '/_authenticated/today': typeof AuthenticatedTodayRoute
   '/_authenticated/ui-kit': typeof AuthenticatedUiKitRoute
-  '/api/public/seed-july': typeof ApiPublicSeedJulyRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
@@ -107,7 +98,6 @@ export interface FileRouteTypes {
     | '/mockup-flash'
     | '/today'
     | '/ui-kit'
-    | '/api/public/seed-july'
   fileRoutesByTo: FileRoutesByTo
   to:
     | '/'
@@ -117,7 +107,6 @@ export interface FileRouteTypes {
     | '/mockup-flash'
     | '/today'
     | '/ui-kit'
-    | '/api/public/seed-july'
   id:
     | '__root__'
     | '/'
@@ -128,14 +117,12 @@ export interface FileRouteTypes {
     | '/_authenticated/mockup-flash'
     | '/_authenticated/today'
     | '/_authenticated/ui-kit'
-    | '/api/public/seed-july'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
   IndexRoute: typeof IndexRoute
   AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   AuthRoute: typeof AuthRoute
-  ApiPublicSeedJulyRoute: typeof ApiPublicSeedJulyRoute
 }
 
 declare module '@tanstack/react-router' {
@@ -196,13 +183,6 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedUiKitRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/api/public/seed-july': {
-      id: '/api/public/seed-july'
-      path: '/api/public/seed-july'
-      fullPath: '/api/public/seed-july'
-      preLoaderRoute: typeof ApiPublicSeedJulyRouteImport
-      parentRoute: typeof rootRouteImport
-    }
   }
 }
 
@@ -229,7 +209,6 @@ const rootRouteChildren: RootRouteChildren = {
   IndexRoute: IndexRoute,
   AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   AuthRoute: AuthRoute,
-  ApiPublicSeedJulyRoute: ApiPublicSeedJulyRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
