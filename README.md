@@ -1,26 +1,25 @@
 # Lucky Findings 🍀
 
-Daily nature quests that get you outside for five minutes. Find something, snap a photo, pin it to your calendar.
+A little luck, once a day. You get one daily quest that gets you outside — a tiny creative task you can finish in under 5 minutes. Snap a photo and it's stamped on your monthly log.
 
-A little luck, once a day. Live at [luckyfindings.lovable.app](https://luckyfindings.lovable.app) — invite-only, with a waitlist for the rest.
+Live at [luckyfindings.lovable.app](https://luckyfindings.lovable.app) — invite-only, with a waitlist for the rest.
 
-## What it does
+<p>
+  <img src="docs/screenshots/today.png" alt="Today's quest" width="220" />
+  &nbsp;
+  <img src="docs/screenshots/calendar.png" alt="What your monthly log looks like" width="220" />
+</p>
 
-- Three fresh quests a day from a pool of 200+, never a repeat
-- Swap any quest you're not feeling
-- Snap a photo as proof — it becomes a polaroid on your calendar
-- Tracks your streak of luck, days outside, and total lucky finds
+## How it works
 
-## What it looks like
-
-![Today's Quest](docs/screenshots/today.png)
-
-![A month of findings](docs/screenshots/calendar.png)
+1. **Receive your quest** — a new one arrives every morning.
+2. **Go outside** — search, notice, or make something in under 5 minutes.
+3. **Snap it** — take a photo to stamp the day. Watch your monthly log fill up.
 
 ## Stack
 
-TanStack Start (React 19), Tailwind v4, Gloock + Inter, Lovable Cloud (Supabase) for auth, data, and photo storage.
+TanStack Start (React 19), Tailwind v4, Gloock + Inter, Lovable Cloud for auth, data, and photo storage.
 
 ## About this repo
 
-The code is public; your photos, captions, and invite list are not — they live in the app's database behind sign-in, and the only key in the code is the publishable one. Design, hand-drawn badges, and all 200 quests by [Priscilla Pan](https://www.instagram.com/priscilla.png/).
+The code is public; photos, captions, and the invite list live behind sign-in. Design, hand-drawn badges, and all 200 quests by [Priscilla Pan](https://www.instagram.com/priscilla.png/).
