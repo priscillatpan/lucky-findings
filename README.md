@@ -56,4 +56,4 @@ Sign-in is email OTP, gated by an allowlist, so nobody outside the invite list g
 
 ## Credits
 
-Design, drawings, and quests by [Priscilla Pan](https://instagram.com/). Built with Lovable.
+Design, drawings, and quests by [Priscilla Pan](https://www.instagram.com/priscilla.png/). Built with Lovable.
