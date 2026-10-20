@@ -22,4 +22,4 @@ TanStack Start (React 19), Tailwind v4, Gloock + Inter, Lovable Cloud for auth, 
 
 ## About this repo
 
-The code is public; photos, captions, and the invite list live behind sign-in. Design, hand-drawn badges, and all 200 quests by [Priscilla Pan](https://www.instagram.com/priscilla.png/).
+The code is public; photos, captions, and the invite list live behind sign-in. Includes design and hand-drawn badges.
