@@ -9,38 +9,38 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
-import { Route as AuthRouteImport } from './routes/auth'
-import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as IndexRouteImport } from './routes/index'
-import { Route as AuthenticatedUiKitRouteImport } from './routes/_authenticated/ui-kit'
-import { Route as AuthenticatedTodayRouteImport } from './routes/_authenticated/today'
-import { Route as AuthenticatedMockupFlashRouteImport } from './routes/_authenticated/mockup-flash'
-import { Route as AuthenticatedMockupRouteImport } from './routes/_authenticated/mockup'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
+import { Route as AuthRouteImport } from './routes/auth'
 import { Route as AuthenticatedCalendarRouteImport } from './routes/_authenticated/calendar'
+import { Route as AuthenticatedMockupRouteImport } from './routes/_authenticated/mockup'
+import { Route as AuthenticatedMockupFlashRouteImport } from './routes/_authenticated/mockup-flash'
+import { Route as AuthenticatedTodayRouteImport } from './routes/_authenticated/today'
+import { Route as AuthenticatedUiKitRouteImport } from './routes/_authenticated/ui-kit'
 import { Route as ApiPublicSeedJulyRouteImport } from './routes/api/public/seed-july'
 
-const AuthRoute = AuthRouteImport.update({
-  id: '/auth',
-  path: '/auth',
+const IndexRoute = IndexRouteImport.update({
+  id: '/',
+  path: '/',
   getParentRoute: () => rootRouteImport,
 } as any)
 const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
   id: '/_authenticated',
   getParentRoute: () => rootRouteImport,
 } as any)
-const IndexRoute = IndexRouteImport.update({
-  id: '/',
-  path: '/',
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
   getParentRoute: () => rootRouteImport,
 } as any)
-const AuthenticatedUiKitRoute = AuthenticatedUiKitRouteImport.update({
-  id: '/ui-kit',
-  path: '/ui-kit',
+const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
+  id: '/calendar',
+  path: '/calendar',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedTodayRoute = AuthenticatedTodayRouteImport.update({
-  id: '/today',
-  path: '/today',
+const AuthenticatedMockupRoute = AuthenticatedMockupRouteImport.update({
+  id: '/mockup',
+  path: '/mockup',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const AuthenticatedMockupFlashRoute =
@@ -49,14 +49,14 @@ const AuthenticatedMockupFlashRoute =
     path: '/mockup-flash',
     getParentRoute: () => AuthenticatedRouteRoute,
   } as any)
-const AuthenticatedMockupRoute = AuthenticatedMockupRouteImport.update({
-  id: '/mockup',
-  path: '/mockup',
+const AuthenticatedTodayRoute = AuthenticatedTodayRouteImport.update({
+  id: '/today',
+  path: '/today',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
-const AuthenticatedCalendarRoute = AuthenticatedCalendarRouteImport.update({
-  id: '/calendar',
-  path: '/calendar',
+const AuthenticatedUiKitRoute = AuthenticatedUiKitRouteImport.update({
+  id: '/ui-kit',
+  path: '/ui-kit',
   getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const ApiPublicSeedJulyRoute = ApiPublicSeedJulyRouteImport.update({
@@ -140,11 +140,11 @@ export interface RootRouteChildren {
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
-    '/auth': {
-      id: '/auth'
-      path: '/auth'
-      fullPath: '/auth'
-      preLoaderRoute: typeof AuthRouteImport
+    '/': {
+      id: '/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof IndexRouteImport
       parentRoute: typeof rootRouteImport
     }
     '/_authenticated': {
@@ -154,32 +154,18 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedRouteRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/': {
-      id: '/'
-      path: '/'
-      fullPath: '/'
-      preLoaderRoute: typeof IndexRouteImport
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
       parentRoute: typeof rootRouteImport
     }
-    '/_authenticated/ui-kit': {
-      id: '/_authenticated/ui-kit'
-      path: '/ui-kit'
-      fullPath: '/ui-kit'
-      preLoaderRoute: typeof AuthenticatedUiKitRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/today': {
-      id: '/_authenticated/today'
-      path: '/today'
-      fullPath: '/today'
-      preLoaderRoute: typeof AuthenticatedTodayRouteImport
-      parentRoute: typeof AuthenticatedRouteRoute
-    }
-    '/_authenticated/mockup-flash': {
-      id: '/_authenticated/mockup-flash'
-      path: '/mockup-flash'
-      fullPath: '/mockup-flash'
-      preLoaderRoute: typeof AuthenticatedMockupFlashRouteImport
+    '/_authenticated/calendar': {
+      id: '/_authenticated/calendar'
+      path: '/calendar'
+      fullPath: '/calendar'
+      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_authenticated/mockup': {
@@ -189,11 +175,25 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof AuthenticatedMockupRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
-    '/_authenticated/calendar': {
-      id: '/_authenticated/calendar'
-      path: '/calendar'
-      fullPath: '/calendar'
-      preLoaderRoute: typeof AuthenticatedCalendarRouteImport
+    '/_authenticated/mockup-flash': {
+      id: '/_authenticated/mockup-flash'
+      path: '/mockup-flash'
+      fullPath: '/mockup-flash'
+      preLoaderRoute: typeof AuthenticatedMockupFlashRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/today': {
+      id: '/_authenticated/today'
+      path: '/today'
+      fullPath: '/today'
+      preLoaderRoute: typeof AuthenticatedTodayRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
+    }
+    '/_authenticated/ui-kit': {
+      id: '/_authenticated/ui-kit'
+      path: '/ui-kit'
+      fullPath: '/ui-kit'
+      preLoaderRoute: typeof AuthenticatedUiKitRouteImport
       parentRoute: typeof AuthenticatedRouteRoute
     }
     '/api/public/seed-july': {
